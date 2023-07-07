@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -70,113 +69,133 @@ class _SignInPageState extends State<SignInPage> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: SizedBox(
-            width: double.infinity,
-            height: double.infinity,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-              child: Center(
-                // Center is a layout widget. It takes a single child and positions it
-                // in the middle of the parent.
-                child: Column(
-                  // Column is also a layout widget. It takes a list of children and
-                  // arranges them vertically. By default, it sizes itself to fit its
-                  // children horizontally, and tries to be as tall as its parent.
-                  //
-                  // Column has various properties to control how it sizes itself and
-                  // how it positions its children. Here we use mainAxisAlignment to
-                  // center the children vertically; the main axis here is the vertical
-                  // axis because Columns are vertical (the cross axis would be
-                  // horizontal).
-                  //
-                  // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-                  // action in the IDE, or press "p" in the console), to see the
-                  // wireframe for each widget.
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    const Text(
-                      "FlowLink",
+          width: double.infinity,
+          height: double.infinity,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+            child: Center(
+              // Center is a layout widget. It takes a single child and positions it
+              // in the middle of the parent.
+              child: Column(
+                // Column is also a layout widget. It takes a list of children and
+                // arranges them vertically. By default, it sizes itself to fit its
+                // children horizontally, and tries to be as tall as its parent.
+                //
+                // Column has various properties to control how it sizes itself and
+                // how it positions its children. Here we use mainAxisAlignment to
+                // center the children vertically; the main axis here is the vertical
+                // axis because Columns are vertical (the cross axis would be
+                // horizontal).
+                //
+                // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
+                // action in the IDE, or press "p" in the console), to see the
+                // wireframe for each widget.
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  const Text(
+                    "FlowLink",
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    height:40,
+                    child: CupertinoTextField(
+                      controller: _idController,
+                      textAlignVertical: TextAlignVertical.center,
+                      placeholder: "Username",
+                      placeholderStyle: const TextStyle(fontSize: 12, height: 1.6, color: Colors.grey),
                     ),
-                    SizedBox(
-                      width: double.infinity,
-                      height:40,
-                      child: CupertinoTextField(
-                        controller: _idController,
-                        textAlignVertical: TextAlignVertical.center,
-                        placeholder: "Username",
-                        placeholderStyle: const TextStyle(fontSize: 12, height: 1.6, color: Colors.grey),
-                      ),
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    height:40,
+                    child:CupertinoTextField(
+                      controller: _pwController,
+                      textAlignVertical: TextAlignVertical.center,
+                      placeholder: "Password",
+                      placeholderStyle: const TextStyle(fontSize: 12, height: 1.6, color: Colors.grey),
                     ),
-                    SizedBox(
-                      width: double.infinity,
-                      height:40,
-                      child:CupertinoTextField(
-                        controller: _pwController,
-                        textAlignVertical: TextAlignVertical.center,
-                        placeholder: "Password",
-                        placeholderStyle: const TextStyle(fontSize: 12, height: 1.6, color: Colors.grey),
-                      ),
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    height:40,
+                    child: CupertinoButton.filled(
+                        padding: const EdgeInsets.all(0),
+                        child: const Text(
+                          "Sign In",
+                          style: TextStyle(fontSize: 13),
+                        ),
+                        onPressed: (){}
                     ),
-                    SizedBox(
-                      width: double.infinity,
-                      height:40,
-                      child: CupertinoButton.filled(
-                          padding: const EdgeInsets.all(0),
-                          child: const Text(
-                            "Sign In",
-                            style: TextStyle(fontSize: 13),
-                          ),
-                          onPressed: (){}
-                      ),
-                    ),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 40,
-                      child: Stack(
-                        children: [
-                          const Align(
-                              alignment: Alignment.center,
-                              child: Divider(
-                                thickness: 1,
-                                color: Colors.grey,
-                              )
-                          ),
-                          Align(
-                              alignment: Alignment.center,
-                              child: Container(
-                                width: 40,
-                                height: 20,
-                                color: Colors.white,
-                                child: const Center(
-                                  child: Text(
-                                    "OR",
-                                    textAlign: TextAlign.center,
-                                  ),
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                    child: Stack(
+                      children: [
+                        const Align(
+                            alignment: Alignment.center,
+                            child: Divider(
+                              thickness: 1,
+                              color: Colors.grey,
+                            )
+                        ),
+                        Align(
+                            alignment: Alignment.center,
+                            child: Container(
+                              width: 40,
+                              height: 20,
+                              color: Colors.white,
+                              child: const Center(
+                                child: Text(
+                                  "OR",
+                                  textAlign: TextAlign.center,
                                 ),
-                              )
+                              ),
+                            )
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    height:40,
+                    child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        splashFactory: NoSplash.splashFactory,
+                        padding: const EdgeInsets.all(0),
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8))
+                        )
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 18,
+                            height: 18,
+                            child: Image.asset("images/googleIcon.png"),
+                          ),
+                          const SizedBox(
+                            width: 5,
+                            height: double.infinity,
+                          ),
+                          const Text(
+                            "Sign In with Google",
+                            style: TextStyle(fontSize: 13, color: Colors.black),
                           ),
                         ],
                       ),
+                      onPressed: (){}
                     ),
-                    SizedBox(
-                      width: double.infinity,
-                      height:40,
-                      child: CupertinoButton.filled(
-                          padding: const EdgeInsets.all(0),
-                          child: const Text(
-                            "Sign In with Google",
-                            style: TextStyle(fontSize: 13),
-                          ),
-                          onPressed: (){}
-                      ),
-                    ),
-                    // Text(
-                    //   '$_counter',
-                    //   style: Theme.of(context).textTheme.headlineMedium,
-                    // ),
-                  ],
-                ),
+                  ),
+                  // Text(
+                  //   '$_counter',
+                  //   style: Theme.of(context).textTheme.headlineMedium,
+                  // ),
+                ],
               ),
-            )
+            ),
+          )
         ),
         // floatingActionButton: FloatingActionButton(
         //   onPressed: _incrementCounter,
