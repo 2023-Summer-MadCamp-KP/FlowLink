@@ -1,5 +1,5 @@
 {
-  "name": "express",
+  "name": "flow-camp-server",
   "version": "0.0.0",
   "private": true,
   "scripts": {
