@@ -95,6 +95,10 @@ class _SignInPageState extends State<SignInPage> {
                   const Text(
                     "FlowLink",
                   ),
+                  const SizedBox(
+                    width: double.infinity,
+                    height: 40,
+                  ),
                   SizedBox(
                     width: double.infinity,
                     height:40,
@@ -102,8 +106,12 @@ class _SignInPageState extends State<SignInPage> {
                       controller: _idController,
                       textAlignVertical: TextAlignVertical.center,
                       placeholder: "Username",
-                      placeholderStyle: const TextStyle(fontSize: 12, height: 1.6, color: Colors.grey),
+                      placeholderStyle: const TextStyle(fontSize: 12, height: 1.5, color: Colors.grey),
                     ),
+                  ),
+                  const SizedBox(
+                    width: double.infinity,
+                    height: 10,
                   ),
                   SizedBox(
                     width: double.infinity,
@@ -112,8 +120,12 @@ class _SignInPageState extends State<SignInPage> {
                       controller: _pwController,
                       textAlignVertical: TextAlignVertical.center,
                       placeholder: "Password",
-                      placeholderStyle: const TextStyle(fontSize: 12, height: 1.6, color: Colors.grey),
+                      placeholderStyle: const TextStyle(fontSize: 12, height: 1.5, color: Colors.grey),
                     ),
+                  ),
+                  const SizedBox(
+                    width: double.infinity,
+                    height: 50,
                   ),
                   SizedBox(
                     width: double.infinity,
@@ -126,6 +138,10 @@ class _SignInPageState extends State<SignInPage> {
                         ),
                         onPressed: (){}
                     ),
+                  ),
+                  const SizedBox(
+                    width: double.infinity,
+                    height: 20,
                   ),
                   SizedBox(
                     width: double.infinity,
@@ -155,6 +171,10 @@ class _SignInPageState extends State<SignInPage> {
                         ),
                       ],
                     ),
+                  ),
+                  const SizedBox(
+                    width: double.infinity,
+                    height: 20,
                   ),
                   SizedBox(
                     width: double.infinity,
