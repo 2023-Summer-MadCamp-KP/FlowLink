@@ -1,4 +1,5 @@
 import 'package:flow_camp_app/pages/sign_in_page.dart';
+import 'package:flow_camp_app/pages/tab_navigation_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -34,7 +35,8 @@ class MyApp extends StatelessWidget {
       //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       //   useMaterial3: true,
       // ),
-      home: const SignInPage(title: 'Flutter Demo Home Page'),
+     // home: const SignInPage(title: 'Flutter Demo Home Page'),
+      home: const TabNavigationPage(),
     );
   }
 }

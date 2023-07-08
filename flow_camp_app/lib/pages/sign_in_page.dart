@@ -1,3 +1,4 @@
+import 'package:flow_camp_app/pages/tab_navigation_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -269,12 +270,55 @@ class _SignInPageState extends State<SignInPage> {
                             ),
                             onPressed: () {}),
                       ),
-                      // Text(
-                      //   '$_counter',
-                      //   style: Theme.of(context).textTheme.headlineMedium,
-                      // ),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(
+                      width: double.infinity,
+                      height: 20,
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 40,
+                      child: OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                              splashFactory: NoSplash.splashFactory,
+                              padding: const EdgeInsets.all(0),
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(8)))),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                width: 18,
+                                height: 18,
+                                child: Image.asset("images/googleIcon.png"),
+                              ),
+                              const SizedBox(
+                                width: 5,
+                                height: double.infinity,
+                              ),
+                              const Text(
+                                "Sign In with Google",
+                                style: TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black),
+                              ),
+                            ],
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => TabNavigationPage()),
+                            );
+
+                          }),
+                    ),
+                    // Text(
+                    //   '$_counter',
+                    //   style: Theme.of(context).textTheme.headlineMedium,
+                    // ),
+                  ],
                 ),
               )),
           // floatingActionButton: FloatingActionButton(
