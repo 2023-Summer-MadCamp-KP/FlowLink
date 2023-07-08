@@ -92,21 +92,32 @@ class _SignInPageState extends State<SignInPage> {
                 // wireframe for each widget.
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  const Text(
-                    "FlowLink",
+                  SizedBox(
+                    width: 200,
+                    height: 50,
+                    child: Image.asset("images/flowlinkLogo.png"),
                   ),
                   const SizedBox(
                     width: double.infinity,
-                    height: 40,
+                    height: 30,
                   ),
                   SizedBox(
                     width: double.infinity,
                     height:40,
                     child: CupertinoTextField(
                       controller: _idController,
+                      padding: const EdgeInsets.only(left: 10),
                       textAlignVertical: TextAlignVertical.center,
                       placeholder: "Username",
-                      placeholderStyle: const TextStyle(fontSize: 12, height: 1.5, color: Colors.grey),
+                      placeholderStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500, height: 1.5, color: Colors.grey),
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 248, 248, 248),
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(
+                          width: 1,
+                          color: const Color.fromARGB(255, 220, 220, 220),
+                        ) 
+                      ),
                     ),
                   ),
                   const SizedBox(
@@ -118,9 +129,18 @@ class _SignInPageState extends State<SignInPage> {
                     height:40,
                     child:CupertinoTextField(
                       controller: _pwController,
+                      padding: const EdgeInsets.only(left: 10),
                       textAlignVertical: TextAlignVertical.center,
                       placeholder: "Password",
-                      placeholderStyle: const TextStyle(fontSize: 12, height: 1.5, color: Colors.grey),
+                      placeholderStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500, height: 1.5, color: Colors.grey),
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 248, 248, 248),
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(
+                          width: 1,
+                          color: const Color.fromARGB(255, 220, 220, 220),
+                        ) 
+                      ),
                     ),
                   ),
                   const SizedBox(
@@ -134,7 +154,7 @@ class _SignInPageState extends State<SignInPage> {
                         padding: const EdgeInsets.all(0),
                         child: const Text(
                           "Sign In",
-                          style: TextStyle(fontSize: 13),
+                          style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
                         ),
                         onPressed: (){}
                     ),
@@ -152,19 +172,24 @@ class _SignInPageState extends State<SignInPage> {
                             alignment: Alignment.center,
                             child: Divider(
                               thickness: 1,
-                              color: Colors.grey,
+                              color: Colors.black12,
                             )
                         ),
                         Align(
                             alignment: Alignment.center,
                             child: Container(
-                              width: 40,
+                              width: 60,
                               height: 20,
                               color: Colors.white,
                               child: const Center(
                                 child: Text(
                                   "OR",
                                   textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                             )
@@ -201,7 +226,7 @@ class _SignInPageState extends State<SignInPage> {
                           ),
                           const Text(
                             "Sign In with Google",
-                            style: TextStyle(fontSize: 13, color: Colors.black),
+                            style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Colors.black),
                           ),
                         ],
                       ),
