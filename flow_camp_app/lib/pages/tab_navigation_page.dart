@@ -19,19 +19,19 @@ class _TabNavigationPageState extends State<TabNavigationPage> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.person),
-            label: 'People',
+            label: '프로필',
           ),
           BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.heart),
-            label: 'Like',
+            label: '좋아요',
           ),
           BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.chat_bubble),
-            label: 'Messages',
+            label: '메세지',
           ),
           BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.settings),
-            label: 'Settings',
+            label: '설정',
           ),
         ],
       ),

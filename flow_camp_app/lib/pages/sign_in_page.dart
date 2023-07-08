@@ -97,7 +97,7 @@ class _SignInPageState extends State<SignInPage> {
                     SizedBox(
                       width: 200,
                       height: 50,
-                      child: Image.asset("images/flowlinkLogo.png"),
+                      child: Image.asset("assets/images/flowlinkLogo.png"),
                     ),
                     const SizedBox(
                       width: double.infinity,
@@ -159,11 +159,11 @@ class _SignInPageState extends State<SignInPage> {
                                 _isObscure = !_isObscure;
                               });
                             },
-                            icon: Icon(_isObscure
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                                color: Colors.grey
-                            ),
+                            icon: Icon(
+                                _isObscure
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                                color: Colors.grey),
                           ),
                         ),
                       ),
@@ -240,7 +240,8 @@ class _SignInPageState extends State<SignInPage> {
                               SizedBox(
                                 width: 18,
                                 height: 18,
-                                child: Image.asset("images/googleIcon.png"),
+                                child:
+                                    Image.asset("assets/images/googleIcon.png"),
                               ),
                               const SizedBox(
                                 width: 5,
@@ -256,11 +257,12 @@ class _SignInPageState extends State<SignInPage> {
                             ],
                           ),
                           onPressed: () {
+                            print("dd");
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => TabNavigationPage()),
+                              MaterialPageRoute(
+                                  builder: (context) => TabNavigationPage()),
                             );
-
                           }),
                     ),
                     // Text(
