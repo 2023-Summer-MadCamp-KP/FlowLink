@@ -55,7 +55,7 @@ class _ProfileListPageState extends State<ProfileListPage> {
           child: ListView.builder(
             itemBuilder: (context, index) {
               if (index == 0) {
-return GestureDetector(
+                return GestureDetector(
                   onTap: () {
                     // 탭 이벤트 처리
                     print('Tapped ${persons[index].name}');
@@ -63,11 +63,11 @@ return GestureDetector(
                   child: Container(
                     decoration: BoxDecoration(
                       border: Border(
-                          bottom: BorderSide(
-                            color: CupertinoColors.separator,
-                            width: 0.5,
-                          ),
-                          ),
+                        bottom: BorderSide(
+                          color: CupertinoColors.separator,
+                          width: 0.5,
+                        ),
+                      ),
                     ),
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(
@@ -91,7 +91,6 @@ return GestureDetector(
                     ),
                   ),
                 );
-
               } else {
                 return GestureDetector(
                   onTap: () {

@@ -1,44 +1,48 @@
 import 'package:flow_camp_app/pages/sign_in_page.dart';
 import 'package:flow_camp_app/pages/tab_navigation_page.dart';
+import 'package:flow_camp_app/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // runApp() 호출 전 Flutter SDK 초기화
+  KakaoSdk.init(
+    nativeAppKey: '6725dbe3bff09a71cac3b67b4f6fb365',
+    javaScriptAppKey: '1606d225c4d489ebb2d9decf625bda42',
+  );
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => UserProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool ise = false;
+
   @override
   Widget build(BuildContext context) {
+    var userProvider = context.watch<UserProvider>();
+    bool isSignedIn = true;
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: const CupertinoApp(
-        // theme: ThemeData(
-        //   // This is the theme of your application.
-        //   //
-        //   // TRY THIS: Try running your application with "flutter run". You'll see
-        //   // the application has a blue toolbar. Then, without quitting the app,
-        //   // try changing the seedColor in the colorScheme below to Colors.green
-        //   // and then invoke "hot reload" (save your changes or press the "hot
-        //   // reload" button in a Flutter-supported IDE, or press "r" if you used
-        //   // the command line to start the app).
-        //   //
-        //   // Notice that the counter didn't reset back to zero; the application
-        //   // state is not lost during the reload. To reset the state, use hot
-        //   // restart instead.
-        //   //
-        //   // This works for code too, not just values: Most code changes can be
-        //   // tested with just a hot reload.
-        //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        //   useMaterial3: true,
-        // ),
-        home: const SignInPage(title: 'Flutter Demo Home Page'),
-        // home: const TabNavigationPage(),
-      ),
+      home: userProvider.isSignIn ? TabNavigationPage() : SignInPage(title: 'Flutter Demo Home Page')
     );
   }
 }

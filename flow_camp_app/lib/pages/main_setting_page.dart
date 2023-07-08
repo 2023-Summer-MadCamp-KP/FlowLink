@@ -1,5 +1,7 @@
+import 'package:flow_camp_app/providers/user_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class MainSettingPage extends StatefulWidget {
   const MainSettingPage({Key? key}) : super(key: key);
@@ -11,27 +13,29 @@ class MainSettingPage extends StatefulWidget {
 class _MainSettingPageState extends State<MainSettingPage> {
   @override
   Widget build(BuildContext context) {
+    UserProvider userProvider = context.watch<UserProvider>();
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         middle: Text('설정'),
-
       ),
       child: SafeArea(
         child: Column(
           children: [
-            
             CupertinoListSection(
               header: const Text('계정'),
               children: <CupertinoListTile>[
                 CupertinoListTile(
-                    title: const Text('로그아웃'),
-                    leading: Container(
-                      width: double.infinity,
-                      height: double.infinity,
-                      color: CupertinoColors.activeGreen,
-                    ),
-                    trailing: const CupertinoListTileChevron(),
-                    onTap: () => {}),
+                  title: const Text('로그아웃'),
+                  leading: Container(
+                    width: double.infinity,
+                    height: double.infinity,
+                    color: CupertinoColors.activeGreen,
+                  ),
+                  trailing: const CupertinoListTileChevron(),
+                  onTap: () {
+                    userProvider.setSignIn(false);
+                  },
+                ),
                 CupertinoListTile(
                   title: const Text('Push to master'),
                   leading: Container(
