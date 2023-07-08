@@ -1,3 +1,4 @@
+import 'package:flow_camp_app/pages/tab_navigation_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -254,7 +255,13 @@ class _SignInPageState extends State<SignInPage> {
                               ),
                             ],
                           ),
-                          onPressed: () {}),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => TabNavigationPage()),
+                            );
+
+                          }),
                     ),
                     // Text(
                     //   '$_counter',
