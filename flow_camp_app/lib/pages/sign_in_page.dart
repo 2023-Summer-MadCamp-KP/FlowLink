@@ -241,6 +241,96 @@ class _SignInPageState extends State<SignInPage> {
                                 width: 18,
                                 height: 18,
                                 child:
+                                    Image.asset("assets/images/kakao_icon.png"),
+                              ),
+                              const SizedBox(
+                                width: 5,
+                                height: double.infinity,
+                              ),
+                              const Text(
+                                "Sign In with KaKao",
+                                style: TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black),
+                              ),
+                            ],
+                          ),
+                          onPressed: () {
+                            print("dd");
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => TabNavigationPage()),
+                            );
+                          }),
+                    ),
+                    const SizedBox(
+                      width: double.infinity,
+                      height: 20,
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 40,
+                      child: OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                              splashFactory: NoSplash.splashFactory,
+                              padding: const EdgeInsets.all(0),
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(8)))),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                width: 18,
+                                height: 18,
+                                child:
+                                    Image.asset("assets/images/naver_icon.png"),
+                              ),
+                              const SizedBox(
+                                width: 5,
+                                height: double.infinity,
+                              ),
+                              const Text(
+                                "Sign In with Naver",
+                                style: TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black),
+                              ),
+                            ],
+                          ),
+                          onPressed: () {
+                            print("dd");
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => TabNavigationPage()),
+                            );
+                          }),
+                    ),
+                    const SizedBox(
+                      width: double.infinity,
+                      height: 20,
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 40,
+                      child: OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                              splashFactory: NoSplash.splashFactory,
+                              padding: const EdgeInsets.all(0),
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(8)))),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                width: 18,
+                                height: 18,
+                                child:
                                     Image.asset("assets/images/googleIcon.png"),
                               ),
                               const SizedBox(
