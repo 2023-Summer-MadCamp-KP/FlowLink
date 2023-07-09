@@ -11,26 +11,34 @@ class LikeListPage extends StatefulWidget {
 class Person {
   late String name;
   late Image profileImage;
+  late bool like;
+  late List<String> categoryList;
 
-  Person(this.name, Image? profileImage) {
+  Person(this.name, Image? profileImage, this.like, this.categoryList) {
     this.profileImage = profileImage ?? Image.asset("images/googleIcon.png");
   }
 }
 
 class _LikeListPageState extends State<LikeListPage> {
+  final List<String> category = <String>[
+    "App",
+    "Web",
+    "AI",
+    "Game",
+    "VR",
+    "Blockchain"
+  ];
   final List<Person> people = <Person>[
-    Person("아무개", null),
-    Person("나나나", Image.asset("images/flowlinkLogo.png")),
-    Person("시나모롤", Image.asset("images/roll.jpg"))
+    Person("아무개", null, false, []),
+    Person(
+        "나나나", Image.asset("images/flowlinkLogo.png"), false, ["App", "Web"]),
+    Person("시나모롤", Image.asset("images/roll.jpg"), true, ["Web", "AI", "Game"])
   ];
 
-  final List<Person> peopleMutualLike = <Person>[
-    Person("시나모롤", Image.asset("images/roll.jpg"))
-  ];
-
-  late List<Person> peopleShow;
+  late List<Person> peopleShow = [];
 
   bool _likeFilter = false;
+  List<String> _categoryFilter = [];
 
   @override
   void initState() {
@@ -38,7 +46,7 @@ class _LikeListPageState extends State<LikeListPage> {
     super.initState();
   }
 
-  void _show(BuildContext ctx) {
+  void _showLike(BuildContext ctx) {
     showCupertinoModalPopup(
         context: ctx,
         builder: (_) => CupertinoActionSheet(
@@ -67,13 +75,83 @@ class _LikeListPageState extends State<LikeListPage> {
             ));
   }
 
+  void _showCategory(BuildContext ctx) {
+    showCupertinoModalPopup(
+        context: ctx,
+        builder: (_) => StatefulBuilder(
+              builder: ((context, setCategoryState) => CupertinoActionSheet(
+                    actions: [
+                      CupertinoActionSheetAction(
+                          onPressed: () {
+                            setState(() {
+                              setCategoryState(
+                                () => _categoryFilter.contains(category[0])
+                                    ? _categoryFilter.remove(category[0])
+                                    : _categoryFilter.add(category[0]),
+                              );
+                            });
+                          },
+                          child: Text(
+                            "App",
+                            style: TextStyle(
+                              color: _categoryFilter.contains(category[0])
+                                  ? Colors.blue
+                                  : Colors.grey,
+                            ),
+                          )),
+                      CupertinoActionSheetAction(
+                          onPressed: () {
+                            setState(() {
+                              setCategoryState(() =>
+                                  _categoryFilter.contains(category[1])
+                                      ? _categoryFilter.remove(category[1])
+                                      : _categoryFilter.add(category[1]));
+                            });
+                          },
+                          child: Text(
+                            "Web",
+                            style: TextStyle(
+                              color: _categoryFilter.contains(category[1])
+                                  ? Colors.blue
+                                  : Colors.grey,
+                            ),
+                          )),
+                    ],
+                    cancelButton: CupertinoActionSheetAction(
+                      onPressed: () => _close(_),
+                      child: const Text('Close'),
+                    ),
+                  )),
+            ));
+  }
+
   void _close(BuildContext ctx) {
     Navigator.of(ctx).pop();
   }
 
   @override
   Widget build(BuildContext context) {
-    peopleShow = _likeFilter ? peopleMutualLike : people;
+    if (_likeFilter) {
+      peopleShow.clear();
+      for (int i = 0; i < people.length; i++) {
+        if (people[i].like) {
+          peopleShow.add(people[i]);
+        }
+      }
+    } else {
+      peopleShow = List.from(people);
+    }
+
+    for (int i = peopleShow.length - 1; i >= 0; i--) {
+      bool contain = true;
+      for (int j = 0; j < _categoryFilter.length; j++) {
+        contain =
+            contain & peopleShow[i].categoryList.contains(_categoryFilter[j]);
+      }
+      if (!contain) {
+        peopleShow.removeAt(i);
+      }
+    }
     return CupertinoPageScaffold(
       child: SafeArea(
         child: Column(
@@ -91,14 +169,14 @@ class _LikeListPageState extends State<LikeListPage> {
                     flex: 1,
                     child: CupertinoButton(
                       child: Text(_likeFilter ? "like" : "전체"),
-                      onPressed: () => _show(context),
+                      onPressed: () => _showLike(context),
                     ),
                   ),
                   Expanded(
                     flex: 1,
                     child: CupertinoButton(
-                      child: Text("전체"),
-                      onPressed: (){},
+                      child: Text("필터"),
+                      onPressed: () => _showCategory(context),
                     ),
                   ),
                 ],
