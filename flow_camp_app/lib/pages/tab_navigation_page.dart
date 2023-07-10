@@ -1,4 +1,4 @@
-import 'package:flow_camp_app/pages/LikeListPage.dart';
+import 'package:flow_camp_app/pages/like_list_page.dart';
 import 'package:flow_camp_app/pages/main_setting_page.dart';
 import 'package:flow_camp_app/pages/profile_list_page.dart';
 import 'package:flutter/cupertino.dart';
