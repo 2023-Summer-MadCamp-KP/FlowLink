@@ -309,6 +309,7 @@ class _SignInPageState extends State<SignInPage> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                   onPressed: _signInWithNormal),
+
                             ),
                             const SizedBox(
                               width: double.infinity,
