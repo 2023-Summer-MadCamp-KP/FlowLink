@@ -1,33 +1,28 @@
 var express = require('express');
 var router = express.Router();
-var mysql = require('mysql');
+const { User } = require('../models');
 
-// MySQL 연결 설정
-var connection = mysql.createPool({
-  host: 'localhost',
-  user: 'root',
-  password: '!@Mysq0114',
-  database: 'nodejs'
-});
+router.post('/', async function (req, res, next) {
 
-// 회원 가입 POST 요청 처리
-router.post('/', function(req, res, next) {
-  var email = req.body.email;
-  var password = req.body.password;
+  try {
+    const { uid, password, platform } = req.body;
 
-  var sql = 'INSERT INTO user (email, password) VALUES (?, ?)';
-  var values = [email, password];
+    // Check if user already exists
+    const existingUser = await User.findOne({ where: { uid: uid, platform: platform } });
 
-  connection.query(sql, values, function(err, result) {
-    if (err) {
-      console.error('회원 가입 중 오류 발생:', err);
-      res.sendStatus(500);
-      return;
+    if (existingUser) {
+      return res.status(400).send('User already exists with this uid and platform');
     }
 
-    console.log('회원 가입이 완료되었습니다.');
-    res.sendStatus(200);
-  });
+    // If user doesn't exist, create new user
+    const newUser = await User.create({ uid, password, platform });
+
+    res.json(newUser);
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server Error");
+  }
 });
 
 module.exports = router;

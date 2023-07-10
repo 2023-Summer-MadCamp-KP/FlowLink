@@ -18,21 +18,32 @@ class User extends Sequelize.Model {
             }, 
             uid:{
                 type : Sequelize.STRING(100),
-                allowNull: true,
+                allowNull: false,
             },
             password:{
                 type : Sequelize.STRING(100),
-                allowNull: true,
+                allowNull: false,
             
             },
             platform:{
+              //  'normal','kakao'
                 type : Sequelize.STRING(100),
                 allowNull: true,
             },
             prtcpntYear:{
                 type : Sequelize.INTEGER,
                 allowNull: true,
-            }
+            },
+            emailConfirmed:{
+                type:Sequelize.BOOLEAN,
+                allowNull:false,
+                defaultValue:true,
+            },
+            infoConfirmed:{
+                type:Sequelize.BOOLEAN,
+                allowNull:false,
+                defaultValue:false,
+            },
         }
             , {
                 sequelize,
