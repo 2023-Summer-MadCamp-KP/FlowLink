@@ -435,19 +435,20 @@ class _SignInPageState extends State<SignInPage> {
                                     );
                                   }),
                             ),
-                            // Text(
-                            //   '$_counter',
-                            //   style: Theme.of(context).textTheme.headlineMedium,
-                            // ),
+                            const SizedBox(
+                              width: double.infinity,
+                              height: 20,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                
+                              },
+                              child: Text("회원 가입 하기"),
+                            ),
                           ],
                         ),
                       ),
                     )),
-                // floatingActionButton: FloatingActionButton(
-                //   onPressed: _incrementCounter,
-                //   tooltip: 'Increment',
-                //   child: const Icon(Icons.add),
-                // ), // This trailing comma makes auto-formatting nicer for build methods.
               ),
       ),
     );
