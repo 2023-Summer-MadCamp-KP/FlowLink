@@ -1,3 +1,6 @@
+import 'package:flow_camp_app/components/loading_indicator_page.dart';
+import 'package:flow_camp_app/constants/urls.dart';
+import 'package:flow_camp_app/pages/sign_up_page.dart';
 import 'package:flow_camp_app/pages/tab_navigation_page.dart';
 import 'package:flow_camp_app/providers/user_provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -5,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:provider/provider.dart';
+import 'package:dio/dio.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key, required this.title});
@@ -63,6 +67,43 @@ class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     UserProvider userProvider = context.watch<UserProvider>();
+    Future<void> _signInWithNormal() async {
+      setState(() {
+        _isLoading = true;
+      });
+      Dio dio = Dio();
+      try {
+        var response = await dio.post('${DIO_BASE_URL}/signin', data: {
+          'uid': _idController.text,
+          'password': _pwController.text,
+          'platform': 'normal',
+        });
+        userProvider.setSignIn(true);
+      } catch (e) {
+        print(e);
+        await showDialog(
+          context: context,
+          builder: (_) => CupertinoAlertDialog(
+            title: Text('Error'),
+            content: Text('로그인이 거절되었습니다.'),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                isDefaultAction: true,
+                child: Text('Ok'),
+                onPressed: () {
+                  Navigator.of(context, rootNavigator: true).pop('dialog');
+                },
+              ),
+            ],
+          ),
+        );
+      }
+      setState(() {
+        _isLoading = false;
+      });
+      return;
+    }
+
     Future<void> _signInWithKakao() async {
       if (await isKakaoTalkInstalled()) {
         try {
@@ -140,9 +181,10 @@ class _SignInPageState extends State<SignInPage> {
         //   // the App.build method, and use it to set our appbar title.
         //   middle: Text(widget.title),
         // ),
+        resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         body: _isLoading
-            ? CupertinoActivityIndicator()
+            ? LoadingIndicator()
             : SafeArea(
                 child: SizedBox(
                     width: double.infinity,
@@ -266,7 +308,7 @@ class _SignInPageState extends State<SignInPage> {
                                         fontSize: 13,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  onPressed: () {}),
+                                  onPressed: _signInWithNormal),
                             ),
                             const SizedBox(
                               width: double.infinity,
@@ -441,7 +483,11 @@ class _SignInPageState extends State<SignInPage> {
                             ),
                             InkWell(
                               onTap: () {
-                                
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SignUpPage()),
+                                );
                               },
                               child: Text("회원 가입 하기"),
                             ),
