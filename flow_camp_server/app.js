@@ -37,18 +37,20 @@ app.use(bodyParser.json());
 
 // ---------------------------------------
 /////Add routes
-
+var authenticateToken = require('./authenticateToken');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var signinRouter = require('./routes/signin');
 var signupRouter = require('./routes/signup');
 var testRouter = require('./routes/test');
+var meRouter = require('./routes/me');
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/users',authenticateToken, usersRouter);
 app.use('/signin', signinRouter);
 app.use('/signup', signupRouter);
 app.use('/test', testRouter);
+app.use('/me',authenticateToken, meRouter);
 
 //--------------------------------
 

@@ -24,14 +24,14 @@ router.post('/', async function (req, res, next) {
       // 비밀번호가 일치하지 않을 경우 에러를 발생시킵니다.
       return res.status(401).json({ message: '인증 실패: 비밀번호가 일치하지 않습니다.' });
     }
-    var token = jwt.sign({ uid: user.uid, platform: user.platform },
+    var token = jwt.sign({ id:user.id, uid: user.uid, platform: user.platform },
       'your_secret_key', { expiresIn: '100h' });
 
     user.token = token;
     await user.save();
 
-    res.setHeader('Authorization', 'Bearer ' + token);
-    res.json({ message: '로그인 성공', token: token });
+    res.setHeader('authorization', 'Bearer ' + token);
+    res.json({ message: '로그인 성공',});
 
   } catch (error) {
     console.error(error);
