@@ -1,5 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../constants/urls.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -50,11 +53,11 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     Future<void> _signUp() async {
       if (_pwController.text != _pwConfirmController.text) {
-        showDialog(
+        await showDialog(
           context: context,
           builder: (_) => CupertinoAlertDialog(
             title: Text('Error'),
-            content: Text('The passwords do not match. Please try again.'),
+            content: Text('비밀번호가 일치하지 않습니다.'),
             actions: <Widget>[
               CupertinoDialogAction(
                 isDefaultAction: true,
@@ -70,6 +73,49 @@ class _SignUpPageState extends State<SignUpPage> {
         setState(() {
           _isLoading = true;
         });
+        Dio dio = Dio();
+        try {
+          var response = await dio.post('${DIO_BASE_URL}/signup', data: {
+            'uid': _idController.text,
+            'password': _pwController.text,
+            'platform': 'normal',
+          });
+          await showDialog(
+          context: context,
+          builder: (_) => CupertinoAlertDialog(
+            title: Text('Success'),
+            content: Text('회원가입이 완료되었습니다. 로그인해주세요.'),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                isDefaultAction: true,
+                child: Text('Ok'),
+                onPressed: () {
+                  Navigator.of(context, rootNavigator: true).pop('dialog');
+                },
+              ),
+            ],
+          ),
+        );
+          Navigator.pop(context);
+        } catch (e) {
+          print(e);
+          await showDialog(
+          context: context,
+          builder: (_) => CupertinoAlertDialog(
+            title: Text('Error'),
+            content: Text('회원가입이 거절되었습니다.'),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                isDefaultAction: true,
+                child: Text('Ok'),
+                onPressed: () {
+                  Navigator.of(context, rootNavigator: true).pop('dialog');
+                },
+              ),
+            ],
+          ),
+        );
+        }
 
         if (mounted) {
           setState(() {
