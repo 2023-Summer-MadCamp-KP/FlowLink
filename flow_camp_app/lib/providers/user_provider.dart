@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flow_camp_app/constants/urls.dart';
+import 'package:flow_camp_app/models/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,6 +11,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 class UserProvider extends ChangeNotifier {
   bool _isSignIn = false;
   bool get isSignIn => _isSignIn;
+  List<User> _users = [];
+  List<User> get users => _users;
+  late User _me;
+  User get me => _me;
+
   void setSignIn(bool isSignIn) {
     _isSignIn = isSignIn;
     notifyListeners();
@@ -75,6 +83,11 @@ class UserProvider extends ChangeNotifier {
         '${DIO_BASE_URL}/api/me',
         options: options,
       );
+
+      final jsonData = response.data;
+      _me = User.fromJson(jsonData);
+      notifyListeners();
+
 //--
       print('Token is valid');
     } on DioException catch (e) {
@@ -84,6 +97,7 @@ class UserProvider extends ChangeNotifier {
         // 401 에러 처리
       }
     } catch (e) {
+      setSignIn(true);
       print('Token is invalid');
     }
     notifyListeners();
@@ -99,14 +113,39 @@ class UserProvider extends ChangeNotifier {
         options: options,
       );
       setSignIn(false);
-    }
-    on DioException catch (e) {
+    } on DioException catch (e) {
       if (e.response?.statusCode == 401 || e.response?.statusCode == 403) {
         print('Token is invalid');
         setSignIn(false);
         // 401 에러 처리
       }
-    }  catch (e) {
+    } catch (e) {
+      print(e);
+    }
+    return;
+  }
+
+  Future<void> apiUsers() async {
+    try {
+      Dio dio = Dio();
+      var options = await loadTokenOption();
+      final response = await dio.get(
+        '${DIO_BASE_URL}/api/users',
+        options: options,
+      );
+
+      final jsonData = response.data;
+
+      _users = List<User>.from(jsonData.map((json) => User.fromJson(json)));
+      print(_users.toString());
+      notifyListeners();
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 401 || e.response?.statusCode == 403) {
+        print('Token is invalid');
+        setSignIn(false);
+        // 401 에러 처리
+      }
+    } catch (e) {
       print(e);
     }
     return;

@@ -1,3 +1,4 @@
+import 'package:flow_camp_app/models/user.dart';
 import 'package:flow_camp_app/providers/user_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,48 +11,70 @@ class ProfileListPage extends StatefulWidget {
   State<ProfileListPage> createState() => _ProfileListPageState();
 }
 
-class Person {
-  final String name;
-  final String profileImage;
+class Person extends User {
+  String profileImage;
 
-  Person({required this.name, required this.profileImage});
+  Person({
+    required int id,
+    required String name,
+    required int gradOf,
+    required String uid,
+    required String password,
+    required String platform,
+    required int prtcpntYear,
+    required bool emailConfirmed,
+    required bool infoConfirmed,
+    required this.profileImage,
+  }) : super(
+          id: id,
+          name: name,
+          gradOf: gradOf,
+          uid: uid,
+          password: password,
+          platform: platform,
+          prtcpntYear: prtcpntYear,
+          emailConfirmed: emailConfirmed,
+          infoConfirmed: infoConfirmed,
+        );
 }
 
 class _ProfileListPageState extends State<ProfileListPage> {
-  final List<Person> persons = [];
+  List<Person> persons = [];
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    persons.addAll([
-      Person(name: '김현수', profileImage: 'assets/images/default_profile.png'),
-      Person(name: '오지환', profileImage: 'assets/images/default_profile.png'),
-      Person(name: '박근영', profileImage: 'assets/images/default_profile.png'),
-      Person(name: '김현수', profileImage: 'assets/images/googleIcon.png'),
-      Person(name: '오지환', profileImage: 'assets/images/default_profile.png'),
-      Person(name: '박근영', profileImage: 'assets/images/default_profile.png'),
-      Person(name: '김현수', profileImage: 'assets/images/googleIcon.png'),
-      Person(name: '오지환', profileImage: 'assets/images/default_profile.png'),
-      Person(name: '박근영', profileImage: 'assets/images/default_profile.png'),
-      Person(name: '김현수', profileImage: 'assets/images/googleIcon.png'),
-      Person(name: '오지환', profileImage: 'assets/images/default_profile.png'),
-      Person(name: '박근영', profileImage: 'assets/images/default_profile.png'),
-      Person(name: '김현수', profileImage: 'assets/images/googleIcon.png'),
-      Person(name: '오지환', profileImage: 'assets/images/default_profile.png'),
-      Person(name: '박근영', profileImage: 'assets/images/default_profile.png'),
-      Person(name: '김현수', profileImage: 'assets/images/googleIcon.png'),
-      Person(name: '오지환', profileImage: 'assets/images/default_profile.png'),
-      Person(name: '박근영', profileImage: 'assets/images/default_profile.png'),
-    ]);
     api();
   }
+
   void api() async {
     var provider = context.read<UserProvider>();
     await provider.apiMe();
+    await provider.apiUsers();
+    print(provider.me.toJson());
   }
 
   @override
   Widget build(BuildContext context) {
+    var provider = context.watch<UserProvider>();
+    print("change notify");
+    persons = provider.users
+        .map(
+          (user) => Person(
+            id: user.id,
+            name: user.name,
+            gradOf: user.gradOf,
+            uid: user.uid,
+            password: user.password,
+            platform: user.platform,
+            prtcpntYear: user.prtcpntYear,
+            emailConfirmed: user.emailConfirmed,
+            infoConfirmed: user.infoConfirmed,
+            profileImage:
+                'assets/images/default_profile.png', // Add your images here
+          ),
+        )
+        .toList();
     return CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
           middle: Text('프로필'),
