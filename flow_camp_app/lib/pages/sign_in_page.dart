@@ -1,5 +1,6 @@
 import 'package:flow_camp_app/components/loading_indicator_page.dart';
 import 'package:flow_camp_app/constants/urls.dart';
+import 'package:flow_camp_app/pages/input_info_page.dart';
 import 'package:flow_camp_app/pages/sign_up_page.dart';
 import 'package:flow_camp_app/pages/tab_navigation_page.dart';
 import 'package:flow_camp_app/providers/user_provider.dart';
@@ -428,7 +429,7 @@ class _SignInPageState extends State<SignInPage> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              TabNavigationPage()),
+                                              InputInfoPage()),
                                     );
                                   }),
                             ),
