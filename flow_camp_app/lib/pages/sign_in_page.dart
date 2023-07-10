@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:provider/provider.dart';
+import 'sign_up_page.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key, required this.title});
@@ -140,6 +141,7 @@ class _SignInPageState extends State<SignInPage> {
         //   // the App.build method, and use it to set our appbar title.
         //   middle: Text(widget.title),
         // ),
+        resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         body: _isLoading
             ? CupertinoActivityIndicator()
@@ -441,7 +443,10 @@ class _SignInPageState extends State<SignInPage> {
                             ),
                             InkWell(
                               onTap: () {
-                                
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => SignUpPage()),
+                                );
                               },
                               child: Text("회원 가입 하기"),
                             ),
