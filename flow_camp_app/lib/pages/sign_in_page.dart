@@ -72,33 +72,7 @@ class _SignInPageState extends State<SignInPage> {
       setState(() {
         _isLoading = true;
       });
-      Dio dio = Dio();
-      try {
-        var response = await dio.post('${DIO_BASE_URL}/signin', data: {
-          'uid': _idController.text,
-          'password': _pwController.text,
-          'platform': 'normal',
-        });
-        userProvider.setSignIn(true);
-      } catch (e) {
-        print(e);
-        await showDialog(
-          context: context,
-          builder: (_) => CupertinoAlertDialog(
-            title: Text('Error'),
-            content: Text('로그인이 거절되었습니다.'),
-            actions: <Widget>[
-              CupertinoDialogAction(
-                isDefaultAction: true,
-                child: Text('Ok'),
-                onPressed: () {
-                  Navigator.of(context, rootNavigator: true).pop('dialog');
-                },
-              ),
-            ],
-          ),
-        );
-      }
+      userProvider.apiSignIn(context, _idController.text, _pwController.text);
       setState(() {
         _isLoading = false;
       });
@@ -310,7 +284,6 @@ class _SignInPageState extends State<SignInPage> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                   onPressed: _signInWithNormal),
-
                             ),
                             const SizedBox(
                               width: double.infinity,

@@ -76,7 +76,7 @@ class _SignUpPageState extends State<SignUpPage> {
         });
         Dio dio = Dio();
         try {
-          var response = await dio.post('${DIO_BASE_URL}/signup', data: {
+          var response = await dio.post('${DIO_BASE_URL}/api/signup', data: {
             'uid': _idController.text,
             'password': _pwController.text,
             'platform': 'normal',

@@ -1,5 +1,7 @@
+import 'package:flow_camp_app/providers/user_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProfileListPage extends StatefulWidget {
   const ProfileListPage({Key? key}) : super(key: key);
@@ -41,6 +43,11 @@ class _ProfileListPageState extends State<ProfileListPage> {
       Person(name: '오지환', profileImage: 'assets/images/default_profile.png'),
       Person(name: '박근영', profileImage: 'assets/images/default_profile.png'),
     ]);
+    api();
+  }
+  void api() async {
+    var provider = context.read<UserProvider>();
+    await provider.apiMe();
   }
 
   @override
