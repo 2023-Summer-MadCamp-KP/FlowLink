@@ -194,8 +194,8 @@ class _SignInPageState extends State<SignInPage> {
                                     height: 1.5,
                                     color: Colors.grey),
                                 decoration: BoxDecoration(
-                                    color:
-                                        const Color.fromARGB(255, 248, 248, 248),
+                                    color: const Color.fromARGB(
+                                        255, 248, 248, 248),
                                     borderRadius: BorderRadius.circular(5),
                                     border: Border.all(
                                       width: 1,
@@ -225,8 +225,8 @@ class _SignInPageState extends State<SignInPage> {
                                     height: 1.5,
                                     color: Colors.grey),
                                 decoration: BoxDecoration(
-                                    color:
-                                        const Color.fromARGB(255, 248, 248, 248),
+                                    color: const Color.fromARGB(
+                                        255, 248, 248, 248),
                                     borderRadius: BorderRadius.circular(5),
                                     border: Border.all(
                                       width: 1,

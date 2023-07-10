@@ -40,9 +40,10 @@ class _MyAppState extends State<MyApp> {
     bool isSignedIn = true;
 
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      home: userProvider.isSignIn ? TabNavigationPage() : SignInPage(title: 'Flutter Demo Home Page')
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        home: userProvider.isSignIn
+            ? TabNavigationPage()
+            : SignInPage(title: 'Flutter Demo Home Page'));
   }
 }
