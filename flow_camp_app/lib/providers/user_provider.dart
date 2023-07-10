@@ -52,6 +52,8 @@ class UserProvider extends ChangeNotifier {
       final token = response.headers['Authorization']?.first;
       saveToken(token!);
       setSignIn(true);
+    } on DioException catch (e) {
+      print(e);
     } catch (e) {
       print(e);
       await showDialog(
