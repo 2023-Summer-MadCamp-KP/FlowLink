@@ -8,8 +8,9 @@ class User extends Sequelize.Model {
                 allowNull: true,
             },
             token: {
-                type: Sequelize.STRING(100),
+                type: Sequelize.STRING(500),
                 allowNull: true,
+                unique: true,
             },
             gradOf:{
                 type : Sequelize.INTEGER,

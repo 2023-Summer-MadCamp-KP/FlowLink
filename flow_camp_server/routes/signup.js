@@ -5,7 +5,10 @@ const { User } = require('../models');
 router.post('/', async function (req, res, next) {
 
   try {
+    console.log("----");
     const { uid, password, platform } = req.body;
+    console.log(uid, password, platform);
+    
 
     // Check if user already exists
     const existingUser = await User.findOne({ where: { uid: uid, platform: platform } });
