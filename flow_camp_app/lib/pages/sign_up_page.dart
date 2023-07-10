@@ -64,7 +64,27 @@ class _SignUpPageState extends State<SignUpPage> {
     //
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+    Future<void> _signUp () async{
+      if (_pwController.text != _pwConfirmController.text) {
+          showDialog(
+            context: context,
+            builder: (_) => CupertinoAlertDialog(
+              title: Text('Error'),
+              content: Text('The passwords do not match. Please try again.'),
+              actions: <Widget>[
+                CupertinoDialogAction(
+                  isDefaultAction: true,
+                  child: Text('Ok'),
+                  onPressed: () {
+                    Navigator.of(context, rootNavigator: true).pop('dialog');
+                  },
+                ),
+              ],
+            ),
+          );
+        }
+      return;
+    }
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -215,7 +235,8 @@ class _SignUpPageState extends State<SignUpPage> {
                                         fontSize: 13,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  onPressed: () {}),
+                                  onPressed: _signUp,
+                              ),
                             ),
                           ],
                         ),
