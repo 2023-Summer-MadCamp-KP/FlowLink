@@ -38,6 +38,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     var userProvider = context.watch<UserProvider>();
     bool isSignedIn = true;
+    debugPrint("앱 시작");
 
     return MaterialApp(
         debugShowCheckedModeBanner: false,
