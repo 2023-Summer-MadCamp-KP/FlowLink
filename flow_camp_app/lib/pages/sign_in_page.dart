@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:provider/provider.dart';
 import 'sign_up_page.dart';
+import 'input_info_page.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key, required this.title});
@@ -268,7 +269,11 @@ class _SignInPageState extends State<SignInPage> {
                                         fontSize: 13,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  onPressed: () {}),
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context, MaterialPageRoute(builder: (context) => const InputInfoPage()),
+                                    );
+                                  }),
                             ),
                             const SizedBox(
                               width: double.infinity,
@@ -445,7 +450,8 @@ class _SignInPageState extends State<SignInPage> {
                               onTap: () {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => SignUpPage()),
+                                  MaterialPageRoute(
+                                      builder: (context) => SignUpPage()),
                                 );
                               },
                               child: Text("회원 가입 하기"),
