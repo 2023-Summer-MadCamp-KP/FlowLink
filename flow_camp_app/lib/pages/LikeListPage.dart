@@ -15,7 +15,7 @@ class Person {
   late List<String> categoryList;
 
   Person(this.name, Image? profileImage, this.like, this.categoryList) {
-    this.profileImage = profileImage ?? Image.asset("images/googleIcon.png");
+    this.profileImage = profileImage ?? Image.asset("assets/images/googleIcon.png");
   }
 }
 
@@ -31,8 +31,8 @@ class _LikeListPageState extends State<LikeListPage> {
   final List<Person> people = <Person>[
     Person("아무개", null, false, []),
     Person(
-        "나나나", Image.asset("images/flowlinkLogo.png"), false, ["App", "Web"]),
-    Person("시나모롤", Image.asset("images/roll.jpg"), true, ["Web", "AI", "Game"])
+        "나나나", Image.asset("assets/images/flowlinkLogo.png"), false, ["App", "Web"]),
+    Person("시나모롤", Image.asset("assets/images/roll.jpg"), true, ["Web", "AI", "Game"])
   ];
 
   late List<Person> peopleShow = [];
