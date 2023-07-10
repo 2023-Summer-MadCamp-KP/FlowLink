@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flow_camp_app/components/loading_indicator_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -80,41 +81,42 @@ class _SignUpPageState extends State<SignUpPage> {
             'password': _pwController.text,
             'platform': 'normal',
           });
+
           await showDialog(
-          context: context,
-          builder: (_) => CupertinoAlertDialog(
-            title: Text('Success'),
-            content: Text('회원가입이 완료되었습니다. 로그인해주세요.'),
-            actions: <Widget>[
-              CupertinoDialogAction(
-                isDefaultAction: true,
-                child: Text('Ok'),
-                onPressed: () {
-                  Navigator.of(context, rootNavigator: true).pop('dialog');
-                },
-              ),
-            ],
-          ),
-        );
+            context: context,
+            builder: (_) => CupertinoAlertDialog(
+              title: Text('Success'),
+              content: Text('회원가입이 완료되었습니다. 로그인해주세요.'),
+              actions: <Widget>[
+                CupertinoDialogAction(
+                  isDefaultAction: true,
+                  child: Text('Ok'),
+                  onPressed: () {
+                    Navigator.of(context, rootNavigator: true).pop('dialog');
+                  },
+                ),
+              ],
+            ),
+          );
           Navigator.pop(context);
         } catch (e) {
           print(e);
           await showDialog(
-          context: context,
-          builder: (_) => CupertinoAlertDialog(
-            title: Text('Error'),
-            content: Text('회원가입이 거절되었습니다.'),
-            actions: <Widget>[
-              CupertinoDialogAction(
-                isDefaultAction: true,
-                child: Text('Ok'),
-                onPressed: () {
-                  Navigator.of(context, rootNavigator: true).pop('dialog');
-                },
-              ),
-            ],
-          ),
-        );
+            context: context,
+            builder: (_) => CupertinoAlertDialog(
+              title: Text('Error'),
+              content: Text('회원가입이 거절되었습니다.'),
+              actions: <Widget>[
+                CupertinoDialogAction(
+                  isDefaultAction: true,
+                  child: Text('Ok'),
+                  onPressed: () {
+                    Navigator.of(context, rootNavigator: true).pop('dialog');
+                  },
+                ),
+              ],
+            ),
+          );
         }
 
         if (mounted) {
@@ -126,20 +128,21 @@ class _SignUpPageState extends State<SignUpPage> {
       return;
     }
 
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-      },
-      child: CupertinoPageScaffold(
-        navigationBar: CupertinoNavigationBar(
-          leading: CupertinoNavigationBarBackButton(),
-        ),
-        child: _isLoading
-            ? CupertinoActivityIndicator()
-            : SafeArea(
-                child: Scaffold(
-                  backgroundColor: Colors.white,
-                  body: SizedBox(
+    return Scaffold(
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: CupertinoPageScaffold(
+          navigationBar: CupertinoNavigationBar(
+            leading: CupertinoNavigationBarBackButton(),
+          ),
+          child: SafeArea(
+            child: Scaffold(
+              backgroundColor: Colors.white,
+              body: _isLoading
+                  ? LoadingIndicator()
+                  : SizedBox(
                       width: double.infinity,
                       height: double.infinity,
                       child: Padding(
@@ -284,8 +287,9 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                         ),
                       )),
-                ),
-              ),
+            ),
+          ),
+        ),
       ),
     );
   }
