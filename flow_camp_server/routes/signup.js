@@ -3,7 +3,7 @@ var router = express.Router();
 var mysql = require('mysql');
 
 // MySQL 연결 설정
-var connection = mysql.createConnection({
+var connection = mysql.createPool({
   host: 'localhost',
   user: 'root',
   password: '!@Mysq0114',
