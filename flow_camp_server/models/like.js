@@ -15,6 +15,10 @@ class Like extends Sequelize.Model {
 
             });
     }
-    static associate(db) { }
+    static associate(db) {
+        db.Like.belongsTo(db.User, {as:'likeFromUser', foreignKey: 'likeFrom', targetKey: 'id' });
+        db.Like.belongsTo(db.User, {as:'likeToUser', foreignKey: 'likeTo', targetKey: 'id' });
+    }
+    
 };
 module.exports = Like;

@@ -23,6 +23,8 @@ class University extends Sequelize.Model {
 
             });
     }
-    static associate(db) { }
+    static associate(db) {
+        
+    }
 };
 module.exports = University;

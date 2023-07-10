@@ -3,24 +3,21 @@ var router = express.Router();
 const { User } = require('../models');
 
 router.post('/', async function (req, res, next) {
-
   try {
     console.log("----");
     const { uid, password, platform } = req.body;
     console.log(uid, password, platform);
     
+    const [user, created] = await User.findOrCreate({
+      where: { uid: uid, platform: platform },
+      defaults: { password: password }
+    });
 
-    // Check if user already exists
-    const existingUser = await User.findOne({ where: { uid: uid, platform: platform } });
-
-    if (existingUser) {
+    if (!created) {
       return res.status(400).send('User already exists with this uid and platform');
     }
 
-    // If user doesn't exist, create new user
-    const newUser = await User.create({ uid, password, platform });
-
-    res.json(newUser);
+    res.json(user);
 
   } catch (error) {
     console.error(error);

@@ -60,6 +60,10 @@ class User extends Sequelize.Model {
     static associate(db) {
         
         db.User.belongsToMany(db.Interest,{through:'UserInterest'});
+
+        db.User.hasMany(db.Like,{foreignKey:'likeFrom',sourceKey:'id'});
+        db.User.hasMany(db.Like,{foreignKey:'likeTo',sourceKey:'id'});
+        
     }
 };
 module.exports = User;

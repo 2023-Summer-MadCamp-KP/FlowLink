@@ -45,6 +45,7 @@ var signupRouter = require('./routes/signup');
 var testRouter = require('./routes/test');
 var meRouter = require('./routes/me');
 var usersRouter = require('./routes/users');
+var likeRouter = require('./routes/like');
 
 app.use('/', indexRouter);
 app.use('/users',authenticateToken, usersRouter);
@@ -53,6 +54,7 @@ app.use('/signup', signupRouter);
 app.use('/test', testRouter);
 app.use('/me',authenticateToken, meRouter);
 app.use('/users',authenticateToken, usersRouter);
+app.use('/like',authenticateToken, likeRouter);
 
 //--------------------------------
 
