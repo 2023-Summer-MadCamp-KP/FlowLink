@@ -47,14 +47,14 @@ var meRouter = require('./routes/me');
 var usersRouter = require('./routes/users');
 var likeRouter = require('./routes/like');
 
-app.use('/', indexRouter);
-app.use('/users',authenticateToken, usersRouter);
-app.use('/signin', signinRouter);
-app.use('/signup', signupRouter);
-app.use('/test', testRouter);
-app.use('/me',authenticateToken, meRouter);
-app.use('/users',authenticateToken, usersRouter);
-app.use('/like',authenticateToken, likeRouter);
+app.use('/api/', indexRouter);
+app.use('/api/users',authenticateToken, usersRouter);
+app.use('/api/signin', signinRouter);
+app.use('/api/signup', signupRouter);
+app.use('/api/test', testRouter);
+app.use('/api/me',authenticateToken, meRouter);
+app.use('/api/users',authenticateToken, usersRouter);
+app.use('/api/like',authenticateToken, likeRouter);
 
 //--------------------------------
 
