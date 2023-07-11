@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flow_camp_app/constants/urls.dart';
+import 'package:flow_camp_app/models/interest.dart';
 import 'package:flow_camp_app/models/like.dart';
+import 'package:flow_camp_app/models/university.dart';
 import 'package:flow_camp_app/models/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +13,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 //'현재 숫자: ${context.watch<Counter>().count} 처럼 사용
 class UserProvider extends ChangeNotifier {
   bool _isSignIn = false;
+
+  List _allUniversity = [];
+  List get allUniversity => _allUniversity;
+
   bool get isSignIn => _isSignIn;
 
   List<User> _users = [];
@@ -22,6 +28,9 @@ class UserProvider extends ChangeNotifier {
 
   User? _me;
   User? get me => _me;
+
+  List<Interest> _allInterests = [];
+  List<Interest> get allInterests => _allInterests;
 
   void setSignIn(bool isSignIn) {
     _isSignIn = isSignIn;
@@ -199,9 +208,8 @@ class UserProvider extends ChangeNotifier {
           data: requestData,
           options: options,
         );
-      }
-      else{
-final response = await dio.delete(
+      } else {
+        final response = await dio.delete(
           '${DIO_BASE_URL}/api/like',
           data: requestData,
           options: options,
@@ -217,5 +225,35 @@ final response = await dio.delete(
     } catch (e) {
       print(e);
     }
+  }
+
+  Future<void> getInterest() async {
+    Dio dio = Dio();
+    try {
+      var response = await dio.get('${DIO_BASE_URL}/api/interest');
+      final jsonData = response.data;
+      _allInterests =
+          List<Interest>.from(jsonData.map((json) => Interest.fromJson(json)));
+      notifyListeners();
+    } on DioException catch (e) {
+      print(e);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> getUniversity() async {
+    Dio dio = Dio();
+    try {
+      var response = await dio.get('${DIO_BASE_URL}/api/university');
+      final jsonData = response.data;
+      _allUniversity = List<University>.from(
+          jsonData.map((json) => University.fromJson(json)));
+      notifyListeners();
+    } on DioException catch (e) {
+      print(e);
+    } catch (e) {
+      print(e);
+    } catch (e) {}
   }
 }
