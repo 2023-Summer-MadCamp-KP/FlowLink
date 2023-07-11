@@ -9,6 +9,42 @@ const {University} =require('../models');
 router.get('/add', async function (req, res, next) {
 
 
+  //테스트 대학 넣어주기
+  for (let i = 0; i < 10; i++) {
+    let key = i.toString();
+    
+  }
+  await University.create({
+    name: "GIST",
+    major: "공과대학",
+    confirmed: true,
+  })
+  await University.create({
+    name: "고려대학교",
+    major: "공과대학",
+    confirmed: true,
+  })
+  await University.create({
+    name: "UNIST",
+    major: "공과대학",
+    confirmed: true,
+  })
+  await University.create({
+    name: "KAIST",
+    major: "공과대학",
+    confirmed: true,
+  })
+  await University.create({
+    name: "한양대학교",
+    major: "공과대학",
+    confirmed: true,
+  })
+  await University.create({
+    name: "성균관대학교",
+    major: "공과대학",
+    confirmed: true,
+  })
+
   //테스트 유저 넣어주기
   for (let i = 1; i <= 100; i++) {
     let key = i.toString();
@@ -23,6 +59,7 @@ router.get('/add', async function (req, res, next) {
         prtcpntYear: 202324,
         gradOf: 20190204,
         infoConfirmed: true,
+        universityId: (i%5)+1,
       })
     }
     else {
@@ -36,6 +73,7 @@ router.get('/add', async function (req, res, next) {
         prtcpntYear: 202321,
         gradOf: 20190204,
         infoConfirmed: true,
+        universityId: (i%5)+1,
       })
     }
   }
@@ -161,41 +199,6 @@ router.get('/add', async function (req, res, next) {
   
 
 
-  //테스트 대학 넣어주기
-  for (let i = 0; i < 10; i++) {
-    let key = i.toString();
-    
-  }
-  await University.create({
-    name: "GIST",
-    major: "공과대학",
-    confirmed: true,
-  })
-  await University.create({
-    name: "고려대학교",
-    major: "공과대학",
-    confirmed: true,
-  })
-  await University.create({
-    name: "UNIST",
-    major: "공과대학",
-    confirmed: true,
-  })
-  await University.create({
-    name: "KAIST",
-    major: "공과대학",
-    confirmed: true,
-  })
-  await University.create({
-    name: "한양대학교",
-    major: "공과대학",
-    confirmed: true,
-  })
-  await University.create({
-    name: "성균관대학교",
-    major: "공과대학",
-    confirmed: true,
-  })
   
 
 
