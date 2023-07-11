@@ -139,7 +139,10 @@ class _ProfileListPageState extends State<ProfileListPage> {
                 return GestureDetector(
                   onTap: () {
                     // 탭 이벤트 처리
-                    print('Tapped ${persons[index].name}');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ProfileViewPage(user: persons[index])));
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -172,7 +175,7 @@ class _ProfileListPageState extends State<ProfileListPage> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => ProfileViewPage(user: persons[index])));
-                          },
+                           },
                         ),
                         title: Text(persons[index].name,
                             style: TextStyle(fontSize: 20)),
@@ -185,7 +188,11 @@ class _ProfileListPageState extends State<ProfileListPage> {
                 return GestureDetector(
                   onTap: () {
                     // 탭 이벤트 처리
-                    print('Tapped ${persons[index].name}');
+                     Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ProfileViewPage(user: persons[index])));
+                          
                   },
                   child: Container(
                     decoration: BoxDecoration(

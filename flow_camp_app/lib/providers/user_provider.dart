@@ -26,6 +26,10 @@ class UserProvider extends ChangeNotifier {
   List<Like> _giveLikes = [];
   List<Like> get giveLikes => _giveLikes;
 
+  // 내가 받은 Like들
+  List<Like> _takeLikes = [];
+  List<Like> get takeLikes => _takeLikes;
+
   User? _me;
   User? get me => _me;
 
@@ -180,6 +184,30 @@ class UserProvider extends ChangeNotifier {
 
       final jsonData = response.data;
       _giveLikes = List<Like>.from(jsonData.map((json) => Like.fromJson(json)));
+      notifyListeners();
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 401 || e.response?.statusCode == 403) {
+        print('Token is invalid');
+        setSignIn(false);
+        // 401 에러 처리
+      }
+    } catch (e) {
+      print(e);
+    }
+    return;
+  }
+
+  Future<void> getWhoLike() async {
+    try {
+      Dio dio = Dio();
+      var options = await loadTokenOption();
+      final response = await dio.get(
+        '${DIO_BASE_URL}/api/like?dir=to&id=${_me!.id}}',
+        options: options,
+      );
+
+      final jsonData = response.data;
+      _takeLikes = List<Like>.from(jsonData.map((json) => Like.fromJson(json)));
       notifyListeners();
     } on DioException catch (e) {
       if (e.response?.statusCode == 401 || e.response?.statusCode == 403) {
