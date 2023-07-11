@@ -117,7 +117,7 @@ class _ProfileViewPageState extends State<ProfileViewPage> {
                           height: textMargin,
                         ),
                         DefaultTextStyle(
-                          child: Text(regClassOf(widget.user.prtcpntYear)[0].toString()+"년 / "+regClassOf(widget.user.prtcpntYear)[1].toString()), // 유저 이름
+                          child: Text(decodePrtcYear(widget.user.prtcpntYear)[0].toString()+"년 / "+decodePrtcYear(widget.user.prtcpntYear)[1].toString()), // 유저 이름
                           style: TextStyle(
                             color: Colors.blue,
                             fontSize: 18,
@@ -159,7 +159,7 @@ class _ProfileViewPageState extends State<ProfileViewPage> {
                           height: textMargin,
                         ),
                         DefaultTextStyle(
-                          child: Text(regClassOf(widget.user.gradOf)[2].toString()), // 유저 이름
+                          child: Text(decodePrtcYear(widget.user.gradOf)[2].toString()), // 유저 이름
                           style: TextStyle(
                             color: Colors.blue,
                             fontSize: 18,

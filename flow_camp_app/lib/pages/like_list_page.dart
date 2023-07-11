@@ -209,12 +209,13 @@ class _LikeListPageState extends State<LikeListPage> {
       prtcpntYear: provider.me!.prtcpntYear,
       emailConfirmed: provider.me!.emailConfirmed,
       infoConfirmed: provider.me!.infoConfirmed,
+      university: provider.me!.university,
       profileImage: 'assets/images/default_profile.png',
       islike: false, // Add your images here
     );
     Set<int> likeToValues =
         provider.takeLikes.map((like) => like.likeFrom).toSet();
-    print("llll : " + likeToValues.toString());
+  
     Set<int> likeFromValues =
         provider.giveLikes.map((like) => like.likeTo).toSet();
     Set<int> likeBothValues = {};
@@ -223,8 +224,6 @@ class _LikeListPageState extends State<LikeListPage> {
         likeBothValues.add(element);
       }
     }
-    print("llllll : " + likeBothValues.toString());
-
     peopleLikeTo = provider.users
         .map(
           (user) {
@@ -245,6 +244,7 @@ class _LikeListPageState extends State<LikeListPage> {
                 prtcpntYear: user.prtcpntYear,
                 emailConfirmed: user.emailConfirmed,
                 infoConfirmed: user.infoConfirmed,
+                university: user.university,
                 profileImage: 'assets/images/default_profile.png',
                 islike: ii,
               );
@@ -289,6 +289,7 @@ class _LikeListPageState extends State<LikeListPage> {
                 prtcpntYear: user.prtcpntYear,
                 emailConfirmed: user.emailConfirmed,
                 infoConfirmed: user.infoConfirmed,
+                university: user.university,
                 profileImage: 'assets/images/default_profile.png',
                 islike: ii,
               );
@@ -333,6 +334,7 @@ class _LikeListPageState extends State<LikeListPage> {
                 prtcpntYear: user.prtcpntYear,
                 emailConfirmed: user.emailConfirmed,
                 infoConfirmed: user.infoConfirmed,
+                university: user.university,
                 profileImage: 'assets/images/default_profile.png',
                 islike: ii,
               );

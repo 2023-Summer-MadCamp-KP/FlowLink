@@ -1,4 +1,5 @@
 import 'package:flow_camp_app/components/loading_indicator_page.dart';
+import 'package:flow_camp_app/models/university.dart';
 import 'package:flow_camp_app/models/user.dart';
 import 'package:flow_camp_app/providers/user_provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -28,8 +29,10 @@ class Person extends User {
     required int prtcpntYear,
     required bool emailConfirmed,
     required bool infoConfirmed,
+    required University university,
     required this.profileImage,
     required this.islike,
+
   }) : super(
           id: id,
           name: name,
@@ -40,6 +43,7 @@ class Person extends User {
           prtcpntYear: prtcpntYear,
           emailConfirmed: emailConfirmed,
           infoConfirmed: infoConfirmed,
+          university: university,
         );
 }
 
@@ -83,12 +87,12 @@ class _ProfileListPageState extends State<ProfileListPage> {
       prtcpntYear: provider.me!.prtcpntYear,
       emailConfirmed: provider.me!.emailConfirmed,
       infoConfirmed: provider.me!.infoConfirmed,
+      university: provider.me!.university,
       profileImage: 'assets/images/default_profile.png',
       islike: false, // Add your images here
     );
     Set<int> likeFromValues =
         provider.giveLikes.map((like) => like.likeTo).toSet();
-    print("ll : " + likeFromValues.toString());
     persons = provider.users.map(
       (user) {
         var ii = true;
@@ -107,6 +111,7 @@ class _ProfileListPageState extends State<ProfileListPage> {
             prtcpntYear: user.prtcpntYear,
             emailConfirmed: user.emailConfirmed,
             infoConfirmed: user.infoConfirmed,
+            university: user.university,
             profileImage:
                 'assets/images/default_profile.png', // Add your images here
             islike: ii);

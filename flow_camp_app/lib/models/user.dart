@@ -1,3 +1,5 @@
+import 'package:flow_camp_app/models/university.dart';
+
 class User {
   final int id;
   final String name;
@@ -9,6 +11,7 @@ class User {
   final int prtcpntYear;
   final bool emailConfirmed;
   final bool infoConfirmed;
+  final University university;
 
   User({
     required this.id,
@@ -21,6 +24,7 @@ class User {
     required this.prtcpntYear,
     required this.emailConfirmed,
     required this.infoConfirmed,
+    required this.university,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -35,6 +39,7 @@ class User {
       prtcpntYear: json['prtcpntYear'],
       emailConfirmed: json['emailConfirmed'],
       infoConfirmed: json['infoConfirmed'],
+       university: University.fromJson(json['university']),
     );
   }
   Map<String, dynamic> toJson() {
@@ -49,6 +54,7 @@ class User {
       'prtcpntYear': prtcpntYear,
       'emailConfirmed': emailConfirmed,
       'infoConfirmed': infoConfirmed,
+      'university': university.toJson(),
     };
   }
 }
