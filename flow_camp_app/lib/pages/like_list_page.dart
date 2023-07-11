@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:flow_camp_app/providers/user_provider.dart';
 import 'package:flow_camp_app/models/user.dart';
 import 'package:flow_camp_app/components/loading_indicator_page.dart';
+import 'package:flow_camp_app/pages/profile_view_page.dart';
+import 'package:flow_camp_app/pages/profile_list_page.dart';
 
 class LikeListPage extends StatefulWidget {
   const LikeListPage({Key? key}) : super(key: key);
@@ -24,35 +26,35 @@ class LikeListPage extends StatefulWidget {
 //   }
 // }
 
-class Person extends User {
-  var profileImage;
+// class Person extends User {
+//   var profileImage;
 
-  var islike;
+//   var islike;
 
-  Person({
-    required int id,
-    required String name,
-    required int gradOf,
-    required String uid,
-    required String password,
-    required String platform,
-    required int prtcpntYear,
-    required bool emailConfirmed,
-    required bool infoConfirmed,
-    required this.profileImage,
-    required this.islike,
-  }) : super(
-          id: id,
-          name: name,
-          gradOf: gradOf,
-          uid: uid,
-          password: password,
-          platform: platform,
-          prtcpntYear: prtcpntYear,
-          emailConfirmed: emailConfirmed,
-          infoConfirmed: infoConfirmed,
-        );
-}
+//   Person({
+//     required int id,
+//     required String name,
+//     required int gradOf,
+//     required String uid,
+//     required String password,
+//     required String platform,
+//     required int prtcpntYear,
+//     required bool emailConfirmed,
+//     required bool infoConfirmed,
+//     required this.profileImage,
+//     required this.islike,
+//   }) : super(
+//           id: id,
+//           name: name,
+//           gradOf: gradOf,
+//           uid: uid,
+//           password: password,
+//           platform: platform,
+//           prtcpntYear: prtcpntYear,
+//           emailConfirmed: emailConfirmed,
+//           infoConfirmed: infoConfirmed,
+//         );
+// }
 
 class _LikeListPageState extends State<LikeListPage> {
   final List<String> category = <String>[
@@ -77,7 +79,7 @@ class _LikeListPageState extends State<LikeListPage> {
   late List<Person> peopleShow = [];
 
   int _likeFilter = 0;
-  List<String> _likeFilterText = ["To", "From", "Both"];
+  List<String> _likeFilterText = ["나를 좋아함", "내가 좋아함", "서로 좋아함"];
   List<String> _categoryFilter = [];
 
   bool _isLoading = true;
@@ -112,7 +114,7 @@ class _LikeListPageState extends State<LikeListPage> {
                       });
                       _close(_);
                     },
-                    child: const Text("likeTo")),
+                    child: const Text("나를 좋아함")),
                 CupertinoActionSheetAction(
                     onPressed: () {
                       setState(() {
@@ -120,7 +122,7 @@ class _LikeListPageState extends State<LikeListPage> {
                       });
                       _close(_);
                     },
-                    child: const Text("likeFrom")),
+                    child: const Text("내가 좋아함")),
                 CupertinoActionSheetAction(
                     onPressed: () {
                       setState(() {
@@ -128,11 +130,11 @@ class _LikeListPageState extends State<LikeListPage> {
                       });
                       _close(_);
                     },
-                    child: const Text("likeBoth")),
+                    child: const Text("서로 좋아함")),
               ],
               cancelButton: CupertinoActionSheetAction(
                 onPressed: () => _close(_),
-                child: const Text('Close'),
+                child: const Text('닫기'),
               ),
             ));
   }
@@ -311,7 +313,6 @@ class _LikeListPageState extends State<LikeListPage> {
       }
     });
 
-
     peopleLikeBoth = provider.users
         .map(
           (user) {
@@ -420,9 +421,19 @@ class _LikeListPageState extends State<LikeListPage> {
               child: ListView.builder(
                   itemCount: peopleShow.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return Padding(
+                    return GestureDetector(
+                      onTap: () {
+                    // 탭 이벤트 처리
+                     Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ProfileViewPage(user: peopleShow[index])));
+                      },
+                      child: Container(
+                        child: Padding(
                         padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                         child: CupertinoListTile(
+                          backgroundColor: Colors.grey[50],
                           leadingSize: 40,
                           title: Text(peopleShow[index].name,
                               style: const TextStyle(
@@ -434,7 +445,9 @@ class _LikeListPageState extends State<LikeListPage> {
                             borderRadius: BorderRadius.circular(15),
                             child: Image.asset(peopleShow[index].profileImage),
                           ),
-                        ));
+                        )),
+                      ),
+                    );
                   }),
             ),
           ],
