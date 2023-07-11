@@ -24,7 +24,9 @@ class _ProfileViewPageState extends State<ProfileViewPage> {
           middle: Text("프로필 상세정보"),
         ),
         child: SafeArea(
-          child: Column(
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+            child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Column(
@@ -46,7 +48,7 @@ class _ProfileViewPageState extends State<ProfileViewPage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 40.0),
+              const SizedBox(height: 20.0),
               const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -176,6 +178,7 @@ class _ProfileViewPageState extends State<ProfileViewPage> {
                 ],
               ),
             ],
+          ),
           ),
         ),
       ),
