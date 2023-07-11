@@ -65,6 +65,8 @@ class User extends Sequelize.Model {
 
         db.User.hasMany(db.Like,{foreignKey:'likeFrom',sourceKey:'id'});
         db.User.hasMany(db.Like,{foreignKey:'likeTo',sourceKey:'id'});
+
+        db.User.belongsTo(db.University,{foreignKey:'universityId',targetKey:'id'});
         
     }
 };

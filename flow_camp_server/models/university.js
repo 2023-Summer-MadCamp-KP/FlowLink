@@ -10,6 +10,11 @@ class University extends Sequelize.Model {
             major: {
                 type: Sequelize.STRING(100),
                 allowNull: true,
+            },
+            confirmed:{
+                type: Sequelize.BOOLEAN,
+                allowNull: false,
+                defaultValue: true,
             }
         }
             , {
@@ -24,7 +29,7 @@ class University extends Sequelize.Model {
             });
     }
     static associate(db) {
-        
+        db.University.hasMany(db.User,{foreignKey:'universityId',sourceKey:'id'})
     }
 };
 module.exports = University;
