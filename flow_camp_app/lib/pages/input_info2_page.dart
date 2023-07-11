@@ -55,7 +55,7 @@ class _InputInfoPage2State extends State<InputInfoPage2> {
       _isLoading = true;
     });
     var provider = context.read<UserProvider>();
-    provider.getInterest(context);
+    provider.getInterest();
 
     interests = provider.allInterests.map((interest) {
       return SelectableInterest(
@@ -89,7 +89,7 @@ class _InputInfoPage2State extends State<InputInfoPage2> {
     }
 
     Future<void> _getInterestList() async {
-      userProvider.getInterest(context);
+      userProvider.getInterest();
       return;
     }
 
