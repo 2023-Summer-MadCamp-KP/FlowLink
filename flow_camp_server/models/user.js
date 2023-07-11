@@ -32,6 +32,8 @@ class User extends Sequelize.Model {
                 allowNull: true,
             },
             prtcpntYear:{
+             //  2023 여름 1분반
+            // 202321
                 type : Sequelize.INTEGER,
                 allowNull: true,
             },
