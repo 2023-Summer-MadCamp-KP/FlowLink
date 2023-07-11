@@ -1,3 +1,4 @@
+import 'package:flow_camp_app/components/loading_indicator_page.dart';
 import 'package:flow_camp_app/models/user.dart';
 import 'package:flow_camp_app/providers/user_provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -44,6 +45,8 @@ class Person extends User {
 
 class _ProfileListPageState extends State<ProfileListPage> {
   List<Person> persons = [];
+
+  bool _isLoading = true;
   @override
   void initState() {
     // TODO: implement initState
@@ -52,27 +55,34 @@ class _ProfileListPageState extends State<ProfileListPage> {
   }
 
   void api() async {
+    setState(() {
+      _isLoading = true;
+    });
     var provider = context.read<UserProvider>();
     await provider.getMe();
     await provider.getUsers();
     await provider.getLike();
-    print(provider.me.toJson());
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     var provider = context.watch<UserProvider>();
-    print("change notify");
+    if (_isLoading || provider.me == null) {
+      return LoadingIndicator();
+    }
     var my = Person(
-      id: provider.me.id,
-      name: provider.me.name,
-      gradOf: provider.me.gradOf,
-      uid: provider.me.uid,
-      password: provider.me.password,
-      platform: provider.me.platform,
-      prtcpntYear: provider.me.prtcpntYear,
-      emailConfirmed: provider.me.emailConfirmed,
-      infoConfirmed: provider.me.infoConfirmed,
+      id: provider.me!.id,
+      name: provider.me!.name,
+      gradOf: provider.me!.gradOf,
+      uid: provider.me!.uid,
+      password: provider.me!.password,
+      platform: provider.me!.platform,
+      prtcpntYear: provider.me!.prtcpntYear,
+      emailConfirmed: provider.me!.emailConfirmed,
+      infoConfirmed: provider.me!.infoConfirmed,
       profileImage: 'assets/images/default_profile.png',
       islike: false, // Add your images here
     );
@@ -102,8 +112,6 @@ class _ProfileListPageState extends State<ProfileListPage> {
             islike: ii);
       },
     ).toList();
-
-    print(provider.me.id);
     persons.sort((a, b) {
       if (a.id != my.id && b.id == my.id) {
         return 1;

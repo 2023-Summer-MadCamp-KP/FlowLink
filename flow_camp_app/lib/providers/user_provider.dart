@@ -20,8 +20,8 @@ class UserProvider extends ChangeNotifier {
   List<Like> _giveLikes = [];
   List<Like> get giveLikes => _giveLikes;
 
-  late User _me;
-  User get me => _me;
+  User? _me;
+  User? get me => _me;
 
   void setSignIn(bool isSignIn) {
     _isSignIn = isSignIn;
@@ -165,7 +165,7 @@ class UserProvider extends ChangeNotifier {
       Dio dio = Dio();
       var options = await loadTokenOption();
       final response = await dio.get(
-        '${DIO_BASE_URL}/api/like?dir=from&id=${_me.id}}',
+        '${DIO_BASE_URL}/api/like?dir=from&id=${_me!.id}}',
         options: options,
       );
 
@@ -190,7 +190,7 @@ class UserProvider extends ChangeNotifier {
       var options = await loadTokenOption();
 
       Map<String, dynamic> requestData = {
-        'likeFrom': me.id, // likeFrom 필드에 넣을 값
+        'likeFrom': me!.id, // likeFrom 필드에 넣을 값
         'likeTo': toId, // likeTo 필드에 넣을 값
       };
       if (toMake == true) {
