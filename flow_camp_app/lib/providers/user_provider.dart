@@ -48,7 +48,7 @@ class UserProvider extends ChangeNotifier {
     );
   }
 
-  Future<void> apiSignIn(context, idtext, pwtext) async {
+  Future<void> postSignIn(context, idtext, pwtext) async {
     try {
       Dio dio = Dio();
       var response = await dio.post('${DIO_BASE_URL}/api/signin', data: {
@@ -82,7 +82,7 @@ class UserProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> apiMe() async {
+  Future<void> getMe() async {
     try {
 //---example
       Dio dio = Dio();
@@ -113,7 +113,7 @@ class UserProvider extends ChangeNotifier {
     return;
   }
 
-  Future<void> apiSignOut() async {
+  Future<void> getSignOut() async {
     try {
       Dio dio = Dio();
       var options = await loadTokenOption();
@@ -134,7 +134,7 @@ class UserProvider extends ChangeNotifier {
     return;
   }
 
-  Future<void> apiUsers() async {
+  Future<void> getUsers() async {
     try {
       Dio dio = Dio();
       var options = await loadTokenOption();
@@ -160,7 +160,7 @@ class UserProvider extends ChangeNotifier {
     return;
   }
 
-  Future<void> apiLike() async {
+  Future<void> getLike() async {
     try {
       Dio dio = Dio();
       var options = await loadTokenOption();
@@ -184,7 +184,7 @@ class UserProvider extends ChangeNotifier {
     return;
   }
 
-  Future<void> apiLikePost(int toId, bool toMake) async {
+  Future<void> postLike(int toId, bool toMake) async {
     try {
       Dio dio = Dio();
       var options = await loadTokenOption();

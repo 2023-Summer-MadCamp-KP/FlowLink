@@ -52,9 +52,9 @@ class _ProfileListPageState extends State<ProfileListPage> {
 
   void api() async {
     var provider = context.read<UserProvider>();
-    await provider.apiMe();
-    await provider.apiUsers();
-    await provider.apiLike();
+    await provider.getMe();
+    await provider.getUsers();
+    await provider.getLike();
     print(provider.me.toJson());
   }
 
@@ -198,8 +198,8 @@ class _ProfileListPageState extends State<ProfileListPage> {
                         subtitle: Text(persons[index].prtcpntYear.toString()),
                         trailing: GestureDetector(
                           onTap: () async{
-                            await provider.apiLikePost(persons[index].id,!persons[index].islike);
-                            await provider.apiLike();
+                            await provider.postLike(persons[index].id,!persons[index].islike);
+                            await provider.getLike();
                           },
                           child: Icon(
                             Icons.favorite,

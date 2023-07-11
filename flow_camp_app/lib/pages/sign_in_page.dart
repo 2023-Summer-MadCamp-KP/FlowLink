@@ -72,7 +72,7 @@ class _SignInPageState extends State<SignInPage> {
       setState(() {
         _isLoading = true;
       });
-      userProvider.apiSignIn(context, _idController.text, _pwController.text);
+      userProvider.postSignIn(context, _idController.text, _pwController.text);
       setState(() {
         _isLoading = false;
       });
