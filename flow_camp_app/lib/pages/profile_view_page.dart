@@ -73,7 +73,7 @@ class _ProfileViewPageState extends State<ProfileViewPage> {
                           height: textMargin,
                         ),
                         DefaultTextStyle(
-                          child: Text("KAIST"), // 유저 이름
+                          child: Text(widget.user.university.name), // 유저 이름
                           style: TextStyle(
                             color: Colors.blue,
                             fontSize: 18,

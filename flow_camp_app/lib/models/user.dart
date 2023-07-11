@@ -1,3 +1,4 @@
+import 'package:flow_camp_app/models/interest.dart';
 import 'package:flow_camp_app/models/university.dart';
 
 class User {
@@ -12,6 +13,7 @@ class User {
   final bool emailConfirmed;
   final bool infoConfirmed;
   final University university;
+  final List<Interest> interests;
 
   User({
     required this.id,
@@ -25,36 +27,41 @@ class User {
     required this.emailConfirmed,
     required this.infoConfirmed,
     required this.university,
+    required this.interests,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
-    return User(
-      id: json['id'],
-      name: json['name'],
-      token: json['token'],
-      gradOf: json['gradOf'],
-      uid: json['uid'],
-      password: json['password'],
-      platform: json['platform'],
-      prtcpntYear: json['prtcpntYear'],
-      emailConfirmed: json['emailConfirmed'],
-      infoConfirmed: json['infoConfirmed'],
-       university: University.fromJson(json['university']),
-    );
-  }
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'name': name,
-      'token': token,
-      'gradOf': gradOf,
-      'uid': uid,
-      'password': password,
-      'platform': platform,
-      'prtcpntYear': prtcpntYear,
-      'emailConfirmed': emailConfirmed,
-      'infoConfirmed': infoConfirmed,
-      'university': university.toJson(),
-    };
-  }
+  return User(
+    id: json['id'],
+    name: json['name'],
+    token: json['token'],
+    gradOf: json['gradOf'],
+    uid: json['uid'],
+    password: json['password'],
+    platform: json['platform'],
+    prtcpntYear: json['prtcpntYear'],
+    emailConfirmed: json['emailConfirmed'],
+    infoConfirmed: json['infoConfirmed'],
+    university: University.fromJson(json['university']),
+    interests: List<Interest>.from(json['interests'].map((interestJson) => Interest.fromJson(interestJson))),
+  );
+}
+
+Map<String, dynamic> toJson() {
+  return {
+    'id': id,
+    'name': name,
+    'token': token,
+    'gradOf': gradOf,
+    'uid': uid,
+    'password': password,
+    'platform': platform,
+    'prtcpntYear': prtcpntYear,
+    'emailConfirmed': emailConfirmed,
+    'infoConfirmed': infoConfirmed,
+    'university': university.toJson(),
+    'interests': interests.map((interest) => interest.toJson()).toList(),
+  };
+}
+
 }

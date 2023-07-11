@@ -158,8 +158,10 @@ class UserProvider extends ChangeNotifier {
 
       final jsonData = response.data;
 
+      print("users :: " + jsonData.toString());
+
       _users = List<User>.from(jsonData.map((json) => User.fromJson(json)));
-      print("users : " + _users.toString());
+
       notifyListeners();
     } on DioException catch (e) {
       if (e.response?.statusCode == 401 || e.response?.statusCode == 403) {

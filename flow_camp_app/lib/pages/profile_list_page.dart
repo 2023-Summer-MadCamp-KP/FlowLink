@@ -1,4 +1,5 @@
 import 'package:flow_camp_app/components/loading_indicator_page.dart';
+import 'package:flow_camp_app/models/interest.dart';
 import 'package:flow_camp_app/models/university.dart';
 import 'package:flow_camp_app/models/user.dart';
 import 'package:flow_camp_app/providers/user_provider.dart';
@@ -30,6 +31,7 @@ class Person extends User {
     required bool emailConfirmed,
     required bool infoConfirmed,
     required University university,
+    required List<Interest> interests,
     required this.profileImage,
     required this.islike,
 
@@ -44,6 +46,8 @@ class Person extends User {
           emailConfirmed: emailConfirmed,
           infoConfirmed: infoConfirmed,
           university: university,
+          interests: interests,
+
         );
 }
 
