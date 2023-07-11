@@ -2,15 +2,15 @@ class UserInfo {
   final String name;
   final int gradOf;
   final int universityId;
-  final String uid;
   final int prtcpntYear;
+  final List<Map<String, String>> interest;
 
   UserInfo({
     required this.name,
     required this.gradOf,
     required this.universityId,
-    required this.uid,
     required this.prtcpntYear,
+    required this.interest,
   });
 
   factory UserInfo.fromJson(Map<String, dynamic> json) {
@@ -18,8 +18,8 @@ class UserInfo {
       name: json['name'],
       gradOf: json['gradOf'],
       universityId: json['universityId'],
-      uid: json['uid'],
       prtcpntYear: json['prtcpntYear'],
+      interest: json['interest'],
     );
   }
   Map<String, dynamic> toJson() {
@@ -27,8 +27,8 @@ class UserInfo {
       'name': name,
       'gradOf': gradOf,
       'universityId': universityId,
-      'uid': uid,
       'prtcpntYear': prtcpntYear,
+      'interest': interest,
     };
   }
 }

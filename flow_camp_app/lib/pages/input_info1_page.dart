@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:flow_camp_app/constants/urls.dart';
 import 'package:provider/provider.dart';
+import 'package:flow_camp_app/models/user_info.dart';
 
 class InputInfoPage1 extends StatefulWidget {
   const InputInfoPage1({super.key});
@@ -409,11 +410,37 @@ class _InputInfoPage1State extends State<InputInfoPage1> {
                                     fontSize: 13, fontWeight: FontWeight.bold),
                               ),
                               onPressed: () {
+                                int universityId = 0;
+                                int getUniversityId(university){
+                                  switch(university){
+                                  case "GIST":
+                                  return 1;
+                                  case "고려대학교":
+                                  return 2;
+                                  case "UNIST":
+                                  return 3;
+                                  case "KAIST":
+                                  return 4;
+                                  case "한양대학교":
+                                  return 5;
+                                  case "성균관대학교":
+                                  return 6;
+                                  default:
+                                  return 0;
+                                }
+                                }
+
+                                UserInfo userInfo = UserInfo(
+                                    name: _nameController.text,
+                                    gradOf: int.parse(_sidController.text),
+                                    universityId: getUniversityId(_univController.text),
+                                    prtcpntYear: int.parse(_yearController.text),
+                                    interest: []);
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            InputInfoPage2()));
+                                            InputInfoPage2(userInfo: userInfo,)));
                               }),
                         ),
                       ],

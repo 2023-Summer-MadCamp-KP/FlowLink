@@ -1,5 +1,6 @@
 import 'package:flow_camp_app/components/loading_indicator_page.dart';
 import 'package:flow_camp_app/models/interest.dart';
+import 'package:flow_camp_app/models/user_info.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -29,7 +30,9 @@ class SelectableInterest extends Interest {
 }
 
 class InputInfoPage2 extends StatefulWidget {
-  const InputInfoPage2({super.key});
+  UserInfo userInfo;
+
+  InputInfoPage2({super.key, required this.userInfo});
 
   @override
   State<InputInfoPage2> createState() => _InputInfoPage2State();
@@ -108,7 +111,7 @@ class _InputInfoPage2State extends State<InputInfoPage2> {
             child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 00, 0),
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
@@ -168,7 +171,22 @@ class _InputInfoPage2State extends State<InputInfoPage2> {
                             style: TextStyle(
                                 fontSize: 13, fontWeight: FontWeight.bold),
                           ),
-                          onPressed: _getInterestList,
+                          // onPressed: _getInterestList,
+                          onPressed: () {
+                            UserInfo userInfo = widget.userInfo;
+                            for (String key in categorizedInterests.keys) {
+                              for (SelectableInterest selectableInterest
+                                  in categorizedInterests[key]!) {
+                                if (selectableInterest.isSelected) {
+                                  userInfo.interest.add({
+                                    "name": selectableInterest.name,
+                                    "category": selectableInterest.category
+                                  });
+                                }
+                              }
+                            }
+                            print(userInfo.interest);
+                          },
                         ),
                       ),
                       SizedBox(
