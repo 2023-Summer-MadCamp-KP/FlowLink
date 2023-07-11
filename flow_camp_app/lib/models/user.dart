@@ -12,13 +12,13 @@ class User {
   final int prtcpntYear;
   final bool emailConfirmed;
   final bool infoConfirmed;
-  final University university;
-  final List<Interest> interests;
+  final University? university;
+  final List<Interest>? interests;
 
   User({
     required this.id,
     required this.name,
-    this.token,
+    required this.token,
     required this.gradOf,
     required this.uid,
     required this.password,
@@ -31,37 +31,44 @@ class User {
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
-  return User(
-    id: json['id'],
-    name: json['name'],
-    token: json['token'],
-    gradOf: json['gradOf'],
-    uid: json['uid'],
-    password: json['password'],
-    platform: json['platform'],
-    prtcpntYear: json['prtcpntYear'],
-    emailConfirmed: json['emailConfirmed'],
-    infoConfirmed: json['infoConfirmed'],
-    university: University.fromJson(json['university']),
-    interests: List<Interest>.from(json['interests'].map((interestJson) => Interest.fromJson(interestJson))),
-  );
-}
+    print("user : " + json.toString());
+    return User(
+      id: json['id'],
+      name: json['name'],
+      token: json['token'],
+      gradOf: json['gradOf'],
+      uid: json['uid'],
+      password: json['password'],
+      platform: json['platform'],
+      prtcpntYear: json['prtcpntYear'],
+      emailConfirmed: json['emailConfirmed'],
+      infoConfirmed: json['infoConfirmed'],
+      university: json['university'] == null
+          ? null
+          : University.fromJson(json['university']),
+      interests: json['interests'] == null
+          ? null
+          : List<Interest>.from(json['interests']
+              .map((interestJson) => Interest.fromJson(interestJson))),
+    );
+  }
 
-Map<String, dynamic> toJson() {
-  return {
-    'id': id,
-    'name': name,
-    'token': token,
-    'gradOf': gradOf,
-    'uid': uid,
-    'password': password,
-    'platform': platform,
-    'prtcpntYear': prtcpntYear,
-    'emailConfirmed': emailConfirmed,
-    'infoConfirmed': infoConfirmed,
-    'university': university.toJson(),
-    'interests': interests.map((interest) => interest.toJson()).toList(),
-  };
-}
-
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'token': token,
+      'gradOf': gradOf,
+      'uid': uid,
+      'password': password,
+      'platform': platform,
+      'prtcpntYear': prtcpntYear,
+      'emailConfirmed': emailConfirmed,
+      'infoConfirmed': infoConfirmed,
+      'university': university == null ? null : university!.toJson(),
+      'interests': interests == null
+          ? null
+          : interests!.map((interest) => interest.toJson()).toList(),
+    };
+  }
 }

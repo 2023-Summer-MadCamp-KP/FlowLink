@@ -200,18 +200,9 @@ class _LikeListPageState extends State<LikeListPage> {
       return LoadingIndicator();
     }
     var my = Person(
-      id: provider.me!.id,
-      name: provider.me!.name,
-      gradOf: provider.me!.gradOf,
-      uid: provider.me!.uid,
-      password: provider.me!.password,
-      platform: provider.me!.platform,
-      prtcpntYear: provider.me!.prtcpntYear,
-      emailConfirmed: provider.me!.emailConfirmed,
-      infoConfirmed: provider.me!.infoConfirmed,
-      university: provider.me!.university,
+      user: provider.me!,
       profileImage: 'assets/images/default_profile.png',
-      islike: false, // Add your images here
+      doILike: false, // Add your images here
     );
     Set<int> likeToValues =
         provider.takeLikes.map((like) => like.likeFrom).toSet();
@@ -235,18 +226,9 @@ class _LikeListPageState extends State<LikeListPage> {
             }
             if (ii) {
               return Person(
-                id: user.id,
-                name: user.name,
-                gradOf: user.gradOf,
-                uid: user.uid,
-                password: user.password,
-                platform: user.platform,
-                prtcpntYear: user.prtcpntYear,
-                emailConfirmed: user.emailConfirmed,
-                infoConfirmed: user.infoConfirmed,
-                university: user.university,
+                user:user,
                 profileImage: 'assets/images/default_profile.png',
-                islike: ii,
+                doILike: ii,
               );
             } else {
               return null; // Nullable한 Person 객체는 null로 반환
@@ -280,18 +262,9 @@ class _LikeListPageState extends State<LikeListPage> {
             }
             if (ii) {
               return Person(
-                id: user.id,
-                name: user.name,
-                gradOf: user.gradOf,
-                uid: user.uid,
-                password: user.password,
-                platform: user.platform,
-                prtcpntYear: user.prtcpntYear,
-                emailConfirmed: user.emailConfirmed,
-                infoConfirmed: user.infoConfirmed,
-                university: user.university,
+                user: user,
                 profileImage: 'assets/images/default_profile.png',
-                islike: ii,
+                doILike: ii,
               );
             } else {
               return null; // Nullable한 Person 객체는 null로 반환
@@ -325,18 +298,9 @@ class _LikeListPageState extends State<LikeListPage> {
             }
             if (ii) {
               return Person(
-                id: user.id,
-                name: user.name,
-                gradOf: user.gradOf,
-                uid: user.uid,
-                password: user.password,
-                platform: user.platform,
-                prtcpntYear: user.prtcpntYear,
-                emailConfirmed: user.emailConfirmed,
-                infoConfirmed: user.infoConfirmed,
-                university: user.university,
+                user:user,
                 profileImage: 'assets/images/default_profile.png',
-                islike: ii,
+                doILike: ii,
               );
             } else {
               return null; // Nullable한 Person 객체는 null로 반환

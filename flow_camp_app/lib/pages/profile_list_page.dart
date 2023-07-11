@@ -18,36 +18,25 @@ class ProfileListPage extends StatefulWidget {
 class Person extends User {
   var profileImage;
 
-  var islike;
+  var doILike;
 
   Person({
-    required int id,
-    required String name,
-    required int gradOf,
-    required String uid,
-    required String password,
-    required String platform,
-    required int prtcpntYear,
-    required bool emailConfirmed,
-    required bool infoConfirmed,
-    required University university,
-    required List<Interest> interests,
+    required User user,
     required this.profileImage,
-    required this.islike,
-
+    required this.doILike,
   }) : super(
-          id: id,
-          name: name,
-          gradOf: gradOf,
-          uid: uid,
-          password: password,
-          platform: platform,
-          prtcpntYear: prtcpntYear,
-          emailConfirmed: emailConfirmed,
-          infoConfirmed: infoConfirmed,
-          university: university,
-          interests: interests,
-
+          id: user.id,
+          name: user.name,
+          gradOf: user.gradOf,
+          token: user.token,
+          uid: user.uid,
+          password: user.password,
+          platform: user.platform,
+          prtcpntYear: user.prtcpntYear,
+          emailConfirmed: user.emailConfirmed,
+          infoConfirmed: user.infoConfirmed,
+          university: user.university,
+          interests: user.interests,
         );
 }
 
@@ -82,43 +71,25 @@ class _ProfileListPageState extends State<ProfileListPage> {
       return LoadingIndicator();
     }
     var my = Person(
-      id: provider.me!.id,
-      name: provider.me!.name,
-      gradOf: provider.me!.gradOf,
-      uid: provider.me!.uid,
-      password: provider.me!.password,
-      platform: provider.me!.platform,
-      prtcpntYear: provider.me!.prtcpntYear,
-      emailConfirmed: provider.me!.emailConfirmed,
-      infoConfirmed: provider.me!.infoConfirmed,
-      university: provider.me!.university,
+      user: provider.me!,
       profileImage: 'assets/images/default_profile.png',
-      islike: false, // Add your images here
+      doILike: false, // Add your images here
     );
     Set<int> likeFromValues =
         provider.giveLikes.map((like) => like.likeTo).toSet();
     persons = provider.users.map(
       (user) {
-        var ii = true;
+        var _isLike = true;
         if (likeFromValues.contains(user.id)) {
-          ii = true;
+          _isLike = true;
         } else {
-          ii = false;
+          _isLike = false;
         }
         return Person(
-            id: user.id,
-            name: user.name,
-            gradOf: user.gradOf,
-            uid: user.uid,
-            password: user.password,
-            platform: user.platform,
-            prtcpntYear: user.prtcpntYear,
-            emailConfirmed: user.emailConfirmed,
-            infoConfirmed: user.infoConfirmed,
-            university: user.university,
+            user: user,
             profileImage:
                 'assets/images/default_profile.png', // Add your images here
-            islike: ii);
+            doILike: _isLike);
       },
     ).toList();
     persons.sort((a, b) {
@@ -149,9 +120,10 @@ class _ProfileListPageState extends State<ProfileListPage> {
                   onTap: () {
                     // 탭 이벤트 처리
                     Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ProfileViewPage(user: persons[index])));
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                ProfileViewPage(user: persons[index])));
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -179,9 +151,7 @@ class _ProfileListPageState extends State<ProfileListPage> {
                             backgroundImage:
                                 AssetImage(persons[index].profileImage),
                           ),
-                          onPressed: () {
-                            
-                           },
+                          onPressed: () {},
                         ),
                         title: Text(persons[index].name,
                             style: TextStyle(fontSize: 20)),
@@ -191,63 +161,64 @@ class _ProfileListPageState extends State<ProfileListPage> {
                   ),
                 );
               } else {
-                return GestureDetector(
-                  onTap: () {
-                    // 탭 이벤트 처리
-                     Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ProfileViewPage(user: persons[index])));
-                          
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border(
-                          // bottom: BorderSide(
-                          //   color: CupertinoColors.separator,
-                          //   width: 0.5,
-                          // ),
-                          ),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(
-                        0,
-                        10,
-                        0,
-                        10,
-                      ),
-                      child: CupertinoListTile(
-                        leadingSize: 50,
-                        leading: CupertinoButton(
-                          padding: EdgeInsets.zero,
-                          child: CircleAvatar(
-                            radius: 30,
-                            backgroundColor: Colors.white,
-                            backgroundImage:
-                                AssetImage(persons[index].profileImage),
-                          ),
-                          onPressed: () {},
+                return Column(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        // 탭 이벤트 처리
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    ProfileViewPage(user: persons[index])));
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border(
+                              // bottom: BorderSide(
+                              //   color: CupertinoColors.separator,
+                              //   width: 0.5,
+                              // ),
+                              ),
                         ),
-                        title: Text(persons[index].name,
-                            style: TextStyle(fontSize: 15)),
-                        subtitle: Text(persons[index].prtcpntYear.toString()),
-                        trailing: GestureDetector(
-                          onTap: () async {
-                            await provider.postLike(
-                                persons[index].id, !persons[index].islike);
-                            await provider.getLike();
-                          },
-                          child: Icon(
-                            Icons.favorite,
-                            size: 40,
-                            color: persons[index].islike
-                                ? Colors.red
-                                : Colors.grey,
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(
+                            0,
+                            10,
+                            0,
+                            10,
+                          ),
+                          child: CupertinoListTile(
+                            leadingSize: 50,
+                            leading: CircleAvatar(
+                              radius: 30,
+                              backgroundColor: Colors.white,
+                              backgroundImage:
+                                  AssetImage(persons[index].profileImage),
+                            ),
+                            title: Text(persons[index].name,
+                                style: TextStyle(fontSize: 15)),
+                            subtitle:
+                                Text(persons[index].prtcpntYear.toString()),
+                            trailing: GestureDetector(
+                              onTap: () async {
+                                await provider.postLike(
+                                    persons[index].id, !persons[index].doILike);
+                                await provider.getLike();
+                              },
+                              child: Icon(
+                                Icons.favorite,
+                                size: 40,
+                                color: persons[index].doILike
+                                    ? Colors.red
+                                    : Colors.grey,
+                              ),
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
+                  ],
                 );
               }
             },

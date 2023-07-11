@@ -176,6 +176,7 @@ class UserProvider extends ChangeNotifier {
   }
 
   Future<void> getLike() async {
+    //나를 좋아하는 사람 받아오기.
     try {
       Dio dio = Dio();
       var options = await loadTokenOption();
@@ -185,6 +186,7 @@ class UserProvider extends ChangeNotifier {
       );
 
       final jsonData = response.data;
+      print("getLike : " + jsonData.toString());
       _giveLikes = List<Like>.from(jsonData.map((json) => Like.fromJson(json)));
       notifyListeners();
     } on DioException catch (e) {
@@ -193,9 +195,8 @@ class UserProvider extends ChangeNotifier {
         setSignIn(false);
         // 401 에러 처리
       }
-    } catch (e) {
-      print(e);
-    }
+    } 
+    print("getLike 종료");
     return;
   }
 
@@ -224,6 +225,12 @@ class UserProvider extends ChangeNotifier {
   }
 
   Future<void> postLike(int toId, bool toMake) async {
+    print("SS : " +
+        toId.toString() +
+        " " +
+        me!.id.toString() +
+        "toMake : " +
+        toMake.toString());
     try {
       Dio dio = Dio();
       var options = await loadTokenOption();
@@ -253,8 +260,9 @@ class UserProvider extends ChangeNotifier {
         // 401 에러 처리
       }
     } catch (e) {
-      print(e);
+      print("postLike " + e.toString());
     }
+    print("postLike 요청 끝");
   }
 
   Future<void> getInterest() async {
