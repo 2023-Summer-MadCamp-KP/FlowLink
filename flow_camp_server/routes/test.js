@@ -3,8 +3,9 @@ var router = express.Router();
 
 const { User } = require('../models');
 const { Like } = require('../models');
+const {Interest} =require('../models');
 
-router.get('/adddummyuser', async function (req, res, next) {
+router.get('/adduser', async function (req, res, next) {
   for (let i = 1; i <= 100; i++) {
     let key = i.toString();
     if (i < 10) {
@@ -37,6 +38,7 @@ router.get('/adddummyuser', async function (req, res, next) {
 
   res.send();
 });
+
 router.get('/addlike', async function (req, res, next) {
   const user = await User.findOne({ where: { id: 1 } });
   const user2 = await User.findOne({ where: { id: 2 } });
@@ -67,19 +69,13 @@ router.get('/addlike', async function (req, res, next) {
 });
 
 
-router.get('/adddummyinterest', async function (req, res, next) {
-  for (let i = 0; i < 100; i++) {
+router.get('/addinterest', async function (req, res, next) {
+  for (let i = 0; i < 30; i++) {
     let key = i.toString();
-    await User.create({
-
-      uid: key,
-      password: key + key,
-      platform: "normal",
-      infoConfirmed: true,
-      name: 'user' + i,
-      prtcpntYear: 20232,
-      gradOf: 20190204,
-      infoConfirmed: true,
+    await Interest.create({
+      name: "취미" + key,
+      category: "카테고리" + Math.floor(i / 10).toString(),
+      confirmed: true,
     })
   }
   res.send();
