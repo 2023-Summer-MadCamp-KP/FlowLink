@@ -43,12 +43,14 @@ var usersRouter = require('./routes/users');
 var signinRouter = require('./routes/signin');
 var signupRouter = require('./routes/signup');
 var testRouter = require('./routes/test');
+var interestRouter = require("./routes/interest");
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/signin', signinRouter);
 app.use('/signup', signupRouter);
 app.use('/test', testRouter);
+app.use("/interest", interestRouter);
 
 //--------------------------------
 
