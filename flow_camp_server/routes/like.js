@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
-const { Like, User } = require('../models')
+const { Like, User,University,Interest } = require('../models')
+
 
 router.get('/', async function (req, res, next) {
     try {
@@ -30,12 +31,30 @@ router.get('/', async function (req, res, next) {
                 {
                     model: User,
                     as: 'likeToUser',
-                    foreignKey: 'likeToUser'
+                    foreignKey: 'likeToUser',
+                    include: [{
+                        model: University,
+                        required: true,
+                        as: 'university' // use the same alias as specified when defining the association
+                    }, {
+                        model: Interest,
+                        through: 'UserInterest',
+                        as: 'interests'
+                    }]
                 },
                 {
                     model: User,
                     as: 'likeFromUser',
-                    foreignKey: 'likeFromUser'
+                    foreignKey: 'likeFromUser',
+                    nclude: [{
+                        model: University,
+                        required: true,
+                        as: 'university' // use the same alias as specified when defining the association
+                    }, {
+                        model: Interest,
+                        through: 'UserInterest',
+                        as: 'interests'
+                    }]
                 }
             ]
         });

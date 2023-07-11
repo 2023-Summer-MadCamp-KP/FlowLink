@@ -5,6 +5,7 @@ const { User } = require('../models');
 const { Like } = require('../models');
 const {Interest} =require('../models');
 const {University} =require('../models');
+const {sequelize} = require('../models');
 
 router.get('/add', async function (req, res, next) {
 
@@ -192,7 +193,25 @@ router.get('/add', async function (req, res, next) {
     category: "기타",
     confirmed: true,
   })
+  await Interest.create({
+    name: "NFT",
+    category: "기타",
+    confirmed: true,
+  })
+
   
+  await sequelize.models.UserInterest.create({
+    UserId:1,
+    InterestId:1,
+  })
+  await sequelize.models.UserInterest.create({
+    UserId:1,
+    InterestId:2,
+  })
+  await sequelize.models.UserInterest.create({
+    UserId:1,
+    InterestId:4,
+  })
   
 
 
