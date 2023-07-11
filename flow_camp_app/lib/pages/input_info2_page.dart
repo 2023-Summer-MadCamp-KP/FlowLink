@@ -55,15 +55,15 @@ class _InputInfoPage2State extends State<InputInfoPage2> {
       _isLoading = true;
     });
     var provider = context.read<UserProvider>();
-    provider.getInterest();
+    await provider.getInterest();
 
     interests = provider.allInterests.map((interest) {
       return SelectableInterest(
-          name: interest.name,
-          category: interest.category,
-          confirmed: interest.confirmed,
-          isSelected: false,
-          );
+        name: interest.name,
+        category: interest.category,
+        confirmed: interest.confirmed,
+        isSelected: false,
+      );
     }).toList();
 
     if (mounted) {
@@ -78,7 +78,6 @@ class _InputInfoPage2State extends State<InputInfoPage2> {
     if (_isLoading) return LoadingIndicator();
     UserProvider userProvider = context.watch<UserProvider>();
 
-    
     categorizedInterests = {};
     for (var interest in interests) {
       if (categorizedInterests.containsKey(interest.category)) {
@@ -138,10 +137,13 @@ class _InputInfoPage2State extends State<InputInfoPage2> {
                           children: categorizedInterests[key]!
                               .map((interest) => CupertinoListTile(
                                     title: Text(interest.name),
-                                    leading: Container(
-                                      width: double.infinity,
-                                      height: double.infinity,
-                                      color:  interest.isSelected ? CupertinoColors.activeGreen:CupertinoColors.systemGrey,
+                                    leading: CupertinoCheckbox(
+                                      value: interest.isSelected,
+                                      onChanged: (bool? value) {
+                                        setState(() {
+                                          interest.isSelected = value!;
+                                        });
+                                      },
                                     ),
                                     trailing: const CupertinoListTileChevron(),
                                     onTap: () {
