@@ -171,10 +171,7 @@ class _ProfileListPageState extends State<ProfileListPage> {
                                 AssetImage(persons[index].profileImage),
                           ),
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ProfileViewPage(user: persons[index])));
+                            
                            },
                         ),
                         title: Text(persons[index].name,
@@ -220,10 +217,7 @@ class _ProfileListPageState extends State<ProfileListPage> {
                             backgroundImage:
                                 AssetImage(persons[index].profileImage),
                           ),
-                          onPressed: () {Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ProfileViewPage(user: persons[index])));},
+                          onPressed: () {},
                         ),
                         title: Text(persons[index].name,
                             style: TextStyle(fontSize: 15)),
