@@ -5,7 +5,7 @@ const { User } = require('../models');
 const { Like } = require('../models');
 
 router.get('/adddummyuser', async function (req, res, next) {
-  for (let i = 0; i < 100; i++) {
+  for (let i = 1; i <= 100; i++) {
     let key = i.toString();
     if (i < 10) {
       await User.create({
