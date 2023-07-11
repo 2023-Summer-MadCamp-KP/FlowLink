@@ -1,5 +1,5 @@
 import 'package:flow_camp_app/pages/profile_list_page.dart';
-import 'package:flow_camp_app/utils/reg_class_of.dart';
+import 'package:flow_camp_app/utils/decode_prtc_year.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
