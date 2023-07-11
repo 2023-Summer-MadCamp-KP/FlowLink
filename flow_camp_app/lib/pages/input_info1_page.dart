@@ -172,11 +172,9 @@ class _InputInfoPage1State extends State<InputInfoPage1> {
                             readOnly: true,
                             onTap: () {
                               setState(() {
-                                              _univController.text =
-                                                  _universities[0]
-                                                      .name
-                                                      .toString();
-                                            });
+                                _univController.text =
+                                    _universities[0].name.toString();
+                              });
                               showCupertinoModalPopup(
                                 context: context,
                                 builder: (context) {
@@ -297,7 +295,6 @@ class _InputInfoPage1State extends State<InputInfoPage1> {
                             controller: _sidController,
                             focusNode: _sidFocusNode,
                             textInputAction: TextInputAction.next,
-                            
                             padding: const EdgeInsets.only(left: 10),
                             textAlignVertical: TextAlignVertical.center,
                             placeholder: "KAIST 학번",
@@ -335,9 +332,8 @@ class _InputInfoPage1State extends State<InputInfoPage1> {
                           child: CupertinoTextField(
                             onTap: () {
                               setState(() {
-                                              _classController.text =
-                                                  '1';
-                                            });
+                                _classController.text = '1';
+                              });
                               showCupertinoModalPopup(
                                 context: context,
                                 builder: (context) {
@@ -348,7 +344,6 @@ class _InputInfoPage1State extends State<InputInfoPage1> {
                                       Container(
                                         height: 200,
                                         child: CupertinoPicker(
-                                      
                                           looping: false,
                                           itemExtent: 30,
                                           onSelectedItemChanged: (index) {
