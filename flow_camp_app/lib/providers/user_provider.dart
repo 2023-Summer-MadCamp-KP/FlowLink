@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flow_camp_app/constants/urls.dart';
+import 'package:flow_camp_app/models/interest.dart';
 import 'package:flow_camp_app/models/like.dart';
 import 'package:flow_camp_app/models/user.dart';
 import 'package:flutter/cupertino.dart';
@@ -22,6 +23,9 @@ class UserProvider extends ChangeNotifier {
 
   late User _me;
   User get me => _me;
+
+  List<Interest> _allInterests = [];
+  List<Interest> get allInterests => _allInterests;
 
   void setSignIn(bool isSignIn) {
     _isSignIn = isSignIn;
@@ -223,25 +227,12 @@ class UserProvider extends ChangeNotifier {
     try {
       var response = await dio.get('${DIO_BASE_URL}/api/interest');
       final jsonData = response.data;
-      print(jsonData.toString());
+      _allInterests = List<Interest>.from(jsonData.map((json) => Interest.fromJson(json)));
+      notifyListeners();
+    } on DioException catch (e) {
+      print(e);
     } catch (e) {
       print(e);
-      await showDialog(
-        context: context,
-        builder: (_) => CupertinoAlertDialog(
-          title: Text('Error'),
-          content: Text('로그인이 거절되었습니다.'),
-          actions: <Widget>[
-            CupertinoDialogAction(
-              isDefaultAction: true,
-              child: Text('Ok'),
-              onPressed: () {
-                Navigator.of(context, rootNavigator: true).pop('dialog');
-              },
-            ),
-          ],
-        ),
-      );
-    }
+    } 
   }
 }
