@@ -57,7 +57,7 @@ class UserProvider extends ChangeNotifier {
         'platform': 'normal',
       });
       final token = response.headers['Authorization']?.first;
-      saveToken(token!);
+      await saveToken(token!);
       setSignIn(true);
     } on DioException catch (e) {
       print(e);
@@ -184,27 +184,38 @@ class UserProvider extends ChangeNotifier {
     return;
   }
 
-  // Future<void> apiLikePost(toId) async {
-  //   try {
-  //     Dio dio = Dio();
-  //     var options = await loadTokenOption();
-  //     final response = await dio.get(
-  //       '${DIO_BASE_URL}/api/like?dir=from&id=${_me.id}}',
-  //       options: options,
-  //     );
+  Future<void> apiLikePost(int toId, bool toMake) async {
+    try {
+      Dio dio = Dio();
+      var options = await loadTokenOption();
 
-  //     final jsonData = response.data;
-  //     _giveLikes = List<Like>.from(jsonData.map((json) => Like.fromJson(json)));
-  //     notifyListeners();
-  //   } on DioException catch (e) {
-  //     if (e.response?.statusCode == 401 || e.response?.statusCode == 403) {
-  //       print('Token is invalid');
-  //       setSignIn(false);
-  //       // 401 에러 처리
-  //     }
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  //   return;
-  // }
+      Map<String, dynamic> requestData = {
+        'likeFrom': me.id, // likeFrom 필드에 넣을 값
+        'likeTo': toId, // likeTo 필드에 넣을 값
+      };
+      if (toMake == true) {
+        final response = await dio.post(
+          '${DIO_BASE_URL}/api/like',
+          data: requestData,
+          options: options,
+        );
+      }
+      else{
+final response = await dio.delete(
+          '${DIO_BASE_URL}/api/like',
+          data: requestData,
+          options: options,
+        );
+      }
+      notifyListeners();
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 401 || e.response?.statusCode == 403) {
+        print('Token is invalid');
+        setSignIn(false);
+        // 401 에러 처리
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 }

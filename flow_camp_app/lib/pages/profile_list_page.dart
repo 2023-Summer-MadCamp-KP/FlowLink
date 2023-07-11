@@ -196,12 +196,18 @@ class _ProfileListPageState extends State<ProfileListPage> {
                         title: Text(persons[index].name,
                             style: TextStyle(fontSize: 15)),
                         subtitle: Text(persons[index].prtcpntYear.toString()),
-                        trailing: Icon(
-                          Icons.favorite,
-                          size: 40,
-                          color: persons[index].islike
-                              ? Colors.red
-                              : Colors.grey,
+                        trailing: GestureDetector(
+                          onTap: () async{
+                            await provider.apiLikePost(persons[index].id,!persons[index].islike);
+                            await provider.apiLike();
+                          },
+                          child: Icon(
+                            Icons.favorite,
+                            size: 40,
+                            color: persons[index].islike
+                                ? Colors.red
+                                : Colors.grey,
+                          ),
                         ),
                       ),
                     ),
