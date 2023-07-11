@@ -3,6 +3,7 @@ import 'package:flow_camp_app/providers/user_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flow_camp_app/pages/profile_view_page.dart';
 
 class ProfileListPage extends StatefulWidget {
   const ProfileListPage({Key? key}) : super(key: key);
@@ -150,11 +151,20 @@ class _ProfileListPageState extends State<ProfileListPage> {
                       ),
                       child: CupertinoListTile(
                         leadingSize: 60,
-                        leading: CircleAvatar(
-                          radius: 30,
-                          backgroundColor: Colors.white,
-                          backgroundImage:
-                              AssetImage(persons[index].profileImage),
+                        leading: CupertinoButton(
+                          padding: EdgeInsets.zero,
+                          child: CircleAvatar(
+                            radius: 30,
+                            backgroundColor: Colors.white,
+                            backgroundImage:
+                                AssetImage(persons[index].profileImage),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ProfileViewPage(user: persons[index])));
+                          },
                         ),
                         title: Text(persons[index].name,
                             style: TextStyle(fontSize: 20)),
@@ -187,18 +197,26 @@ class _ProfileListPageState extends State<ProfileListPage> {
                       ),
                       child: CupertinoListTile(
                         leadingSize: 50,
-                        leading: CircleAvatar(
-                          radius: 30,
-                          backgroundColor: Colors.white,
-                          backgroundImage:
-                              AssetImage(persons[index].profileImage),
+                        leading: CupertinoButton(
+                          padding: EdgeInsets.zero,
+                          child: CircleAvatar(
+                            radius: 30,
+                            backgroundColor: Colors.white,
+                            backgroundImage:
+                                AssetImage(persons[index].profileImage),
+                          ),
+                          onPressed: () {Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ProfileViewPage(user: persons[index])));},
                         ),
                         title: Text(persons[index].name,
                             style: TextStyle(fontSize: 15)),
                         subtitle: Text(persons[index].prtcpntYear.toString()),
                         trailing: GestureDetector(
-                          onTap: () async{
-                            await provider.postLike(persons[index].id,!persons[index].islike);
+                          onTap: () async {
+                            await provider.postLike(
+                                persons[index].id, !persons[index].islike);
                             await provider.getLike();
                           },
                           child: Icon(
