@@ -12,7 +12,9 @@ class ProfileListPage extends StatefulWidget {
 }
 
 class Person extends User {
-  String profileImage;
+  var profileImage;
+
+  var islike;
 
   Person({
     required int id,
@@ -25,6 +27,7 @@ class Person extends User {
     required bool emailConfirmed,
     required bool infoConfirmed,
     required this.profileImage,
+    required this.islike,
   }) : super(
           id: id,
           name: name,
@@ -51,6 +54,7 @@ class _ProfileListPageState extends State<ProfileListPage> {
     var provider = context.read<UserProvider>();
     await provider.apiMe();
     await provider.apiUsers();
+    await provider.apiLike();
     print(provider.me.toJson());
   }
 
@@ -58,9 +62,31 @@ class _ProfileListPageState extends State<ProfileListPage> {
   Widget build(BuildContext context) {
     var provider = context.watch<UserProvider>();
     print("change notify");
-    persons = provider.users
-        .map(
-          (user) => Person(
+    var my = Person(
+      id: provider.me.id,
+      name: provider.me.name,
+      gradOf: provider.me.gradOf,
+      uid: provider.me.uid,
+      password: provider.me.password,
+      platform: provider.me.platform,
+      prtcpntYear: provider.me.prtcpntYear,
+      emailConfirmed: provider.me.emailConfirmed,
+      infoConfirmed: provider.me.infoConfirmed,
+      profileImage: 'assets/images/default_profile.png',
+      islike: false, // Add your images here
+    );
+    Set<int> likeFromValues =
+        provider.giveLikes.map((like) => like.likeTo).toSet();
+    print("ll : " + likeFromValues.toString());
+    persons = provider.users.map(
+      (user) {
+        var ii = true;
+        if (likeFromValues.contains(user.id)) {
+          ii = true;
+        } else {
+          ii = false;
+        }
+        return Person(
             id: user.id,
             name: user.name,
             gradOf: user.gradOf,
@@ -72,9 +98,25 @@ class _ProfileListPageState extends State<ProfileListPage> {
             infoConfirmed: user.infoConfirmed,
             profileImage:
                 'assets/images/default_profile.png', // Add your images here
-          ),
-        )
-        .toList();
+            islike: ii);
+      },
+    ).toList();
+
+    print(provider.me.id);
+    persons.sort((a, b) {
+      if (a.id != my.id && b.id == my.id) {
+        return 1;
+      } else if (a.prtcpntYear == my.prtcpntYear &&
+          b.prtcpntYear != my.prtcpntYear) {
+        return -1;
+      } else if (a.prtcpntYear != my.prtcpntYear &&
+          b.prtcpntYear == my.prtcpntYear) {
+        return 1;
+      } else {
+        return b.prtcpntYear.compareTo(a.prtcpntYear);
+      }
+    });
+
     return CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
           middle: Text('프로필'),
@@ -116,7 +158,7 @@ class _ProfileListPageState extends State<ProfileListPage> {
                         ),
                         title: Text(persons[index].name,
                             style: TextStyle(fontSize: 20)),
-                        subtitle: Text(persons[index].name),
+                        subtitle: Text(persons[index].prtcpntYear.toString()),
                       ),
                     ),
                   ),
@@ -153,7 +195,14 @@ class _ProfileListPageState extends State<ProfileListPage> {
                         ),
                         title: Text(persons[index].name,
                             style: TextStyle(fontSize: 15)),
-                        subtitle: Text(persons[index].name),
+                        subtitle: Text(persons[index].prtcpntYear.toString()),
+                        trailing: Icon(
+                          Icons.favorite,
+                          size: 40,
+                          color: persons[index].islike
+                              ? Colors.red
+                              : Colors.grey,
+                        ),
                       ),
                     ),
                   ),
