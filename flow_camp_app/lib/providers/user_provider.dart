@@ -199,9 +199,8 @@ class UserProvider extends ChangeNotifier {
           data: requestData,
           options: options,
         );
-      }
-      else{
-final response = await dio.delete(
+      } else {
+        final response = await dio.delete(
           '${DIO_BASE_URL}/api/like',
           data: requestData,
           options: options,
@@ -216,6 +215,33 @@ final response = await dio.delete(
       }
     } catch (e) {
       print(e);
+    }
+  }
+
+  Future<void> getInterest(context) async {
+    Dio dio = Dio();
+    try {
+      var response = await dio.get('${DIO_BASE_URL}/api/interest');
+      final jsonData = response.data;
+      print(jsonData.toString());
+    } catch (e) {
+      print(e);
+      await showDialog(
+        context: context,
+        builder: (_) => CupertinoAlertDialog(
+          title: Text('Error'),
+          content: Text('로그인이 거절되었습니다.'),
+          actions: <Widget>[
+            CupertinoDialogAction(
+              isDefaultAction: true,
+              child: Text('Ok'),
+              onPressed: () {
+                Navigator.of(context, rootNavigator: true).pop('dialog');
+              },
+            ),
+          ],
+        ),
+      );
     }
   }
 }

@@ -1,7 +1,9 @@
+import 'package:flow_camp_app/providers/user_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:flow_camp_app/constants/urls.dart';
+import 'package:provider/provider.dart';
 
 class CheckboxItem {
   String title;
@@ -23,33 +25,7 @@ class _InterestPageState extends State<InterestPage> {
     CheckboxItem(title: 'Item 2', checked: false),
   ];
 
-  Future<void> _getInterestList() async {
-    Dio dio = Dio();
-    try {
-      print("gogo");
-      var response = await dio.get('${DIO_BASE_URL}/api/interest');
-      print("nono");
-    } catch (e) {
-      print(e);
-      await showDialog(
-        context: context,
-        builder: (_) => CupertinoAlertDialog(
-          title: Text('Error'),
-          content: Text('로그인이 거절되었습니다.'),
-          actions: <Widget>[
-            CupertinoDialogAction(
-              isDefaultAction: true,
-              child: Text('Ok'),
-              onPressed: () {
-                Navigator.of(context, rootNavigator: true).pop('dialog');
-              },
-            ),
-          ],
-        ),
-      );
-    }
-    return;
-  }
+  
 
   @override
   void initState() {
@@ -62,6 +38,11 @@ class _InterestPageState extends State<InterestPage> {
 
   @override
   Widget build(BuildContext context) {
+    UserProvider userProvider = context.watch<UserProvider>();
+    Future<void> _getInterestList() async {
+    userProvider.getInterest(context);
+    return;
+  }
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -133,7 +114,8 @@ class _InterestPageState extends State<InterestPage> {
                                 style: TextStyle(
                                     fontSize: 13, fontWeight: FontWeight.bold),
                               ),
-                              onPressed: _getInterestList),
+                              onPressed: _getInterestList,
+                          ),
                         ),
                       ],
                     ),
