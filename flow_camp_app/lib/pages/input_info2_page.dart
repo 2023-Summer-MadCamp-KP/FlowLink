@@ -18,9 +18,9 @@ class SelectableInterest extends Interest {
   bool isSelected;
 
   SelectableInterest({
-    required Interest interest,required this.isSelected,
-  })  :
-        super(
+    required Interest interest,
+    required this.isSelected,
+  }) : super(
             id: interest.id,
             name: interest.name,
             category: interest.category,
@@ -170,6 +170,7 @@ class _InputInfoPage2State extends State<InputInfoPage2> {
                           // onPressed: _getInterestList,
                           onPressed: () async {
                             UserInfo userInfo = widget.userInfo;
+                            userInfo.interest.clear();
                             for (var interest in interests) {
                               if (interest.isSelected) {
                                 userInfo.interest.add(interest.id);

@@ -430,6 +430,7 @@ class _InputInfoPage1State extends State<InputInfoPage1> {
                                 }
                                 }
 
+                                //Todo: int.parse의 역할 판단하기.
                                 UserInfo userInfo = UserInfo(
                                     name: _nameController.text,
                                     gradOf: int.parse(_sidController.text),
