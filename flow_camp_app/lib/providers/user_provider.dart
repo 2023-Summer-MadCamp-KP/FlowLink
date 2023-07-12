@@ -7,6 +7,7 @@ import 'package:flow_camp_app/models/like.dart';
 import 'package:flow_camp_app/models/university.dart';
 import 'package:flow_camp_app/models/user.dart';
 import 'package:flow_camp_app/models/user_info.dart';
+import 'package:flow_camp_app/pages/input_info1_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -62,7 +63,7 @@ class UserProvider extends ChangeNotifier {
     );
   }
 
-  Future<void> postSignIn(context, idtext, pwtext,platform) async {
+  Future<void> postSignIn(context, idtext, pwtext, platform) async {
     try {
       Dio dio = Dio();
       var response = await dio.post('${DIO_BASE_URL}/api/signin', data: {
@@ -72,7 +73,14 @@ class UserProvider extends ChangeNotifier {
       });
       final token = response.headers['Authorization']?.first;
       await saveToken(token!);
-      setSignIn(true);
+      if (response.data['infoConfirmed']) {
+        setSignIn(true);
+      } else {
+        await Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => InputInfoPage1()),
+        );
+      }
     } on DioException catch (e) {
       print(e);
     } catch (e) {
@@ -196,7 +204,7 @@ class UserProvider extends ChangeNotifier {
         setSignIn(false);
         // 401 에러 처리
       }
-    } 
+    }
     print("getLike 종료");
     return;
   }
@@ -308,6 +316,7 @@ class UserProvider extends ChangeNotifier {
         data: requestData,
         options: options,
       );
+      setSignIn(true);
       notifyListeners();
     } on DioException catch (e) {
       if (e.response?.statusCode == 401 || e.response?.statusCode == 403) {
