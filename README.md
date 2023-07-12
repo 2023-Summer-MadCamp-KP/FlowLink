@@ -38,29 +38,24 @@
 > 네비게이션 바에 검색 필드를 이용해서 원하는 유저를 빠르게 찾을 수 있습니다.
 > 각 유저의 대학교와 전공도 확인할 수 있습니다.
 
-- ### 연락처 저장하기 
+- ### 좋아요 누르기
 
-  <img src="https://user-images.githubusercontent.com/63537847/124422603-802df980-dd9e-11eb-9906-e80cf7c5bd08.png" width="200" height="400"> <img src="https://user-images.githubusercontent.com/63537847/124422659-9b990480-dd9e-11eb-9267-7b4b571c761e.png" width="200" height="400"> <img src="https://user-images.githubusercontent.com/63537847/124422752-d13ded80-dd9e-11eb-99e7-4065a4c99c3b.png" width="200" height="400">
-   - 연락처를 local에서 가져오기 위해서 dexter 라이브러리를 사용함. READ_CONTACTS 권한을 요청함
-   - query를 사용해서 local에 있는 Phone.CONTENT_URI 받아옴
-   - DISPLAY_NAME은 이름, NUMBER는 전화번호, PHONE_URI는 연락처에 저장된 사진
-   - Action Bar에 있는 item을 클릭하면 연락처 저장을 위한 alert dialog 뜸
-   - Intent를 사용해서 데이터를 전달한 뒤 local 연락처에 전달받은 이름과 전화번호를 저장
-   - 다시 연락처 화면으로 돌아가면 저장된 연락처가 포함되어 있음
+  <img src="https://github.com/2023-Summer-MadCamp-KP/FlowLink/assets/98662998/dbbd34ac-b894-45ce-8bad-97784cbf56f3" width="200" height="400">
 
-- ### 전화하기 
+   - 마음에 드는 유저의 프로필에 좋아요를 누를 수 있음
+   - 좋아요 버튼을 다시 눌러서 취소도 가능
 
-  <img src="https://user-images.githubusercontent.com/63537847/124422815-e9157180-dd9e-11eb-9269-173ca6f23cb2.png" width="200" height="400"> <img src="https://user-images.githubusercontent.com/63537847/124422851-f6caf700-dd9e-11eb-9bfc-c1af7e72a00b.png" width="200" height="400">
-  - Recycler View로 되어있는 layout을 클릭하면 전화가 걸리는 방식으로 프로그램 구성함
-  - 하나의 view를 클릭하게 되면 전화 여부를 물어보는 alert dialog뜸 
-  - " 예"를 선택하게 되면 Intent를 사용해서 바로 전화 걸 수 있는 페이지로 넘어감 
+- ### 프로필 상세정보 확인하기
 
-- ### 연락처 검색하기 
+  <img src="https://github.com/2023-Summer-MadCamp-KP/FlowLink/assets/98662998/bf31f2b2-4d93-412e-b8a6-7d1658a27ab4" width="200" height="400">
+
+  - 유저의 프로필을 터치하면 해당 유저가 입력했던 회원정보들을 볼 수 있음
+
+- ### 검색하기 
   
-  <img src="https://user-images.githubusercontent.com/63537847/124543740-c9468200-de60-11eb-8610-0b3a69fceaff.png" width="200" height="400"> <img src="https://user-images.githubusercontent.com/63537847/124543744-cc417280-de60-11eb-8ddb-484ca99c4fbc.png" width="200" height="400"> <img src="https://user-images.githubusercontent.com/63537847/124543753-cf3c6300-de60-11eb-9bca-bd99abce04df.png" width="200" height="400">
-  - EditText로 검색할 이름 또는 번호를 받아옴
-  - EditText에서 받아온 값이 변경될 때마다 사용할 수 있게 TextWatcher사용함
-  - Filter를 사용해서 이름을 검색할 때와 번호를 검색하는 경우를 나눠 EditText에서 받아온 내용이 포함된 새로운 리스트를 생성해서 보여줌
+  <img src="https://github.com/2023-Summer-MadCamp-KP/FlowLink/assets/98662998/81ac18fa-feea-4545-a4b1-56231fedb24e" width="200" height="400">
+
+  - 검색창을 통해 검색어를 포함하고 있는 이름을 가진 유저들만 볼 수 있음
 
 ## Tab2 : 좋아요
 > 좋아요 Tab은 기본으로 나의 프로필에 좋아요 버튼을 누른 유저들을 확인할 수 있습니다.
@@ -79,6 +74,18 @@
   <img src = "https://github.com/2023-Summer-MadCamp-KP/FlowLink/assets/98662998/07fa609e-9a11-4d17-a368-dd6781f6ea91" width="200" height="400">
 
   - 서로의 프로필에 좋아요 버튼을 누른 유저들을 확인할 수 있음
+
+- ### 프로필 상세정보 확인하기
+
+  <img src="https://github.com/2023-Summer-MadCamp-KP/FlowLink/assets/98662998/bf31f2b2-4d93-412e-b8a6-7d1658a27ab4" width="200" height="400">
+
+  - 유저의 프로필을 터치하면 해당 유저가 입력했던 회원정보들을 볼 수 있음
+
+- ### 검색하기 
+  
+  <img src="https://github.com/2023-Summer-MadCamp-KP/FlowLink/assets/98662998/15102261-12dd-4dac-8543-535fa67573bf" width="200" height="400">
+
+  - 검색창을 통해 검색어를 포함하고 있는 이름을 가진 유저들만 볼 수 있음
 
 ## Tab3 : 설정
 
