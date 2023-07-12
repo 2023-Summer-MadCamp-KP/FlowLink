@@ -31,7 +31,7 @@ router.post('/', async function (req, res, next) {
     await user.save();
 
     res.setHeader('authorization', 'Bearer ' + token);
-    res.json({ message: '로그인 성공',});
+    res.json(user);
 
   } catch (error) {
     console.error(error);

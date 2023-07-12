@@ -62,7 +62,7 @@ app.use('/api/like',authenticateToken, likeRouter);
 app.use('/api/signout',authenticateToken, singoutRouter);
 app.use('/api/interest', interestRouter);
 app.use('/api/university', universityRouter);
-app.use('/api/info', infoRouter);
+app.use('/api/info', authenticateToken,infoRouter);
 
 //--------------------------------
 

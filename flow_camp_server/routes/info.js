@@ -4,7 +4,7 @@ const {User} = require('../models');
 
 /* GET home page. */
 router.patch('/', async function (req, res, next) {
-    var myID = 2;
+    var myID = req.user.id;
     try {
         console.log("info patch!!");
         const { name, gradOf, universityId, prtcpntYear, interest } = req.body; // assuming 'interest' is an array of interest ids
