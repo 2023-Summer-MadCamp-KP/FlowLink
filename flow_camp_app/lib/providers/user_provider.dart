@@ -6,6 +6,7 @@ import 'package:flow_camp_app/models/interest.dart';
 import 'package:flow_camp_app/models/like.dart';
 import 'package:flow_camp_app/models/university.dart';
 import 'package:flow_camp_app/models/user.dart';
+import 'package:flow_camp_app/models/user_info.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -286,21 +287,12 @@ class UserProvider extends ChangeNotifier {
   }
 
   //userInfo 전송
-  Future<void> postUserInfo(String name, int gradOf, int universityId,
-      int prtcpntYear, List<Map<String, String>> interest) async {
+  Future<void> postUserInfo(UserInfo userInfo) async {
     try {
       Dio dio = Dio();
       var options = await loadTokenOption();
-
-      Map<String, dynamic> requestData = {
-        'uid': me!.id, // likeFrom 필드에 넣을 값
-        'name': name, // likeTo 필드에 넣을 값
-        'gradOf': gradOf,
-        'universityId': universityId,
-        'prtcpntYear': prtcpntYear,
-        'interest': interest,
-      };
-
+      print("Userinfo 전송");
+      Map<String, dynamic> requestData = userInfo.toJson();
       final response = await dio.patch(
         '${DIO_BASE_URL}/api/info',
         data: requestData,

@@ -3,7 +3,7 @@ class UserInfo {
   final int gradOf;
   final int universityId;
   final int prtcpntYear;
-  final List<Map<String, String>> interest;
+  final List<int> interest;
 
   UserInfo({
     required this.name,
@@ -13,22 +13,20 @@ class UserInfo {
     required this.interest,
   });
 
-  factory UserInfo.fromJson(Map<String, dynamic> json) {
-    return UserInfo(
-      name: json['name'],
-      gradOf: json['gradOf'],
-      universityId: json['universityId'],
-      prtcpntYear: json['prtcpntYear'],
-      interest: json['interest'],
-    );
-  }
-  Map<String, dynamic> toJson() {
-    return {
-      'name': name,
-      'gradOf': gradOf,
-      'universityId': universityId,
-      'prtcpntYear': prtcpntYear,
-      'interest': interest,
-    };
-  }
+  // Named constructor that initializes a UserInfo instance from a Map
+  UserInfo.fromJson(Map<String, dynamic> json)
+      : name = json['name'],
+        gradOf = json['gradOf'],
+        universityId = json['universityId'],
+        prtcpntYear = json['prtcpntYear'],
+        interest = List<int>.from(json['interest']);
+
+  // Method that converts a UserInfo instance into a Map
+  Map<String, dynamic> toJson() => {
+        'name': name,
+        'gradOf': gradOf,
+        'universityId': universityId,
+        'prtcpntYear': prtcpntYear,
+        'interest': interest,
+      };
 }

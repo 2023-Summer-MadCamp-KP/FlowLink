@@ -17,16 +17,14 @@ class CheckboxItem {
 class SelectableInterest extends Interest {
   bool isSelected;
 
-  SelectableInterest(
-      {required String name,
-      required String category,
-      required bool confirmed,
-      bool isSelected = false})
-      : this.isSelected = isSelected,
+  SelectableInterest({
+    required Interest interest,required this.isSelected,
+  })  :
         super(
-            name: name,
-            category: category,
-            confirmed: confirmed); // Call the super constructor
+            id: interest.id,
+            name: interest.name,
+            category: interest.category,
+            confirmed: interest.confirmed); // Call the super constructor
 }
 
 class InputInfoPage2 extends StatefulWidget {
@@ -62,9 +60,7 @@ class _InputInfoPage2State extends State<InputInfoPage2> {
 
     interests = provider.allInterests.map((interest) {
       return SelectableInterest(
-        name: interest.name,
-        category: interest.category,
-        confirmed: interest.confirmed,
+        interest: interest,
         isSelected: false,
       );
     }).toList();
@@ -172,21 +168,15 @@ class _InputInfoPage2State extends State<InputInfoPage2> {
                                 fontSize: 13, fontWeight: FontWeight.bold),
                           ),
                           // onPressed: _getInterestList,
-                          onPressed: () async{
+                          onPressed: () async {
                             UserInfo userInfo = widget.userInfo;
-                            for (String key in categorizedInterests.keys) {
-                              for (SelectableInterest selectableInterest
-                                  in categorizedInterests[key]!) {
-                                if (selectableInterest.isSelected) {
-                                  userInfo.interest.add({
-                                    "name": selectableInterest.name,
-                                    "category": selectableInterest.category
-                                  });
-                                }
+                            for (var interest in interests) {
+                              if (interest.isSelected) {
+                                userInfo.interest.add(interest.id);
                               }
                             }
                             print(userInfo.interest);
-                            await userProvider.postUserInfo(userInfo.name, userInfo.gradOf, userInfo.universityId, userInfo.prtcpntYear, userInfo.interest);
+                            await userProvider.postUserInfo(userInfo);
                           },
                         ),
                       ),
