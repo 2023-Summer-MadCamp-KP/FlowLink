@@ -5,8 +5,8 @@ var router = express.Router();
 router.patch('/', async function (req, res, next) {
     try {
         console.log("info patch!!");
-        const { uid, name, gradOf, universityId, prtcpntYear, interest } = req.body;
-        console.log(uid, name, gradOf, universityId, prtcpntYear, interest);
+        const {name, gradOf, universityId, prtcpntYear, interest } = req.body;
+        console.log(name, gradOf, universityId, prtcpntYear, interest);
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
