@@ -102,7 +102,7 @@ class _InputInfoPage2State extends State<InputInfoPage2> {
         ),
         child: SafeArea(
             child: Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.grey[100],
           body: Scrollbar(
             thumbVisibility: true,
             child: SingleChildScrollView(
@@ -112,22 +112,24 @@ class _InputInfoPage2State extends State<InputInfoPage2> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
-                      SizedBox(
-                        width: 200,
-                        height: 50,
-                        child: Image.asset("assets/images/flowlinkLogo.png"),
-                      ),
+                      // SizedBox(
+                      //   width: 200,
+                      //   height: 50,
+                      //   child: Image.asset("assets/images/flowlinkLogo.png"),
+                      // ),
                       SizedBox(
                         width: double.infinity,
-                        height: 40,
+                        height: 20,
                       ),
                       const SizedBox(
                         width: double.infinity,
-                        height: 50,
-                        child: const Text(
-                          "관심사를 선택하세요",
-                          style: TextStyle(
-                            fontSize: 30,
+                        child: Center(
+                          child: const Text(
+                            "관심 분야를 모두 선택해주세요",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold
+                            ),
                           ),
                         ),
                       ),
