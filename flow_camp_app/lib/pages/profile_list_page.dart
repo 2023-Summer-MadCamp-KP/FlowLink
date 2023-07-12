@@ -176,8 +176,15 @@ class _ProfileListPageState extends State<ProfileListPage> {
                             height: 1,
                             width: double.infinity,
                             color: CupertinoColors.separator),
-                        Text(
-                            "${decodePrtcYear(persons[index].prtcpntYear)[0]}_${decodePrtcYear(persons[index].prtcpntYear)[1]}_${decodePrtcYear(persons[index].prtcpntYear)[2]}분반")
+                        Padding(
+                          padding: EdgeInsets.only(left: 20),
+                          child: Text(
+                            "${decodePrtcYear(persons[index].prtcpntYear)[0]}_${decodePrtcYear(persons[index].prtcpntYear)[1]}_${decodePrtcYear(persons[index].prtcpntYear)[2]}분반",
+                            style: TextStyle(
+                              color: Colors.blue,
+                            ),
+                          )
+                        ),
                       ],
                       GestureDetector(
                         onTap: () {
