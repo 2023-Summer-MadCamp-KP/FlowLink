@@ -4,7 +4,7 @@
 
 |로그인|프로필|좋아요|설정|
 |--|--|--|--|
-|<img src="https://user-images.githubusercontent.com/63537847/124421905-5f18d900-dd9d-11eb-839c-84f6ce84f1ce.png" width="200" height="400">|<img src="https://github.com/2023-Summer-MadCamp-KP/FlowLink/assets/98662998/cc5d91ad-ae88-48e9-b4c4-5c335fd8566f">|<img src="https://user-images.githubusercontent.com/63537847/124422205-eb2b0080-dd9d-11eb-8886-4bbd4c79f223.png" width="200" height="400">|<img src = "https://user-images.githubusercontent.com/58783348/124560386-b5f2e100-de77-11eb-9da4-ddfbaab408c8.jpeg" width = "200" height = "400">|
+|<img src="https://user-images.githubusercontent.com/63537847/124421905-5f18d900-dd9d-11eb-839c-84f6ce84f1ce.png" width="200" height="400">|<img src="https://github.com/2023-Summer-MadCamp-KP/FlowLink/assets/98662998/cc5d91ad-ae88-48e9-b4c4-5c335fd8566f" width="200" height="400">|<img src="https://user-images.githubusercontent.com/63537847/124422205-eb2b0080-dd9d-11eb-8886-4bbd4c79f223.png" width="200" height="400">|<img src = "https://user-images.githubusercontent.com/58783348/124560386-b5f2e100-de77-11eb-9da4-ddfbaab408c8.jpeg" width = "200" height = "400">|
 
 ## 로그인
 > 가입된 유저들을 분반별로 확인할 수 있습니다. 마음에 드는 유저에게 좋아요 버튼을 누를 수 있습니다. 각 유저의 프로필을 터치하여 프로필 상세정보를 확인할 수 있습니다.
