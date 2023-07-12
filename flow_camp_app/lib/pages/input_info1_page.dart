@@ -543,18 +543,19 @@ class _InputInfoPage1State extends State<InputInfoPage1> {
                               ),
                               onPressed: () async {
                                 int getUniversityId(university) {
+                                  //하드 코딩 문제
                                   switch (university) {
                                     case "GIST":
                                       return 1;
-                                    case "고려대학교":
+                                    case "KAIST":
                                       return 2;
                                     case "UNIST":
                                       return 3;
-                                    case "KAIST":
+                                    case "고려대학교":
                                       return 4;
-                                    case "한양대학교":
-                                      return 5;
                                     case "성균관대학교":
+                                      return 5;
+                                    case "한양대학교":
                                       return 6;
                                     default:
                                       return 0;
