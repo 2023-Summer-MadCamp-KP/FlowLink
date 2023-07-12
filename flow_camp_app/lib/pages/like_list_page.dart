@@ -80,7 +80,7 @@ class _LikeListPageState extends State<LikeListPage> {
   late List<Person> peopleShow = [];
 
   int _likeFilter = 0;
-  List<String> _likeFilterText = ["나를 좋아함", "내가 좋아함", "서로 좋아함"];
+  List<String> _likeFilterText = ["나를 좋아해", "내가 좋아해", "서로 좋아해"];
   List<String> _categoryFilter = [];
 
   String searchQuery = '';
@@ -126,7 +126,7 @@ class _LikeListPageState extends State<LikeListPage> {
                       });
                       _close(_);
                     },
-                    child: const Text("나를 좋아함")),
+                    child: const Text("나를 좋아해")),
                 CupertinoActionSheetAction(
                     onPressed: () {
                       setState(() {
@@ -134,7 +134,7 @@ class _LikeListPageState extends State<LikeListPage> {
                       });
                       _close(_);
                     },
-                    child: const Text("내가 좋아함")),
+                    child: const Text("내가 좋아해")),
                 CupertinoActionSheetAction(
                     onPressed: () {
                       setState(() {
@@ -142,7 +142,7 @@ class _LikeListPageState extends State<LikeListPage> {
                       });
                       _close(_);
                     },
-                    child: const Text("서로 좋아함")),
+                    child: const Text("서로 좋아해")),
               ],
               cancelButton: CupertinoActionSheetAction(
                 onPressed: () => _close(_),
@@ -405,6 +405,7 @@ class _LikeListPageState extends State<LikeListPage> {
               height: 100,
               child: Row(
                 children: [
+                  SizedBox(width: 20,),
                   Expanded(
                     flex: 3,
                     child: CupertinoSearchTextField(
@@ -420,7 +421,7 @@ class _LikeListPageState extends State<LikeListPage> {
                   Expanded(
                     flex: 1,
                     child: CupertinoButton(
-                      child: Text(_likeFilterText[_likeFilter]),
+                      child: Text(_likeFilterText[_likeFilter],style: TextStyle(fontSize: 17),),
                       onPressed: () => _showLike(context),
                     ),
                   ),

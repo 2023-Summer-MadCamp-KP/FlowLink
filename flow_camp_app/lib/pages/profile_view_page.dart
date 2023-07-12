@@ -68,6 +68,7 @@ class _ProfileViewPageState extends State<ProfileViewPage> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
+                        
                         SizedBox(
                           height: textMargin,
                         ),
@@ -77,6 +78,35 @@ class _ProfileViewPageState extends State<ProfileViewPage> {
                             color: Colors.blue,
                             fontSize: 18,
                           ),
+                        ),
+                        SizedBox(
+                          height: boxMargin,
+                        ),
+                        DefaultTextStyle(
+                          child: Text("흥미"), // 유저 이름
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(
+                          height: textMargin,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: widget.user.interests!.map((e) {
+                            return Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
+                              child: DefaultTextStyle(
+                                child: Text("${e.name} ( ${e.category} )" ), // 유저 이름
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            );
+                          }).toList(),
                         ),
                         SizedBox(
                           height: boxMargin,
@@ -147,35 +177,7 @@ class _ProfileViewPageState extends State<ProfileViewPage> {
                             fontSize: 18,
                           ),
                         ),
-                        SizedBox(
-                          height: boxMargin,
-                        ),
-                        DefaultTextStyle(
-                          child: Text("흥미"), // 유저 이름
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(
-                          height: textMargin,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: widget.user.interests!.map((e) {
-                            return Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
-                              child: DefaultTextStyle(
-                                child: Text("${e.name} ( ${e.category} )" ), // 유저 이름
-                                style: TextStyle(
-                                  color: Colors.blue,
-                                  fontSize: 18,
-                                ),
-                              ),
-                            );
-                          }).toList(),
-                        ),
+                        
                         SizedBox(
                           height: boxMargin,
                         ),
