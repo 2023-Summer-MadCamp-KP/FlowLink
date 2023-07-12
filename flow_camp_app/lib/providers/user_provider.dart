@@ -64,8 +64,9 @@ class UserProvider extends ChangeNotifier {
   }
 
   Future<void> postSignIn(context, idtext, pwtext, platform) async {
+    Dio dio;
     try {
-      Dio dio = Dio();
+      dio = Dio();
       var response = await dio.post('${DIO_BASE_URL}/api/signin', data: {
         'uid': idtext,
         'password': pwtext,
@@ -82,7 +83,40 @@ class UserProvider extends ChangeNotifier {
         );
       }
     } on DioException catch (e) {
-      print(e);
+      try {
+        //카카오톡으로 로그인했는데 없는 유저면, 회원 가입을 자동으로 해준다.
+        if (platform == 'kakao') {
+          dio = Dio();
+          var response = await dio.post('${DIO_BASE_URL}/api/signup', data: {
+            'uid': idtext,
+            'password': pwtext,
+            'platform': platform,
+          });
+          response = await dio.post('${DIO_BASE_URL}/api/signin', data: {
+            'uid': idtext,
+            'password': pwtext,
+            'platform': platform,
+          });
+          final token = response.headers['Authorization']?.first;
+          await saveToken(token!);
+          if (response.data['infoConfirmed']) {
+            setSignIn(true);
+          } else {
+            await Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => InputInfoPage1()),
+            );
+          }
+        }
+      } on DioException catch (e) {
+        if (e.response?.statusCode == 401 || e.response?.statusCode == 403) {
+          print('Token is invalid');
+          setSignIn(false);
+          // 401 에러 처리
+        }
+      } catch (e) {
+        print(e);
+      }
     } catch (e) {
       print(e);
       await showDialog(

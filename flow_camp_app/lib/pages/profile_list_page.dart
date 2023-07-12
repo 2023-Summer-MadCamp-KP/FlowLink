@@ -157,15 +157,11 @@ class _ProfileListPageState extends State<ProfileListPage> {
                         ),
                         child: CupertinoListTile(
                           leadingSize: 60,
-                          leading: CupertinoButton(
-                            padding: EdgeInsets.zero,
-                            child: CircleAvatar(
-                              radius: 30,
-                              backgroundColor: Colors.white,
-                              backgroundImage:
-                                  AssetImage(persons[index].profileImage),
-                            ),
-                            onPressed: () {},
+                          leading: CircleAvatar(
+                            radius: 30,
+                            backgroundColor: Colors.white,
+                            backgroundImage:
+                                AssetImage(persons[index].profileImage),
                           ),
                           title: Text(persons[index].name,
                               style: TextStyle(fontSize: 20)),

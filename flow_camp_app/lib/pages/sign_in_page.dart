@@ -10,6 +10,8 @@ import 'package:flutter/services.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:provider/provider.dart';
 import 'package:dio/dio.dart';
+import 'package:web_socket_channel/io.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key, required this.title});
@@ -32,6 +34,16 @@ class _SignInPageState extends State<SignInPage> {
     _pwController = TextEditingController();
     _idFocusNode = FocusNode();
     _pwFocusNode = FocusNode();
+
+    IO.Socket socket = IO.io( SOCKET_BASE_URL, <String, dynamic>{
+      'transports': ['websocket'],
+    });
+
+    socket.on('connect', (_) {
+      print('connected');
+    });
+
+    socket.on('message', (data) => print(data));
   }
 
   @override
@@ -70,7 +82,7 @@ class _SignInPageState extends State<SignInPage> {
             '\n닉네임: ${user.kakaoAccount?.profile?.nickname}'
             '\n이메일: ${user.kakaoAccount?.email}');
         await userProvider.postSignIn(context, "kakao" + user.id.toString(),
-            "kakao" + user.id.toString(), "normal");
+            "kakao" + user.id.toString(), "kakao");
       } catch (error) {
         print('사용자 정보 요청 실패 $error');
       }
