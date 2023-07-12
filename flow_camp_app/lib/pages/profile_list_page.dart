@@ -158,7 +158,7 @@ class _ProfileListPageState extends State<ProfileListPage> {
                           ),
                           title: Text(persons[index].name,
                               style: TextStyle(fontSize: 20)),
-                          subtitle: Text(persons[index].prtcpntYear.toString()),
+                          subtitle: Text("${persons[index].university?.name}/${persons[index].university?.major}"),
                         ),
                       ),
                     ),
