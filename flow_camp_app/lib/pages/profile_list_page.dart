@@ -59,9 +59,11 @@ class _ProfileListPageState extends State<ProfileListPage> {
     await provider.getMe();
     await provider.getUsers();
     await provider.getLike();
-    setState(() {
-      _isLoading = false;
-    });
+    if (mounted) {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   @override

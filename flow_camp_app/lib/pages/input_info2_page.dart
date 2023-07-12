@@ -1,4 +1,5 @@
 import 'package:flow_camp_app/components/loading_indicator_page.dart';
+import 'package:flow_camp_app/main.dart';
 import 'package:flow_camp_app/models/interest.dart';
 import 'package:flow_camp_app/models/user_info.dart';
 import 'package:flutter/cupertino.dart';
@@ -178,6 +179,10 @@ class _InputInfoPage2State extends State<InputInfoPage2> {
                             }
                             print(userInfo.interest);
                             await userProvider.postUserInfo(userInfo);
+                            Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(builder: (context) => MyApp()),
+                              (Route<dynamic> route) => false,
+                            );
                           },
                         ),
                       ),
