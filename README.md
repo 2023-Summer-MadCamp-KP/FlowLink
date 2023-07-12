@@ -2,6 +2,8 @@
 
 > 김현수, 박근영
 
+> Flutter, Express, Mysql
+
 |로그인|프로필|좋아요|설정|
 |--|--|--|--|
 |<img src="https://github.com/2023-Summer-MadCamp-KP/FlowLink/assets/98662998/40f1dd00-2014-4ccf-8686-3d7816b53eb8" width="200" height="400">|<img src="https://github.com/2023-Summer-MadCamp-KP/FlowLink/assets/98662998/cc5d91ad-ae88-48e9-b4c4-5c335fd8566f" width="200" height="400">|<img src="https://github.com/2023-Summer-MadCamp-KP/FlowLink/assets/98662998/fbea1eaf-3b7e-4924-a168-6b63222ac086" width="200" height="400">|<img src = "https://github.com/2023-Summer-MadCamp-KP/FlowLink/assets/98662998/281593f0-a67d-4a57-8bb4-30ac659f2eb6" width = "200" height = "400">|
@@ -34,6 +36,7 @@
 ## Tab1 : 프로필
 > 가입된 유저들을 분반별로 확인할 수 있습니다. 마음에 드는 유저에게 좋아요 버튼을 누를 수 있습니다. 각 유저의 프로필을 터치하여 프로필 상세정보를 확인할 수 있습니다.
 > 네비게이션 바에 검색 필드를 이용해서 원하는 유저를 빠르게 찾을 수 있습니다.
+> 각 유저의 대학교와 전공도 확인할 수 있습니다.
 
 - ### 연락처 저장하기 
 
@@ -61,28 +64,21 @@
 
 ## Tab2 : 좋아요
 > 좋아요 Tab은 기본으로 나의 프로필에 좋아요 버튼을 누른 유저들을 확인할 수 있습니다.
-> 마찬가지로 네비게이션 바에 검색 필드를 이용해서 원하는 유저를 빠르게 찾을 수 있습니다. 또한, 우측 상단의 버튼을 눌러 나의 프로필에 좋아요를 누른 유저 목록뿐만 아니라, 내가 좋아요를 누른 유저 목록, 서로 좋아요를 누른 유저 목록도 확인할 수 있습니다.
-- ### 갤러리 페이지
-  <img src = "https://user-images.githubusercontent.com/68638211/124426397-f3d30500-dda4-11eb-8f4a-08cfefd7826b.jpg" width = "200" height = "400" >
+> 마찬가지로 네비게이션 바에 검색 필드를 이용해서 원하는 유저를 빠르게 찾을 수 있으며, 각 유저의 프로필을 터치하여 프로필 상세정보를 확인할 수 있습니다. 또한 우측 상단의 버튼을 눌러 나의 프로필에 좋아요를 누른 유저 목록뿐만 아니라, 내가 좋아요를 누른 프로필의 유저 목록, 서로 좋아요를 누른 유저 목록도 확인할 수 있습니다.
+> 각 유저의 관심 분야도 확인할 수 있습니다.
+- ### 나를 좋아요 한 사람
+  <img src = "https://github.com/2023-Summer-MadCamp-KP/FlowLink/assets/98662998/99dce61d-1729-4961-9e60-fdfa67166f9f" width = "200" height = "400" >
   
-  - Android MediaStore를 사용하여 앱에서 local storage의 파일을 사용함
-  - 사진 파일을 읽어오기 위해 사용자에게 READ_EXTERNAL_STORAGE 권한을 요청함
-  - local storage에 존재하는 모든 이미지 파일의 uri주소를 반환하는 getAllShownImagesPath 함수를 구현함 
-  - uri주소로 접근한 이미지들을 GridView에 추가하여 화면을 구성함
-- ### 상세 사진 페이지
-  <img src = "https://user-images.githubusercontent.com/68638211/124426143-963eb880-dda4-11eb-95ac-83c1ff9b278f.jpg" width="200" height="400">
+  - 좋아요 탭의 기본 화면
+  - 나의 프로필에 좋아요 버튼을 누른 유저들을 확인할 수 있음
+- ### 내가 좋아요 한 사람
+  <img src = "https://github.com/2023-Summer-MadCamp-KP/FlowLink/assets/98662998/145db436-822a-4b78-ab19-d1a8636d6db5" width="200" height="400">
   
-  - 갤러리 페이지에서 각각의 사진을 누르면 상세 사진 페이지로 이동할 수 있음
-  - 사진을 눌렀을 때 사진의 uri 주소를 bundle 형태로 새로운 fragment로 전달함
-  - 상세 사진 페이지에서 사진을 다시 한 번 누르면 갤러리 페이지로 돌아갈 수 있음 
-- ### 촬영 페이지
-  <img src = "https://user-images.githubusercontent.com/68638211/124426654-4f04f780-dda5-11eb-90e1-0b45466ff8db.jpg" width="200" height="400"> <img src = "https://user-images.githubusercontent.com/68638211/124426657-50cebb00-dda5-11eb-98fa-5112a9d914ad.jpg" width="200" height="400"> <img src = "https://user-images.githubusercontent.com/68638211/124426639-49a7ad00-dda5-11eb-8ef8-c52d83ddf4d7.jpg" width="200" height="400">
-  - 갤러리 페이지에서 우측 상단 카메라 아이콘을 누르면 촬영 페이지로 이동할 수 있음
-  - Android Camera를 사용하여 앱에서 Android 디바이스의 카메라에 접근하여 사용함
-  - SurfaceView 객체를 사용하여 카메라 preview화면을 간접적으로 보여줌
-  - shoot 버튼을 클릭했을 때 camera.takePicture 메소드를 호출하여 사진을 촬영함
-  - 촬영된 사진을 Bitmap 데이터로 변환하여 화면에 표시하고, 새로운 Uri 주소를 할당하여 local storage에 저장함
-  - 촬영 페이지에서 다시 갤러리 페이지로 돌아갔을 때 촬영한 사진을 확인할 수 있음
+  - 내가 좋아요 버튼을 누른 프로필의 유저들을 확인할 수 있음
+- ### 서로 좋아요 한 사람
+  <img src = "https://github.com/2023-Summer-MadCamp-KP/FlowLink/assets/98662998/07fa609e-9a11-4d17-a368-dd6781f6ea91" width="200" height="400">
+
+  - 서로의 프로필에 좋아요 버튼을 누른 유저들을 확인할 수 있음
 
 ## Tab3 : 설정
 
