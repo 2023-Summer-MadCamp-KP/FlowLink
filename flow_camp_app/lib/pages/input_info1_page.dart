@@ -19,19 +19,22 @@ class _InputInfoPage1State extends State<InputInfoPage1> {
   // int _counter = 0;
   bool _isLoading = false;
   var _universities = [];
+  final Map<String, int> _seasonMap = {"봄": 1, "여름": 2, "가을": 3, "겨울": 4};
 
   late TextEditingController _nameController,
       _univController,
       _interestController,
       _yearController,
       _sidController,
-      _classController;
+      _classController,
+      _seasonController;
   late FocusNode _nameFocusNode,
       _univFocusNode,
       _interestFocusNode,
       _yearFocusNode,
       _sidFocusNode,
-      _classFocusNode;
+      _classFocusNode,
+      _seasonFocusNode;
 
   @override
   void initState() {
@@ -42,6 +45,7 @@ class _InputInfoPage1State extends State<InputInfoPage1> {
     _yearController = TextEditingController();
     _sidController = TextEditingController();
     _classController = TextEditingController();
+    _seasonController = TextEditingController();
 
     _nameFocusNode = FocusNode();
     _univFocusNode = FocusNode();
@@ -49,6 +53,7 @@ class _InputInfoPage1State extends State<InputInfoPage1> {
     _yearFocusNode = FocusNode();
     _sidFocusNode = FocusNode();
     _classFocusNode = FocusNode();
+    _seasonFocusNode = FocusNode();
 
     apiInit();
   }
@@ -73,6 +78,7 @@ class _InputInfoPage1State extends State<InputInfoPage1> {
     _yearController.dispose();
     _sidController.dispose();
     _classController.dispose();
+    _seasonController.dispose();
 
     _nameFocusNode.dispose();
     _univFocusNode.dispose();
@@ -80,6 +86,7 @@ class _InputInfoPage1State extends State<InputInfoPage1> {
     _yearFocusNode.dispose();
     _sidFocusNode.dispose();
     _classFocusNode.dispose();
+    _seasonFocusNode.dispose();
 
     super.dispose();
   }
@@ -243,7 +250,7 @@ class _InputInfoPage1State extends State<InputInfoPage1> {
                           width: double.infinity,
                           height: 16,
                           child: const Text(
-                            "Year",
+                            "Student ID",
                             style: TextStyle(
                               fontSize: 10,
                             ),
@@ -253,13 +260,13 @@ class _InputInfoPage1State extends State<InputInfoPage1> {
                           width: double.infinity,
                           height: 40,
                           child: CupertinoTextField(
-                            controller: _yearController,
-                            focusNode: _yearFocusNode,
                             keyboardType: TextInputType.number,
+                            controller: _sidController,
+                            focusNode: _sidFocusNode,
                             textInputAction: TextInputAction.next,
                             padding: const EdgeInsets.only(left: 10),
                             textAlignVertical: TextAlignVertical.center,
-                            placeholder: "분기",
+                            placeholder: "KAIST 학번",
                             placeholderStyle: const TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
@@ -282,7 +289,7 @@ class _InputInfoPage1State extends State<InputInfoPage1> {
                           width: double.infinity,
                           height: 16,
                           child: const Text(
-                            "Student ID",
+                            "Year",
                             style: TextStyle(
                               fontSize: 10,
                             ),
@@ -292,13 +299,100 @@ class _InputInfoPage1State extends State<InputInfoPage1> {
                           width: double.infinity,
                           height: 40,
                           child: CupertinoTextField(
+                            controller: _yearController,
+                            focusNode: _yearFocusNode,
                             keyboardType: TextInputType.number,
-                            controller: _sidController,
-                            focusNode: _sidFocusNode,
                             textInputAction: TextInputAction.next,
                             padding: const EdgeInsets.only(left: 10),
                             textAlignVertical: TextAlignVertical.center,
-                            placeholder: "KAIST 학번",
+                            placeholder: "연도",
+                            placeholderStyle: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                color: Colors.grey),
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(15),
+                                border: Border.all(
+                                  width: 1,
+                                  color: Colors.blue,
+                                )),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: double.infinity,
+                          height: 10,
+                        ),
+                        const SizedBox(
+                          width: double.infinity,
+                          height: 16,
+                          child: const Text(
+                            "Season",
+                            style: TextStyle(
+                              fontSize: 10,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          height: 40,
+                          child: CupertinoTextField(
+                            onTap: () {
+                              setState(() {
+                                _seasonController.text = "봄";
+                              });
+                              showCupertinoModalPopup(
+                                context: context,
+                                builder: (context) {
+                                  return CupertinoActionSheet(
+                                    title: Text('분기를 선택하세요'),
+                                    message: Text('분기를 선택'),
+                                    actions: <Widget>[
+                                      Container(
+                                        height: 200,
+                                        child: CupertinoPicker(
+                                          looping: false,
+                                          itemExtent: 30,
+                                          onSelectedItemChanged: (index) {
+                                            setState(() {
+                                              _seasonController.text = '${[
+                                                '봄',
+                                                '여름',
+                                                '가을',
+                                                '겨울'
+                                              ][index]}';
+                                            });
+                                          },
+                                          children:
+                                              List<Widget>.generate(4, (index) {
+                                            return Text('${[
+                                              '봄',
+                                              '여름',
+                                              '가을',
+                                              '겨울'
+                                            ][index]}');
+                                          }),
+                                        ),
+                                      ),
+                                    ],
+                                    cancelButton: CupertinoActionSheetAction(
+                                      child: Text('Done'),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                            readOnly: true,
+                            controller: _seasonController,
+                            focusNode: _seasonFocusNode,
+                            textInputAction: TextInputAction.next,
+                            padding: const EdgeInsets.only(left: 10),
+                            textAlignVertical: TextAlignVertical.center,
+                            placeholder: "분기",
                             placeholderStyle: const TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
@@ -393,10 +487,6 @@ class _InputInfoPage1State extends State<InputInfoPage1> {
                         ),
                         const SizedBox(
                           width: double.infinity,
-                          height: 10,
-                        ),
-                        const SizedBox(
-                          width: double.infinity,
                           height: 50,
                         ),
                         SizedBox(
@@ -435,8 +525,10 @@ class _InputInfoPage1State extends State<InputInfoPage1> {
                                 Map<TextEditingController, String> errorText = {
                                   _nameController: "이름을",
                                   _univController: "대학교를",
-                                  _yearController: "분기를",
                                   _sidController: "학번을",
+                                  _yearController: "연도를",
+                                  _seasonController: "분기을",
+                                  _classController: "분반을",
                                 };
 
                                 for (TextEditingController textEditingController
@@ -468,24 +560,21 @@ class _InputInfoPage1State extends State<InputInfoPage1> {
                                 }
 
                                 //Todo: int.parse의 역할 판단하기.
-                                if(!isNull){
+                                if (!isNull) {
                                   UserInfo userInfo = UserInfo(
-                                    name: _nameController.text,
-                                    gradOf: int.parse(_sidController.text),
-                                    universityId:
-                                        getUniversityId(_univController.text),
-                                    prtcpntYear:
-                                        int.parse(_yearController.text),
-                                    interest: []
-                                  );
+                                      name: _nameController.text,
+                                      gradOf: int.parse(_sidController.text),
+                                      universityId:
+                                          getUniversityId(_univController.text),
+                                      prtcpntYear:
+                                          int.parse('${_yearController.text}${_seasonMap[_seasonController.text]}${_classController.text}'),
+                                      interest: []);
                                   Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => InputInfoPage2(
-                                        userInfo: userInfo,
-                                      )
-                                    )
-                                  );
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => InputInfoPage2(
+                                                userInfo: userInfo,
+                                              )));
                                 }
                               }),
                         ),
