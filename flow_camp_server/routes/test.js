@@ -112,124 +112,120 @@ router.get('/add', async function (req, res, next) {
   }
 
   //테스트 흥미 넣어주기
-
-  await Interest.create({
-    name: "React",
-    category: "프론트엔드",
-    confirmed: true,
-  })
-  await Interest.create({
-    name: "React Native",
-    category: "프론트엔드",
-    confirmed: true,
-  })
   await Interest.create({
     name: "Angular",
     category: "프론트엔드",
     confirmed: true,
-  })
-  await Interest.create({
-    name: "Vue.js",
-    category: "프론트엔드",
-    confirmed: true,
-  })
-  await Interest.create({
-    name: "Unity",
-    category: "프론트엔드",
-    confirmed: true,
-  })
+  });
   await Interest.create({
     name: "Flutter",
     category: "프론트엔드",
     confirmed: true,
-  })
-  await Interest.create({
-    name: "Kotlin",
-    category: "프론트엔드",
-    confirmed: true,
-  })
+  });
   await Interest.create({
     name: "Java",
     category: "프론트엔드",
     confirmed: true,
-  })
+  });
+  await Interest.create({
+    name: "Kotlin",
+    category: "프론트엔드",
+    confirmed: true,
+  });
+  await Interest.create({
+    name: "React",
+    category: "프론트엔드",
+    confirmed: true,
+  });
+  await Interest.create({
+    name: "React Native",
+    category: "프론트엔드",
+    confirmed: true,
+  });
   await Interest.create({
     name: "Swift",
     category: "프론트엔드",
     confirmed: true,
-  })
+  });
+  await Interest.create({
+    name: "Unity",
+    category: "프론트엔드",
+    confirmed: true,
+  });
+  await Interest.create({
+    name: "Vue.js",
+    category: "프론트엔드",
+    confirmed: true,
+  });
 
   await Interest.create({
     name: "Django",
     category: "백엔드",
     confirmed: true,
-  })
-
-  await Interest.create({
-    name: "NestJs",
-    category: "백엔드",
-    confirmed: true,
-  })
-
+  });
   await Interest.create({
     name: "Express",
     category: "백엔드",
     confirmed: true,
-  })
-  await Interest.create({
-    name: "Flask",
-    category: "백엔드",
-    confirmed: true,
-  })
-  await Interest.create({
-    name: "Ruby on Rails",
-    category: "백엔드",
-    confirmed: true,
-  })
-  await Interest.create({
-    name: "Spring",
-    category: "백엔드",
-    confirmed: true,
-  })
+  });
   await Interest.create({
     name: "FastAPI",
     category: "백엔드",
     confirmed: true,
-  })
-
+  });
   await Interest.create({
-    name: "MySQL",
-    category: "데이터베이스",
+    name: "Flask",
+    category: "백엔드",
     confirmed: true,
-  })
+  });
+  await Interest.create({
+    name: "NestJs",
+    category: "백엔드",
+    confirmed: true,
+  });
+  await Interest.create({
+    name: "Ruby on Rails",
+    category: "백엔드",
+    confirmed: true,
+  });
+  await Interest.create({
+    name: "Spring",
+    category: "백엔드",
+    confirmed: true,
+  });
+
   await Interest.create({
     name: "MongoDB",
     category: "데이터베이스",
     confirmed: true,
-  })
-
+  });
   await Interest.create({
-    name: "머신러닝",
-    category: "기타",
+    name: "MySQL",
+    category: "데이터베이스",
     confirmed: true,
-  })
+  });
 
   await Interest.create({
     name: "데이터 사이언스",
     category: "기타",
     confirmed: true,
-  })
-
+  });
   await Interest.create({
     name: "딥러닝",
     category: "기타",
     confirmed: true,
-  })
+  });
+  await Interest.create({
+    name: "머신러닝",
+    category: "기타",
+    confirmed: true,
+  });
   await Interest.create({
     name: "NFT",
     category: "기타",
     confirmed: true,
-  })
+  });
+
 
   //사용자에게 흥미 넣어주기
 
