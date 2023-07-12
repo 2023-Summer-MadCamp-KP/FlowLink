@@ -409,39 +409,84 @@ class _InputInfoPage1State extends State<InputInfoPage1> {
                                 style: TextStyle(
                                     fontSize: 13, fontWeight: FontWeight.bold),
                               ),
-                              onPressed: () {
-                                int universityId = 0;
-                                int getUniversityId(university){
-                                  switch(university){
-                                  case "GIST":
-                                  return 1;
-                                  case "고려대학교":
-                                  return 2;
-                                  case "UNIST":
-                                  return 3;
-                                  case "KAIST":
-                                  return 4;
-                                  case "한양대학교":
-                                  return 5;
-                                  case "성균관대학교":
-                                  return 6;
-                                  default:
-                                  return 0;
+                              onPressed: () async {
+                                int getUniversityId(university) {
+                                  switch (university) {
+                                    case "GIST":
+                                      return 1;
+                                    case "고려대학교":
+                                      return 2;
+                                    case "UNIST":
+                                      return 3;
+                                    case "KAIST":
+                                      return 4;
+                                    case "한양대학교":
+                                      return 5;
+                                    case "성균관대학교":
+                                      return 6;
+                                    default:
+                                      return 0;
+                                  }
                                 }
+
+                                //null check
+                                bool isNull = false;
+
+                                Map<TextEditingController, String> errorText = {
+                                  _nameController: "이름을",
+                                  _univController: "대학교를",
+                                  _yearController: "분기를",
+                                  _sidController: "학번을",
+                                };
+
+                                for (TextEditingController textEditingController
+                                    in errorText.keys) {
+                                  if (textEditingController.text == "") {
+                                    isNull = true;
+
+                                    await showDialog(
+                                      context: context,
+                                      builder: (_) => CupertinoAlertDialog(
+                                        title: Text('Error'),
+                                        content: Text(
+                                            '${errorText[textEditingController]} 입력해주세요.'),
+                                        actions: <Widget>[
+                                          CupertinoDialogAction(
+                                            isDefaultAction: true,
+                                            child: Text('Ok'),
+                                            onPressed: () {
+                                              Navigator.of(context,
+                                                      rootNavigator: true)
+                                                  .pop('dialog');
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                    break;
+                                  }
                                 }
 
                                 //Todo: int.parse의 역할 판단하기.
-                                UserInfo userInfo = UserInfo(
+                                if(!isNull){
+                                  UserInfo userInfo = UserInfo(
                                     name: _nameController.text,
                                     gradOf: int.parse(_sidController.text),
-                                    universityId: getUniversityId(_univController.text),
-                                    prtcpntYear: int.parse(_yearController.text),
-                                    interest: []);
-                                Navigator.push(
+                                    universityId:
+                                        getUniversityId(_univController.text),
+                                    prtcpntYear:
+                                        int.parse(_yearController.text),
+                                    interest: []
+                                  );
+                                  Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) =>
-                                            InputInfoPage2(userInfo: userInfo,)));
+                                      builder: (context) => InputInfoPage2(
+                                        userInfo: userInfo,
+                                      )
+                                    )
+                                  );
+                                }
                               }),
                         ),
                       ],
