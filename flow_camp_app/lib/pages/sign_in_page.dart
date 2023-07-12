@@ -466,7 +466,13 @@ class _SignInPageState extends State<SignInPage> {
                                       builder: (context) => SignUpPage()),
                                 );
                               },
-                              child: Text("회원 가입 하기"),
+                              child: Text(
+                                "회원가입",
+                                style: TextStyle(
+                                  decoration: TextDecoration.underline,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
                           ],
                         ),
