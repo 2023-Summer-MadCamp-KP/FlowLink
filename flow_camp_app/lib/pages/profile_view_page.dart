@@ -1,8 +1,7 @@
 import 'package:flow_camp_app/pages/profile_list_page.dart';
-import 'package:flow_camp_app/utils/reg_class_of.dart';
+import 'package:flow_camp_app/utils/decode_prtc_year.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 
 class ProfileViewPage extends StatefulWidget {
   final Person user;
@@ -42,8 +41,8 @@ class _ProfileViewPageState extends State<ProfileViewPage> {
                         children: [
                           CircleAvatar(
                             radius: 60.0,
-                            backgroundImage:
-                                AssetImage(widget.user.profileImage), // 프로필 사진 이미지
+                            backgroundImage: AssetImage(
+                                widget.user.profileImage), // 프로필 사진 이미지
                           ),
                           SizedBox(height: 10.0),
                           DefaultTextStyle(
@@ -73,7 +72,7 @@ class _ProfileViewPageState extends State<ProfileViewPage> {
                           height: textMargin,
                         ),
                         DefaultTextStyle(
-                          child: Text("KAIST"), // 유저 이름
+                          child: Text(widget.user.university!.name), // 유저 이름
                           style: TextStyle(
                             color: Colors.blue,
                             fontSize: 18,
@@ -117,7 +116,11 @@ class _ProfileViewPageState extends State<ProfileViewPage> {
                           height: textMargin,
                         ),
                         DefaultTextStyle(
-                          child: Text(decodePrtcYear(widget.user.prtcpntYear)[0].toString()+"년 / "+decodePrtcYear(widget.user.prtcpntYear)[1].toString()), // 유저 이름
+                          child: Text(decodePrtcYear(widget.user.prtcpntYear)[0]
+                                  .toString() +
+                              "년 / " +
+                              decodePrtcYear(widget.user.prtcpntYear)[1]
+                                  .toString()), // 유저 이름
                           style: TextStyle(
                             color: Colors.blue,
                             fontSize: 18,
@@ -137,12 +140,16 @@ class _ProfileViewPageState extends State<ProfileViewPage> {
                         SizedBox(
                           height: textMargin,
                         ),
-                        DefaultTextStyle(
-                          child: Text("Kgm"), // 유저 이름
-                          style: TextStyle(
-                            color: Colors.blue,
-                            fontSize: 18,
-                          ),
+                        Column(
+                          children: widget.user.interests!.map((e) {
+                            return DefaultTextStyle(
+                              child: Text(e.name), // 유저 이름
+                              style: TextStyle(
+                                color: Colors.blue,
+                                fontSize: 18,
+                              ),
+                            );
+                          }).toList(),
                         ),
                         SizedBox(
                           height: boxMargin,
@@ -159,7 +166,8 @@ class _ProfileViewPageState extends State<ProfileViewPage> {
                           height: textMargin,
                         ),
                         DefaultTextStyle(
-                          child: Text(decodePrtcYear(widget.user.gradOf)[2].toString()), // 유저 이름
+                          child: Text(decodePrtcYear(widget.user.gradOf)[2]
+                              .toString()), // 유저 이름
                           style: TextStyle(
                             color: Colors.blue,
                             fontSize: 18,
@@ -180,7 +188,7 @@ class _ProfileViewPageState extends State<ProfileViewPage> {
                           height: textMargin,
                         ),
                         DefaultTextStyle(
-                          child: Text("전고"), // 유저 이름
+                          child: Text("컴퓨터 좋아해요~"), // 유저 이름
                           style: TextStyle(
                             color: Colors.blue,
                             fontSize: 18,

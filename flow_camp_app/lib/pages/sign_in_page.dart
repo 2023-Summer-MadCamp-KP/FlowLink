@@ -50,7 +50,31 @@ class _SignInPageState extends State<SignInPage> {
       setState(() {
         _isLoading = true;
       });
-      userProvider.postSignIn(context, _idController.text, _pwController.text);
+      userProvider.postSignIn(
+          context, _idController.text, _pwController.text, "normal");
+      setState(() {
+        _isLoading = false;
+      });
+      return;
+    }
+
+    Future<void> _afterSuccess() async {
+      User user;
+      setState(() {
+        _isLoading = true;
+      });
+      try {
+        user = await UserApi.instance.me();
+        print('사용자 정보 요청 성공'
+            '\n회원번호: ${user.id}'
+            '\n닉네임: ${user.kakaoAccount?.profile?.nickname}'
+            '\n이메일: ${user.kakaoAccount?.email}');
+        await userProvider.postSignIn(context, "kakao" + user.id.toString(),
+            "kakao" + user.id.toString(), "normal");
+      } catch (error) {
+        print('사용자 정보 요청 실패 $error');
+      }
+
       setState(() {
         _isLoading = false;
       });
@@ -64,7 +88,7 @@ class _SignInPageState extends State<SignInPage> {
             _isLoading = true;
           });
           await UserApi.instance.loginWithKakaoTalk();
-          userProvider.setSignIn(true);
+          await _afterSuccess();
           print('카카오톡으로 로그인 성공');
         } catch (error) {
           print('카카오톡으로 로그인 실패 $error');
@@ -80,7 +104,7 @@ class _SignInPageState extends State<SignInPage> {
               _isLoading = true;
             });
             await UserApi.instance.loginWithKakaoAccount();
-            userProvider.setSignIn(true);
+            await _afterSuccess();
             print('카카오계정으로 로그인 성공');
           } catch (error) {
             print('카카오계정으로 로그인 실패 $error');
@@ -102,7 +126,7 @@ class _SignInPageState extends State<SignInPage> {
           } catch (error) {
             print('사용자 정보 요청 실패 $error');
           }
-          userProvider.setSignIn(true);
+          await _afterSuccess();
           print('카카오계정으로 로그인 성공');
         } catch (error) {
           print('카카오계정으로 로그인 실패 $error');

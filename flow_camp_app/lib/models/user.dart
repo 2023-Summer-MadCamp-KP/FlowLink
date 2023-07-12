@@ -1,3 +1,6 @@
+import 'package:flow_camp_app/models/interest.dart';
+import 'package:flow_camp_app/models/university.dart';
+
 class User {
   final int id;
   final String name;
@@ -9,11 +12,13 @@ class User {
   final int prtcpntYear;
   final bool emailConfirmed;
   final bool infoConfirmed;
+  final University? university;
+  final List<Interest>? interests;
 
   User({
     required this.id,
     required this.name,
-    this.token,
+    required this.token,
     required this.gradOf,
     required this.uid,
     required this.password,
@@ -21,9 +26,12 @@ class User {
     required this.prtcpntYear,
     required this.emailConfirmed,
     required this.infoConfirmed,
+    required this.university,
+    required this.interests,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
+    print("user : " + json.toString());
     return User(
       id: json['id'],
       name: json['name'],
@@ -35,8 +43,16 @@ class User {
       prtcpntYear: json['prtcpntYear'],
       emailConfirmed: json['emailConfirmed'],
       infoConfirmed: json['infoConfirmed'],
+      university: json['university'] == null
+          ? null
+          : University.fromJson(json['university']),
+      interests: json['interests'] == null
+          ? null
+          : List<Interest>.from(json['interests']
+              .map((interestJson) => Interest.fromJson(interestJson))),
     );
   }
+
   Map<String, dynamic> toJson() {
     return {
       'id': id,
@@ -49,6 +65,10 @@ class User {
       'prtcpntYear': prtcpntYear,
       'emailConfirmed': emailConfirmed,
       'infoConfirmed': infoConfirmed,
+      'university': university == null ? null : university!.toJson(),
+      'interests': interests == null
+          ? null
+          : interests!.map((interest) => interest.toJson()).toList(),
     };
   }
 }

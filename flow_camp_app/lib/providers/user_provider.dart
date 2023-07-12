@@ -62,13 +62,13 @@ class UserProvider extends ChangeNotifier {
     );
   }
 
-  Future<void> postSignIn(context, idtext, pwtext) async {
+  Future<void> postSignIn(context, idtext, pwtext,platform) async {
     try {
       Dio dio = Dio();
       var response = await dio.post('${DIO_BASE_URL}/api/signin', data: {
         'uid': idtext,
         'password': pwtext,
-        'platform': 'normal',
+        'platform': platform,
       });
       final token = response.headers['Authorization']?.first;
       await saveToken(token!);
@@ -159,8 +159,10 @@ class UserProvider extends ChangeNotifier {
 
       final jsonData = response.data;
 
+      print("users :: " + jsonData.toString());
+
       _users = List<User>.from(jsonData.map((json) => User.fromJson(json)));
-      print("users : " + _users.toString());
+
       notifyListeners();
     } on DioException catch (e) {
       if (e.response?.statusCode == 401 || e.response?.statusCode == 403) {
@@ -175,6 +177,7 @@ class UserProvider extends ChangeNotifier {
   }
 
   Future<void> getLike() async {
+    //나를 좋아하는 사람 받아오기.
     try {
       Dio dio = Dio();
       var options = await loadTokenOption();
@@ -184,6 +187,7 @@ class UserProvider extends ChangeNotifier {
       );
 
       final jsonData = response.data;
+      print("getLike : " + jsonData.toString());
       _giveLikes = List<Like>.from(jsonData.map((json) => Like.fromJson(json)));
       notifyListeners();
     } on DioException catch (e) {
@@ -192,9 +196,8 @@ class UserProvider extends ChangeNotifier {
         setSignIn(false);
         // 401 에러 처리
       }
-    } catch (e) {
-      print(e);
-    }
+    } 
+    print("getLike 종료");
     return;
   }
 
@@ -223,6 +226,12 @@ class UserProvider extends ChangeNotifier {
   }
 
   Future<void> postLike(int toId, bool toMake) async {
+    print("SS : " +
+        toId.toString() +
+        " " +
+        me!.id.toString() +
+        "toMake : " +
+        toMake.toString());
     try {
       Dio dio = Dio();
       var options = await loadTokenOption();
@@ -252,8 +261,9 @@ class UserProvider extends ChangeNotifier {
         // 401 에러 처리
       }
     } catch (e) {
-      print(e);
+      print("postLike " + e.toString());
     }
+    print("postLike 요청 끝");
   }
 
   Future<void> getInterest() async {

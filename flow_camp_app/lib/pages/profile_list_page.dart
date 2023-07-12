@@ -1,4 +1,6 @@
 import 'package:flow_camp_app/components/loading_indicator_page.dart';
+import 'package:flow_camp_app/models/interest.dart';
+import 'package:flow_camp_app/models/university.dart';
 import 'package:flow_camp_app/models/user.dart';
 import 'package:flow_camp_app/providers/user_provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,30 +18,25 @@ class ProfileListPage extends StatefulWidget {
 class Person extends User {
   var profileImage;
 
-  var islike;
+  var doILike;
 
   Person({
-    required int id,
-    required String name,
-    required int gradOf,
-    required String uid,
-    required String password,
-    required String platform,
-    required int prtcpntYear,
-    required bool emailConfirmed,
-    required bool infoConfirmed,
+    required User user,
     required this.profileImage,
-    required this.islike,
+    required this.doILike,
   }) : super(
-          id: id,
-          name: name,
-          gradOf: gradOf,
-          uid: uid,
-          password: password,
-          platform: platform,
-          prtcpntYear: prtcpntYear,
-          emailConfirmed: emailConfirmed,
-          infoConfirmed: infoConfirmed,
+          id: user.id,
+          name: user.name,
+          gradOf: user.gradOf,
+          token: user.token,
+          uid: user.uid,
+          password: user.password,
+          platform: user.platform,
+          prtcpntYear: user.prtcpntYear,
+          emailConfirmed: user.emailConfirmed,
+          infoConfirmed: user.infoConfirmed,
+          university: user.university,
+          interests: user.interests,
         );
 }
 
@@ -74,46 +71,31 @@ class _ProfileListPageState extends State<ProfileListPage> {
       return LoadingIndicator();
     }
     var my = Person(
-      id: provider.me!.id,
-      name: provider.me!.name,
-      gradOf: provider.me!.gradOf,
-      uid: provider.me!.uid,
-      password: provider.me!.password,
-      platform: provider.me!.platform,
-      prtcpntYear: provider.me!.prtcpntYear,
-      emailConfirmed: provider.me!.emailConfirmed,
-      infoConfirmed: provider.me!.infoConfirmed,
+      user: provider.me!,
       profileImage: 'assets/images/default_profile.png',
-      islike: false, // Add your images here
+      doILike: false, // Add your images here
     );
     Set<int> likeFromValues =
         provider.giveLikes.map((like) => like.likeTo).toSet();
-    print("ll : " + likeFromValues.toString());
     persons = provider.users.map(
       (user) {
-        var ii = true;
+        var _isLike = true;
         if (likeFromValues.contains(user.id)) {
-          ii = true;
+          _isLike = true;
         } else {
-          ii = false;
+          _isLike = false;
         }
         return Person(
-            id: user.id,
-            name: user.name,
-            gradOf: user.gradOf,
-            uid: user.uid,
-            password: user.password,
-            platform: user.platform,
-            prtcpntYear: user.prtcpntYear,
-            emailConfirmed: user.emailConfirmed,
-            infoConfirmed: user.infoConfirmed,
+            user: user,
             profileImage:
                 'assets/images/default_profile.png', // Add your images here
-            islike: ii);
+            doILike: _isLike);
       },
     ).toList();
     persons.sort((a, b) {
-      if (a.id != my.id && b.id == my.id) {
+      if (a.id == my.id) {
+        return -1;
+      } else if (b.id == my.id) {
         return 1;
       } else if (a.prtcpntYear == my.prtcpntYear &&
           b.prtcpntYear != my.prtcpntYear) {
@@ -126,124 +108,138 @@ class _ProfileListPageState extends State<ProfileListPage> {
       }
     });
 
-    return CupertinoPageScaffold(
-        navigationBar: CupertinoNavigationBar(
-          middle: Text('프로필'),
-          trailing: Icon(CupertinoIcons.search),
-        ),
-        child: Scrollbar(
-          thumbVisibility: true,
-          child: ListView.builder(
-            itemBuilder: (context, index) {
-              if (index == 0) {
-                return GestureDetector(
-                  onTap: () {
-                    // 탭 이벤트 처리
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ProfileViewPage(user: persons[index])));
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(
-                          color: CupertinoColors.separator,
-                          width: 0.5,
-                        ),
-                      ),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(
-                        0,
-                        10,
-                        0,
-                        10,
-                      ),
-                      child: CupertinoListTile(
-                        leadingSize: 60,
-                        leading: CupertinoButton(
-                          padding: EdgeInsets.zero,
-                          child: CircleAvatar(
-                            radius: 30,
-                            backgroundColor: Colors.white,
-                            backgroundImage:
-                                AssetImage(persons[index].profileImage),
-                          ),
-                          onPressed: () {
-                            
-                           },
-                        ),
-                        title: Text(persons[index].name,
-                            style: TextStyle(fontSize: 20)),
-                        subtitle: Text(persons[index].prtcpntYear.toString()),
-                      ),
-                    ),
-                  ),
-                );
-              } else {
-                return GestureDetector(
-                  onTap: () {
-                    // 탭 이벤트 처리
-                     Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ProfileViewPage(user: persons[index])));
-                          
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border(
-                          // bottom: BorderSide(
-                          //   color: CupertinoColors.separator,
-                          //   width: 0.5,
-                          // ),
-                          ),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(
-                        0,
-                        10,
-                        0,
-                        10,
-                      ),
-                      child: CupertinoListTile(
-                        leadingSize: 50,
-                        leading: CupertinoButton(
-                          padding: EdgeInsets.zero,
-                          child: CircleAvatar(
-                            radius: 30,
-                            backgroundColor: Colors.white,
-                            backgroundImage:
-                                AssetImage(persons[index].profileImage),
-                          ),
-                          onPressed: () {},
-                        ),
-                        title: Text(persons[index].name,
-                            style: TextStyle(fontSize: 15)),
-                        subtitle: Text(persons[index].prtcpntYear.toString()),
-                        trailing: GestureDetector(
-                          onTap: () async {
-                            await provider.postLike(
-                                persons[index].id, !persons[index].islike);
-                            await provider.getLike();
-                          },
-                          child: Icon(
-                            Icons.favorite,
-                            size: 40,
-                            color: persons[index].islike
-                                ? Colors.red
-                                : Colors.grey,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                );
-              }
-            },
-            itemCount: persons.length,
+    return Scaffold(
+      body: CupertinoPageScaffold(
+          navigationBar: CupertinoNavigationBar(
+            middle: Text('프로필'),
+            trailing: Icon(CupertinoIcons.search),
           ),
-        ));
+          child: Scrollbar(
+            thumbVisibility: true,
+            child: ListView.builder(
+              itemBuilder: (context, index) {
+                if (index == 0) {
+                  return GestureDetector(
+                    onTap: () {
+                      // 탭 이벤트 처리
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  ProfileViewPage(user: persons[index])));
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            color: CupertinoColors.separator,
+                            width: 0.5,
+                          ),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(
+                          0,
+                          10,
+                          0,
+                          10,
+                        ),
+                        child: CupertinoListTile(
+                          leadingSize: 60,
+                          leading: CupertinoButton(
+                            padding: EdgeInsets.zero,
+                            child: CircleAvatar(
+                              radius: 30,
+                              backgroundColor: Colors.white,
+                              backgroundImage:
+                                  AssetImage(persons[index].profileImage),
+                            ),
+                            onPressed: () {},
+                          ),
+                          title: Text(persons[index].name,
+                              style: TextStyle(fontSize: 20)),
+                          subtitle: Text(persons[index].prtcpntYear.toString()),
+                        ),
+                      ),
+                    ),
+                  );
+                } else {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (index == 1 ||
+                          persons[index].prtcpntYear !=
+                              persons[index - 1].prtcpntYear) ...[
+                        Container(
+                            height: 1,
+                            width: double.infinity,
+                            color: CupertinoColors.separator),
+                        Text(
+                          persons[index].prtcpntYear.toString(),
+                        )
+                      ],
+                      GestureDetector(
+                        onTap: () {
+                          // 탭 이벤트 처리
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      ProfileViewPage(user: persons[index])));
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border(
+                                // bottom: BorderSide(
+                                //   color: CupertinoColors.separator,
+                                //   width: 0.5,
+                                // ),
+                                ),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.fromLTRB(
+                              0,
+                              10,
+                              0,
+                              10,
+                            ),
+                            child: CupertinoListTile(
+                              leadingSize: 50,
+                              leading: CircleAvatar(
+                                radius: 30,
+                                backgroundColor: Colors.white,
+                                backgroundImage:
+                                    AssetImage(persons[index].profileImage),
+                              ),
+                              title: Text(persons[index].name,
+                                  style: TextStyle(fontSize: 15)),
+                              subtitle:
+                                  Text(persons[index].prtcpntYear.toString()),
+                              trailing: GestureDetector(
+                                onTap: () async {
+                                  await provider.postLike(persons[index].id,
+                                      !persons[index].doILike);
+                                  await provider.getLike();
+                                },
+                                child: Icon(
+                                  Icons.favorite,
+                                  size: 40,
+                                  color: persons[index].doILike
+                                      ? Colors.red
+                                      : Colors.grey,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                }
+              },
+              itemCount: persons.length,
+            ),
+          )),
+    );
   }
 }
