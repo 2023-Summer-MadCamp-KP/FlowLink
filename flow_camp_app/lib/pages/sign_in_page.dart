@@ -412,12 +412,12 @@ class _SignInPageState extends State<SignInPage> {
                                   ),
                                   onPressed: () {
                                     print("dd");
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              InputInfoPage1()),
-                                    );
+                                    // Navigator.push(
+                                    //   context,
+                                    //   MaterialPageRoute(
+                                    //       builder: (context) =>
+                                    //           InputInfoPage1()),
+                                    // );
                                   }),
                             ),
                             const SizedBox(
@@ -458,12 +458,12 @@ class _SignInPageState extends State<SignInPage> {
                                   ),
                                   onPressed: () {
                                     print("dd");
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              TabNavigationPage()),
-                                    );
+                                    // Navigator.push(
+                                    //   context,
+                                    //   MaterialPageRoute(
+                                    //       builder: (context) =>
+                                    //           TabNavigationPage()),
+                                    // );
                                   }),
                             ),
                             const SizedBox(
