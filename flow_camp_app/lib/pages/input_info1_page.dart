@@ -22,6 +22,7 @@ class _InputInfoPage1State extends State<InputInfoPage1> {
   final Map<String, int> _seasonMap = {"봄": 1, "여름": 2, "가을": 3, "겨울": 4};
 
   late TextEditingController _nameController,
+      _bioController,
       _univController,
       _interestController,
       _yearController,
@@ -29,6 +30,7 @@ class _InputInfoPage1State extends State<InputInfoPage1> {
       _classController,
       _seasonController;
   late FocusNode _nameFocusNode,
+      _bioFocusNode,
       _univFocusNode,
       _interestFocusNode,
       _yearFocusNode,
@@ -40,6 +42,7 @@ class _InputInfoPage1State extends State<InputInfoPage1> {
   void initState() {
     super.initState();
     _nameController = TextEditingController();
+    _bioController = TextEditingController();
     _univController = TextEditingController();
     _interestController = TextEditingController();
     _yearController = TextEditingController();
@@ -48,6 +51,7 @@ class _InputInfoPage1State extends State<InputInfoPage1> {
     _seasonController = TextEditingController();
 
     _nameFocusNode = FocusNode();
+    _bioFocusNode = FocusNode();
     _univFocusNode = FocusNode();
     _interestFocusNode = FocusNode();
     _yearFocusNode = FocusNode();
@@ -145,6 +149,44 @@ class _InputInfoPage1State extends State<InputInfoPage1> {
                             padding: const EdgeInsets.only(left: 10),
                             textAlignVertical: TextAlignVertical.center,
                             placeholder: "이름",
+                            placeholderStyle: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                color: Colors.grey),
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(15),
+                                border: Border.all(
+                                  width: 1,
+                                  color: Colors.blue,
+                                )),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: double.infinity,
+                          height: 10,
+                        ),
+                        const SizedBox(
+                          width: double.infinity,
+                          height: 16,
+                          child: const Text(
+                            "Bio",
+                            style: TextStyle(
+                              fontSize: 10,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          height: 40,
+                          child: CupertinoTextField(
+                            controller: _bioController,
+                            focusNode: _bioFocusNode,
+                            textInputAction: TextInputAction.next,
+                            padding: const EdgeInsets.only(left: 10),
+                            textAlignVertical: TextAlignVertical.center,
+                            placeholder: "자기소개",
                             placeholderStyle: const TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
@@ -557,15 +599,18 @@ class _InputInfoPage1State extends State<InputInfoPage1> {
                                     );
                                     break;
                                   }
-                                  if (textEditingController == _yearController) {
-                                    if(int.parse(textEditingController.text) < 1900 || int.parse(textEditingController.text) > 2100){
+                                  if (textEditingController ==
+                                      _yearController) {
+                                    if (int.parse(textEditingController.text) <
+                                            1900 ||
+                                        int.parse(textEditingController.text) >
+                                            2100) {
                                       isNull = true;
                                       await showDialog(
                                         context: context,
                                         builder: (_) => CupertinoAlertDialog(
                                           title: Text('Error'),
-                                          content: Text(
-                                              '올바른 연도(4자리)를 입력해주세요.'),
+                                          content: Text('올바른 연도(4자리)를 입력해주세요.'),
                                           actions: <Widget>[
                                             CupertinoDialogAction(
                                               isDefaultAction: true,
@@ -591,9 +636,11 @@ class _InputInfoPage1State extends State<InputInfoPage1> {
                                       gradOf: int.parse(_sidController.text),
                                       universityId:
                                           getUniversityId(_univController.text),
-                                      prtcpntYear:
-                                          int.parse('${_yearController.text}${_seasonMap[_seasonController.text]}${_classController.text}'),
-                                      interest: []);
+                                      prtcpntYear: int.parse(
+                                          '${_yearController.text}${_seasonMap[_seasonController.text]}${_classController.text}'),
+                                      interest: [],
+                                      bio: _bioController.text,
+                                      );
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(

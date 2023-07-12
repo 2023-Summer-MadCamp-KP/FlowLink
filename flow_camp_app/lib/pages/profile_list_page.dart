@@ -39,6 +39,7 @@ class Person extends User {
           infoConfirmed: user.infoConfirmed,
           university: user.university,
           interests: user.interests,
+          bio: user.bio,
         );
 }
 

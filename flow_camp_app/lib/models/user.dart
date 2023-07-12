@@ -14,6 +14,7 @@ class User {
   final bool infoConfirmed;
   final University? university;
   final List<Interest>? interests;
+  final String? bio;
 
   User({
     required this.id,
@@ -28,6 +29,7 @@ class User {
     required this.infoConfirmed,
     required this.university,
     required this.interests,
+    required this.bio,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -50,6 +52,7 @@ class User {
           ? null
           : List<Interest>.from(json['interests']
               .map((interestJson) => Interest.fromJson(interestJson))),
+      bio: json['bio'],
     );
   }
 
@@ -69,6 +72,7 @@ class User {
       'interests': interests == null
           ? null
           : interests!.map((interest) => interest.toJson()).toList(),
+      'bio': bio,
     };
   }
 }

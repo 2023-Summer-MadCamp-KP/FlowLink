@@ -29,7 +29,7 @@ class _ProfileViewPageState extends State<ProfileViewPage> {
             thumbVisibility: true,
             child: SingleChildScrollView(
               child: Padding(
-                padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                padding: EdgeInsets.fromLTRB(30, 30, 30, 30),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,6 +60,27 @@ class _ProfileViewPageState extends State<ProfileViewPage> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        DefaultTextStyle(
+                          child: Text("자기소개"), // 유저 이름
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(
+                          height: textMargin,
+                        ),
+                        DefaultTextStyle(
+                          child: Text(widget.user.bio?? ""), // 유저 이름
+                          style: TextStyle(
+                            color: Colors.blue,
+                            fontSize: 18,
+                          ),
+                        ),
+                        SizedBox(
+                          height: boxMargin,
+                        ),
                         DefaultTextStyle(
                           child: Text("대학"), // 유저 이름
                           style: TextStyle(
@@ -141,12 +162,16 @@ class _ProfileViewPageState extends State<ProfileViewPage> {
                           height: textMargin,
                         ),
                         Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: widget.user.interests!.map((e) {
-                            return DefaultTextStyle(
-                              child: Text(e.name), // 유저 이름
-                              style: TextStyle(
-                                color: Colors.blue,
-                                fontSize: 18,
+                            return Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
+                              child: DefaultTextStyle(
+                                child: Text("${e.name} ( ${e.category} )" ), // 유저 이름
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                  fontSize: 18,
+                                ),
                               ),
                             );
                           }).toList(),
@@ -188,7 +213,7 @@ class _ProfileViewPageState extends State<ProfileViewPage> {
                           height: textMargin,
                         ),
                         DefaultTextStyle(
-                          child: Text("컴퓨터 좋아해요~"), // 유저 이름
+                          child: Text("컴퓨터 공학"), // 유저 이름
                           style: TextStyle(
                             color: Colors.blue,
                             fontSize: 18,
