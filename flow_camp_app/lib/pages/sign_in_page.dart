@@ -206,7 +206,7 @@ class _SignInPageState extends State<SignInPage> {
                                 textInputAction: TextInputAction.next,
                                 padding: const EdgeInsets.only(left: 10),
                                 textAlignVertical: TextAlignVertical.center,
-                                placeholder: "Username",
+                                placeholder: "아이디",
                                 placeholderStyle: const TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w500,
@@ -237,7 +237,7 @@ class _SignInPageState extends State<SignInPage> {
                                 textInputAction: TextInputAction.go,
                                 padding: const EdgeInsets.only(left: 10),
                                 textAlignVertical: TextAlignVertical.center,
-                                placeholder: "Password",
+                                placeholder: "비밀번호",
                                 placeholderStyle: const TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w500,
@@ -280,7 +280,7 @@ class _SignInPageState extends State<SignInPage> {
                               child: CupertinoButton.filled(
                                   padding: const EdgeInsets.all(0),
                                   child: const Text(
-                                    "Sign In",
+                                    "로그인",
                                     style: TextStyle(
                                         fontSize: 13,
                                         fontWeight: FontWeight.bold),
@@ -351,7 +351,7 @@ class _SignInPageState extends State<SignInPage> {
                                       height: double.infinity,
                                     ),
                                     const Text(
-                                      "Sign In with KaKao",
+                                      "카카오톡으로 로그인",
                                       style: TextStyle(
                                           fontSize: 13,
                                           fontWeight: FontWeight.bold,
@@ -390,7 +390,7 @@ class _SignInPageState extends State<SignInPage> {
                                         height: double.infinity,
                                       ),
                                       const Text(
-                                        "Sign In with Naver",
+                                        "네이버로 로그인",
                                         style: TextStyle(
                                             fontSize: 13,
                                             fontWeight: FontWeight.bold,
@@ -436,7 +436,7 @@ class _SignInPageState extends State<SignInPage> {
                                         height: double.infinity,
                                       ),
                                       const Text(
-                                        "Sign In with Google",
+                                        "구글로 로그인",
                                         style: TextStyle(
                                             fontSize: 13,
                                             fontWeight: FontWeight.bold,
