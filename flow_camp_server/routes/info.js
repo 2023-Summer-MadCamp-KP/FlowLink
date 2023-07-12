@@ -9,7 +9,7 @@ router.patch('/', async function (req, res, next) {
     console.log("uu : "+req.user);
     try {
         console.log("info patch!!");
-        const { name, gradOf, universityId, prtcpntYear, interest } = req.body; // assuming 'interest' is an array of interest ids
+        const { name, gradOf, universityId, prtcpntYear, interest,bio } = req.body; // assuming 'interest' is an array of interest ids
         console.log(name, gradOf, universityId, prtcpntYear, interest);
 
         // find the user first
@@ -23,6 +23,7 @@ router.patch('/', async function (req, res, next) {
                 universityId: universityId,
                 prtcpntYear: prtcpntYear,
                 infoConfirmed: true,
+                bio:bio,
             });
 
             // update interests

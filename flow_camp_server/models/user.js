@@ -47,6 +47,11 @@ class User extends Sequelize.Model {
                 allowNull:false,
                 defaultValue:false,
             },
+            bio:{
+                type:Sequelize.STRING(1000),
+                allowNull:false,
+                defaultValue:"",
+            }
         }
             , {
                 sequelize,
