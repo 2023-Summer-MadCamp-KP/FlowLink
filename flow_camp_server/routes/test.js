@@ -3,9 +3,9 @@ var router = express.Router();
 
 const { User } = require('../models');
 const { Like } = require('../models');
-const {Interest} =require('../models');
-const {University} =require('../models');
-const {sequelize} = require('../models');
+const { Interest } = require('../models');
+const { University } = require('../models');
+const { sequelize } = require('../models');
 
 router.get('/add', async function (req, res, next) {
 
@@ -13,7 +13,7 @@ router.get('/add', async function (req, res, next) {
   //테스트 대학 넣어주기
   for (let i = 0; i < 10; i++) {
     let key = i.toString();
-    
+
   }
   await University.create({
     name: "GIST",
@@ -60,7 +60,7 @@ router.get('/add', async function (req, res, next) {
         prtcpntYear: 202324,
         gradOf: 20190204,
         infoConfirmed: true,
-        universityId: (i%5)+1,
+        universityId: (i % 5) + 1,
       })
     }
     else {
@@ -74,13 +74,13 @@ router.get('/add', async function (req, res, next) {
         prtcpntYear: 202321,
         gradOf: 20190204,
         infoConfirmed: true,
-        universityId: (i%5)+1,
+        universityId: (i % 5) + 1,
       })
     }
   }
 
   //테스트 흥미 넣어주기
-  
+
   await Interest.create({
     name: "React",
     category: "프론트엔드",
@@ -199,26 +199,63 @@ router.get('/add', async function (req, res, next) {
     confirmed: true,
   })
 
-  
-  await sequelize.models.UserInterest.create({
-    UserId:1,
-    InterestId:1,
-  })
-  await sequelize.models.UserInterest.create({
-    UserId:1,
-    InterestId:2,
-  })
-  await sequelize.models.UserInterest.create({
-    UserId:1,
-    InterestId:4,
-  })
-  
+  //사용자에게 흥미 넣어주기
+
+  for (i = 1; i <= 1000; i++) {
+    var random_number1 = Math.floor(Math.random() * 100) + 1;
+    var random_number2 = Math.floor(Math.random() * 22) + 1;
+
+    // 이미 존재하는지 확인
+    var existingInterest = await sequelize.models.UserInterest.findOne({
+      where: {
+        UserId: random_number1,
+        InterestId: random_number2
+      }
+    });
+
+    // 이미 존재하는 경우 생성을 건너뜀
+    if (existingInterest) {
+      continue;
+    }
+
+    // 존재하지 않는 경우 생성
+    await sequelize.models.UserInterest.create({
+      UserId: random_number1,
+      InterestId: random_number2,
+    });
+  }
+
+  //서로 좋아요 누른 관계 설정
+  for (i = 1; i <= 1000; i++) {
+    var random_number1 = Math.floor(Math.random() * 100) + 1;
+    var random_number2 = Math.floor(Math.random() * 100) + 1;
+
+    // 이미 존재하는지 확인
+    var existingInterest = await Like.findOne({
+      where: {
+        likeFrom: random_number1,
+        likeTo: random_number2
+      }
+    });
+
+    // 이미 존재하는 경우 생성을 건너뜀
+    if (existingInterest) {
+      continue;
+    }
+
+    // 존재하지 않는 경우 생성
+    await Like.create({
+      likeFrom: random_number1,
+      likeTo: random_number2
+    });
+  }
 
 
-  
 
 
-  
+
+
+
 
 
 
@@ -255,6 +292,7 @@ router.get('/adduser', async function (req, res, next) {
         prtcpntYear: 202321,
         gradOf: 20190204,
         infoConfirmed: true,
+        bio: "안녕하세요. 저는 " + key + "번째 유저입니다. 팀원을 찾고 있습니다.",
       })
     }
   }
