@@ -557,6 +557,31 @@ class _InputInfoPage1State extends State<InputInfoPage1> {
                                     );
                                     break;
                                   }
+                                  if (textEditingController == _yearController) {
+                                    if(int.parse(textEditingController.text) < 1900 || int.parse(textEditingController.text) > 2100){
+                                      isNull = true;
+                                      await showDialog(
+                                        context: context,
+                                        builder: (_) => CupertinoAlertDialog(
+                                          title: Text('Error'),
+                                          content: Text(
+                                              '올바른 연도(4자리)를 입력해주세요.'),
+                                          actions: <Widget>[
+                                            CupertinoDialogAction(
+                                              isDefaultAction: true,
+                                              child: Text('Ok'),
+                                              onPressed: () {
+                                                Navigator.of(context,
+                                                        rootNavigator: true)
+                                                    .pop('dialog');
+                                              },
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                      break;
+                                    }
+                                  }
                                 }
 
                                 //Todo: int.parse의 역할 판단하기.
