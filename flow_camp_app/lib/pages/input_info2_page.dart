@@ -158,16 +158,19 @@ class _InputInfoPage2State extends State<InputInfoPage2> {
                               .toList(),
                         );
                       }).toList(),
-                      SizedBox(
+                      Container(
                         width: double.infinity,
                         height: 40,
-                        child: CupertinoButton.filled(
-                          padding: const EdgeInsets.all(0),
-                          child: const Text(
-                            "Sign Up",
-                            style: TextStyle(
-                                fontSize: 13, fontWeight: FontWeight.bold),
-                          ),
+                        color: Colors.grey[100],
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                          child: CupertinoButton.filled(
+                            padding: const EdgeInsets.all(0),
+                            child: const Text(
+                              "입력 완료",
+                              style: TextStyle(
+                                  fontSize: 13, fontWeight: FontWeight.bold),
+                            ),
                           // onPressed: _getInterestList,
                           onPressed: () async {
                             UserInfo userInfo = widget.userInfo;
@@ -184,6 +187,7 @@ class _InputInfoPage2State extends State<InputInfoPage2> {
                               (Route<dynamic> route) => false,
                             );
                           },
+                        ),
                         ),
                       ),
                       SizedBox(
