@@ -57,10 +57,41 @@ router.get('/add', async function (req, res, next) {
         platform: "normal",
         infoConfirmed: true,
         name: '유저' + i,
-        prtcpntYear: 202324,
+        prtcpntYear: 202321,
         gradOf: 20190204,
         infoConfirmed: true,
         universityId: (i % 5) + 1,
+        bio: "안녕하세요. 저는 " + key + "번째 유저입니다. 팀원을 찾고 있습니다.",
+      })
+    }
+    else if (i < 25) {
+      await User.create({
+
+        uid: key,
+        password: key + key,
+        platform: "normal",
+        infoConfirmed: true,
+        name: '유저' + i,
+        prtcpntYear: 202322,
+        gradOf: 20190204,
+        infoConfirmed: true,
+        universityId: (i % 5) + 1,
+        bio: "안녕하세요. 저는 " + key + "번째 유저입니다. 팀원을 찾고 있습니다.",
+      })
+    }
+    else if (i < 75) {
+      await User.create({
+
+        uid: key,
+        password: key + key,
+        platform: "normal",
+        infoConfirmed: true,
+        name: '유저' + i,
+        prtcpntYear: 202323,
+        gradOf: 20190204,
+        infoConfirmed: true,
+        universityId: (i % 5) + 1,
+        bio: "안녕하세요. 저는 " + key + "번째 유저입니다. 팀원을 찾고 있습니다.",
       })
     }
     else {
@@ -71,10 +102,11 @@ router.get('/add', async function (req, res, next) {
         platform: "normal",
         infoConfirmed: true,
         name: '유저' + i,
-        prtcpntYear: 202321,
+        prtcpntYear: 202324,
         gradOf: 20190204,
         infoConfirmed: true,
         universityId: (i % 5) + 1,
+        bio: "안녕하세요. 저는 " + key + "번째 유저입니다. 팀원을 찾고 있습니다.",
       })
     }
   }
@@ -229,6 +261,9 @@ router.get('/add', async function (req, res, next) {
   for (i = 1; i <= 1000; i++) {
     var random_number1 = Math.floor(Math.random() * 100) + 1;
     var random_number2 = Math.floor(Math.random() * 100) + 1;
+    if (random_number1 == random_number2) {
+      continue;
+    }
 
     // 이미 존재하는지 확인
     var existingInterest = await Like.findOne({
