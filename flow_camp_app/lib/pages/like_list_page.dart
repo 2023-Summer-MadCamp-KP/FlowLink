@@ -108,6 +108,9 @@ class _LikeListPageState extends State<LikeListPage> {
       _isLoading = true;
     });
     var provider = context.read<UserProvider>();
+    await provider.getMe();
+    await provider.getUsers();
+    await provider.getLike();
     await provider.getWhoLike();
     setState(() {
       _isLoading = false;
@@ -405,7 +408,9 @@ class _LikeListPageState extends State<LikeListPage> {
               height: 100,
               child: Row(
                 children: [
-                  SizedBox(width: 20,),
+                  SizedBox(
+                    width: 20,
+                  ),
                   Expanded(
                     flex: 3,
                     child: CupertinoSearchTextField(
@@ -421,7 +426,10 @@ class _LikeListPageState extends State<LikeListPage> {
                   Expanded(
                     flex: 1,
                     child: CupertinoButton(
-                      child: Text(_likeFilterText[_likeFilter],style: TextStyle(fontSize: 17),),
+                      child: Text(
+                        _likeFilterText[_likeFilter],
+                        style: TextStyle(fontSize: 17),
+                      ),
                       onPressed: () => _showLike(context),
                     ),
                   ),
@@ -457,8 +465,7 @@ class _LikeListPageState extends State<LikeListPage> {
                               title: Text(peopleShow[index].name,
                                   style: const TextStyle(
                                       decoration: TextDecoration.none)),
-                              subtitle: Text(
-                                  getInterestString(index),
+                              subtitle: Text(getInterestString(index),
                                   style: TextStyle(
                                       decoration: TextDecoration.none)),
                               leading: ClipRRect(

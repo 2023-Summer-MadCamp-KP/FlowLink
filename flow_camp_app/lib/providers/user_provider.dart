@@ -117,6 +117,22 @@ class UserProvider extends ChangeNotifier {
       } catch (e) {
         print(e);
       }
+      await showDialog(
+        context: context,
+        builder: (_) => CupertinoAlertDialog(
+          title: Text('Error'),
+          content: Text('로그인이 실패했습니다.'),
+          actions: <Widget>[
+            CupertinoDialogAction(
+              isDefaultAction: true,
+              child: Text('Ok'),
+              onPressed: () {
+                Navigator.of(context, rootNavigator: true).pop('dialog');
+              },
+            ),
+          ],
+        ),
+      );
     } catch (e) {
       print(e);
       await showDialog(
