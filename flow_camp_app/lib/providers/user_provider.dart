@@ -284,4 +284,37 @@ class UserProvider extends ChangeNotifier {
       print(e);
     } catch (e) {}
   }
+
+  //userInfo 전송
+  Future<void> postUserInfo(String name, int gradOf, int universityId,
+      int prtcpntYear, List<Map<String, String>> interest) async {
+    try {
+      Dio dio = Dio();
+      var options = await loadTokenOption();
+
+      Map<String, dynamic> requestData = {
+        'uid': me!.id, // likeFrom 필드에 넣을 값
+        'name': name, // likeTo 필드에 넣을 값
+        'gradOf': gradOf,
+        'universityId': universityId,
+        'prtcpntYear': prtcpntYear,
+        'interest': interest,
+      };
+
+      final response = await dio.patch(
+        '${DIO_BASE_URL}/api/info',
+        data: requestData,
+        options: options,
+      );
+      notifyListeners();
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 401 || e.response?.statusCode == 403) {
+        print('Token is invalid');
+        setSignIn(false);
+        // 401 에러 처리
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 }

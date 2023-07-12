@@ -172,7 +172,7 @@ class _InputInfoPage2State extends State<InputInfoPage2> {
                                 fontSize: 13, fontWeight: FontWeight.bold),
                           ),
                           // onPressed: _getInterestList,
-                          onPressed: () {
+                          onPressed: () async{
                             UserInfo userInfo = widget.userInfo;
                             for (String key in categorizedInterests.keys) {
                               for (SelectableInterest selectableInterest
@@ -186,6 +186,7 @@ class _InputInfoPage2State extends State<InputInfoPage2> {
                               }
                             }
                             print(userInfo.interest);
+                            await userProvider.postUserInfo(userInfo.name, userInfo.gradOf, userInfo.universityId, userInfo.prtcpntYear, userInfo.interest);
                           },
                         ),
                       ),
