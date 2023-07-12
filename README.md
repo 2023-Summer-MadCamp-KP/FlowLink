@@ -12,7 +12,7 @@
 - ### 회원가입
 
   <img src="https://github.com/2023-Summer-MadCamp-KP/FlowLink/assets/98662998/19d6412e-f5d2-4484-b386-16e12a01279b" width="200" height="400">
-  
+
    - 원하는 아이디와 비밀번호를 입력할 수 있음
    - 아이디가 중복되지 않고, 아이디와 비밀번호가 올바르면 회원가입 버튼을 눌러 아이디와 비밀번호를 데이터베이스에 저장할 수 있음
 
@@ -92,52 +92,7 @@
 <br />
 
 - ### 기본 화면
-  <img src = "https://user-images.githubusercontent.com/58783348/124560386-b5f2e100-de77-11eb-9da4-ddfbaab408c8.jpeg" width = "200" height = "400">
-  <img src = "https://user-images.githubusercontent.com/58783348/124560273-965bb880-de77-11eb-8c58-d6bce030875f.jpeg" width="200" height="400">
-  <img src = "https://user-images.githubusercontent.com/58783348/124560263-9360c800-de77-11eb-92e0-60838e6d50e9.jpeg" width="200" height="400">
+  <img src = "https://github.com/2023-Summer-MadCamp-KP/FlowLink/assets/98662998/281593f0-a67d-4a57-8bb4-30ac659f2eb6" width = "200" height = "400">
 
-
-
-  - 정확한 위치 적용을 위해 ACCESS_FINE_LOCATION 퍼미션을 사용자에게 요청한다.
-  - 사용자가 위치 허용을 하면 ```mGoogleMap.setMyLocationEnabled(true)```를 통해 ```Floating button```이 생성되고. 버튼을 클릭하면 기기의 위도, 경도값을 구글 서버에 보낸다. 그리고 구글로부터 현재 위치의 이미지 url을 받아 맵에 표시된다.
-  - 현재 위치가 변경될 때 ```onLocationChanged``` 콜백이 fire되고 사용자의 새로운 위치가 마커로서 표시된다.
-  - 맵 타입 변경 버튼을 누르면 구글 맵의 이미지 타입이 변경된다. 간단한 버튼 리스너 코드는 아래와 같다.
-
-  ```java
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        //Initialize view
-        View rootView = inflater.inflate(R.layout.map_frag, container, false);
-
-        Button map_type_btn = rootView.findViewById(R.id.map_type_btn);
-        map_type_btn.setOnClickListener(new Button.OnClickListener() { // 버튼 리스너 등록.
-            @Override
-            public void onClick(View view) {
-                if(mGoogleMap.getMapType() == 1) {
-                    mGoogleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID); // 위성에서 찍은 이미지로 맵 타입 설정.
-                }else {
-                    mGoogleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL); // 디폴트 맵 이미지 타입
-                }
-            }
-        })
-  ```
-
-
-<br />
-
-- ### Zoom 시에 화면
-  <img src = "https://user-images.githubusercontent.com/58783348/124560199-83e17f00-de77-11eb-93c2-5b406d7880ba.jpeg" width="200" height="400">
-
-  - 분반 친구들이 Cluster item의 마커로서 지도에 표시됨.
-  - 친구들의 랜덤한 위치를 리턴하는 간단한 함수를 통해 마커를 표현.
-  - 마커를 클릭하면 친구들의 이름이 Toast로서 표시됨.
-  - 마커를 클릭하면 해당 마커로 카메라가 천천히 이동함.
-
-<br />
-
-- ### Pinch 시에 화면
-  <img src = "https://user-images.githubusercontent.com/58783348/124560211-85ab4280-de77-11eb-8855-e30bc20a61d0.jpeg" width="200" height="400">
-  <img src = "https://user-images.githubusercontent.com/58783348/124560224-880d9c80-de77-11eb-86be-f6759eff74cb.jpeg" width="200" height="400">
-
-  - 특정 반경에 위치한 마커들의 무게중심에 하나의 Cluster(군집)으로 표시됨.
-
+  - 로그아웃 탭으로 로그아웃시 로그인 화면으로 돌아감
+  - 개인정보 수정하기 탭으로 회원정보 수정 가능
