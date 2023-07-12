@@ -9,7 +9,6 @@ router.get('/', async function (req, res, next) {
     const users = await User.findAll({
       where: { infoConfirmed: true }, include: [{
         model: University,
-        required: true,
         as: 'university' // use the same alias as specified when defining the association
       }, {
         model: Interest,

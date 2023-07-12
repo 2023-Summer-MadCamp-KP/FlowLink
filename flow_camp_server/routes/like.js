@@ -34,7 +34,6 @@ router.get('/', async function (req, res, next) {
                     foreignKey: 'likeToUser',
                     include: [{
                         model: University,
-                        required: true,
                         as: 'university' // use the same alias as specified when defining the association
                     }, {
                         model: Interest,
@@ -48,7 +47,6 @@ router.get('/', async function (req, res, next) {
                     foreignKey: 'likeFromUser',
                     nclude: [{
                         model: University,
-                        required: true,
                         as: 'university' // use the same alias as specified when defining the association
                     }, {
                         model: Interest,

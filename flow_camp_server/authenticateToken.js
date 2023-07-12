@@ -21,7 +21,6 @@ async function authenticateToken(req, res, next) {
                 },
                 include: [{
                     model: University,
-                    required: true,
                     as: 'university' // use the same alias as specified when defining the association
                 },
                 {
