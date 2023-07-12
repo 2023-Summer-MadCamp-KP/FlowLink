@@ -70,7 +70,7 @@ class _SignInPageState extends State<SignInPage> {
             '\n닉네임: ${user.kakaoAccount?.profile?.nickname}'
             '\n이메일: ${user.kakaoAccount?.email}');
         await userProvider.postSignIn(context, "kakao" + user.id.toString(),
-            "kakao" + user.id.toString(), "normal");
+            "kakao" + user.id.toString(), "kakao");
       } catch (error) {
         print('사용자 정보 요청 실패 $error');
       }

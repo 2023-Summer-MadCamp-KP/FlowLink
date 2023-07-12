@@ -149,15 +149,11 @@ class _ProfileListPageState extends State<ProfileListPage> {
                         ),
                         child: CupertinoListTile(
                           leadingSize: 60,
-                          leading: CupertinoButton(
-                            padding: EdgeInsets.zero,
-                            child: CircleAvatar(
-                              radius: 30,
-                              backgroundColor: Colors.white,
-                              backgroundImage:
-                                  AssetImage(persons[index].profileImage),
-                            ),
-                            onPressed: () {},
+                          leading: CircleAvatar(
+                            radius: 30,
+                            backgroundColor: Colors.white,
+                            backgroundImage:
+                                AssetImage(persons[index].profileImage),
                           ),
                           title: Text(persons[index].name,
                               style: TextStyle(fontSize: 20)),
@@ -179,14 +175,13 @@ class _ProfileListPageState extends State<ProfileListPage> {
                             width: double.infinity,
                             color: CupertinoColors.separator),
                         Padding(
-                          padding: EdgeInsets.only(left: 20),
-                          child: Text(
-                            "${decodePrtcYear(persons[index].prtcpntYear)[0]}_${decodePrtcYear(persons[index].prtcpntYear)[1]}_${decodePrtcYear(persons[index].prtcpntYear)[2]}분반",
-                            style: TextStyle(
-                              color: Colors.blue,
-                            ),
-                          )
-                        ),
+                            padding: EdgeInsets.only(left: 20),
+                            child: Text(
+                              "${decodePrtcYear(persons[index].prtcpntYear)[0]}_${decodePrtcYear(persons[index].prtcpntYear)[1]}_${decodePrtcYear(persons[index].prtcpntYear)[2]}분반",
+                              style: TextStyle(
+                                color: Colors.blue,
+                              ),
+                            )),
                       ],
                       GestureDetector(
                         onTap: () {
