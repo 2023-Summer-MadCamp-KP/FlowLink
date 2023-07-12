@@ -207,7 +207,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   textInputAction: TextInputAction.next,
                                   padding: const EdgeInsets.only(left: 10),
                                   textAlignVertical: TextAlignVertical.center,
-                                  placeholder: "Username",
+                                  placeholder: "아이디",
                                   placeholderStyle: const TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w500,
@@ -238,7 +238,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   textInputAction: TextInputAction.go,
                                   padding: const EdgeInsets.only(left: 10),
                                   textAlignVertical: TextAlignVertical.center,
-                                  placeholder: "Password",
+                                  placeholder: "비밀번호",
                                   placeholderStyle: const TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w500,
@@ -285,7 +285,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   textInputAction: TextInputAction.go,
                                   padding: const EdgeInsets.only(left: 10),
                                   textAlignVertical: TextAlignVertical.center,
-                                  placeholder: "Confirm Password",
+                                  placeholder: "비밀번호 확인",
                                   placeholderStyle: const TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w500,
@@ -312,7 +312,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 child: CupertinoButton.filled(
                                   padding: const EdgeInsets.all(0),
                                   child: const Text(
-                                    "Sign Up",
+                                    "회원가입",
                                     style: TextStyle(
                                         fontSize: 13,
                                         fontWeight: FontWeight.bold),
