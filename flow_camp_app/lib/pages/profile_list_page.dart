@@ -44,6 +44,7 @@ class Person extends User {
 
 class _ProfileListPageState extends State<ProfileListPage> {
   List<Person> persons = [];
+  String searchQuery = '';
 
   bool _isLoading = true;
   @override
@@ -79,6 +80,9 @@ class _ProfileListPageState extends State<ProfileListPage> {
       profileImage: 'assets/images/default_profile.png',
       doILike: false, // Add your images here
     );
+
+    List<Person> peopleShowCopy = [my];
+
     Set<int> likeFromValues =
         provider.giveLikes.map((like) => like.likeTo).toSet();
     persons = provider.users.map(
@@ -112,11 +116,25 @@ class _ProfileListPageState extends State<ProfileListPage> {
       }
     });
 
+    for (Person person in persons) {
+      if (person.name.contains(searchQuery) && person.id != my.id) {
+        peopleShowCopy.add(person);
+      }
+    }
+
+    persons = List.from(peopleShowCopy);
+
     return Scaffold(
       body: CupertinoPageScaffold(
           navigationBar: CupertinoNavigationBar(
-            middle: Text('프로필'),
-            trailing: Icon(CupertinoIcons.search),
+            middle: CupertinoSearchTextField(
+              onChanged: (value) {
+                setState(() {
+                  searchQuery = value;
+                  print(searchQuery);
+                });
+              },
+            ),
           ),
           child: Scrollbar(
             thumbVisibility: true,
@@ -128,7 +146,6 @@ class _ProfileListPageState extends State<ProfileListPage> {
 
                   return !isLiked;
                 }
-
                 if (index == 0) {
                   return GestureDetector(
                     onTap: () {
