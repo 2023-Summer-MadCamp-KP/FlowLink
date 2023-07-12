@@ -122,6 +122,13 @@ class _ProfileListPageState extends State<ProfileListPage> {
             thumbVisibility: true,
             child: ListView.builder(
               itemBuilder: (context, index) {
+                Future<bool> onLikeButtonTapped(bool isLiked) async{
+                  await provider.postLike(persons[index].id, !persons[index].doILike);
+                  await provider.getLike();
+
+                  return !isLiked;
+                }
+
                 if (index == 0) {
                   return GestureDetector(
                     onTap: () {
@@ -227,11 +234,7 @@ class _ProfileListPageState extends State<ProfileListPage> {
                                   "${persons[index].university?.name}/${persons[index].university?.major}"),
                               trailing: LikeButton(
                                 isLiked: persons[index].doILike,
-                                onTap: (isLiked) async {
-                                  await provider.postLike(persons[index].id,
-                                    !persons[index].doILike);
-                                  await provider.getLike();
-                                },
+                                onTap: onLikeButtonTapped,
                               ),
                             ),
                           ),
