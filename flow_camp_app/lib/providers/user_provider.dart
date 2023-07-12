@@ -61,13 +61,13 @@ class UserProvider extends ChangeNotifier {
     );
   }
 
-  Future<void> postSignIn(context, idtext, pwtext) async {
+  Future<void> postSignIn(context, idtext, pwtext,platform) async {
     try {
       Dio dio = Dio();
       var response = await dio.post('${DIO_BASE_URL}/api/signin', data: {
         'uid': idtext,
         'password': pwtext,
-        'platform': 'normal',
+        'platform': platform,
       });
       final token = response.headers['Authorization']?.first;
       await saveToken(token!);

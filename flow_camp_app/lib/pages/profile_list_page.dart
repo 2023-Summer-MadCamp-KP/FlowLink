@@ -93,7 +93,9 @@ class _ProfileListPageState extends State<ProfileListPage> {
       },
     ).toList();
     persons.sort((a, b) {
-      if (a.id != my.id && b.id == my.id) {
+      if (a.id == my.id) {
+        return -1;
+      } else if (b.id == my.id) {
         return 1;
       } else if (a.prtcpntYear == my.prtcpntYear &&
           b.prtcpntYear != my.prtcpntYear) {
@@ -106,124 +108,138 @@ class _ProfileListPageState extends State<ProfileListPage> {
       }
     });
 
-    return CupertinoPageScaffold(
-        navigationBar: CupertinoNavigationBar(
-          middle: Text('프로필'),
-          trailing: Icon(CupertinoIcons.search),
-        ),
-        child: Scrollbar(
-          thumbVisibility: true,
-          child: ListView.builder(
-            itemBuilder: (context, index) {
-              if (index == 0) {
-                return GestureDetector(
-                  onTap: () {
-                    // 탭 이벤트 처리
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                ProfileViewPage(user: persons[index])));
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(
-                          color: CupertinoColors.separator,
-                          width: 0.5,
-                        ),
-                      ),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(
-                        0,
-                        10,
-                        0,
-                        10,
-                      ),
-                      child: CupertinoListTile(
-                        leadingSize: 60,
-                        leading: CupertinoButton(
-                          padding: EdgeInsets.zero,
-                          child: CircleAvatar(
-                            radius: 30,
-                            backgroundColor: Colors.white,
-                            backgroundImage:
-                                AssetImage(persons[index].profileImage),
+    return Scaffold(
+      body: CupertinoPageScaffold(
+          navigationBar: CupertinoNavigationBar(
+            middle: Text('프로필'),
+            trailing: Icon(CupertinoIcons.search),
+          ),
+          child: Scrollbar(
+            thumbVisibility: true,
+            child: ListView.builder(
+              itemBuilder: (context, index) {
+                if (index == 0) {
+                  return GestureDetector(
+                    onTap: () {
+                      // 탭 이벤트 처리
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  ProfileViewPage(user: persons[index])));
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            color: CupertinoColors.separator,
+                            width: 0.5,
                           ),
-                          onPressed: () {},
                         ),
-                        title: Text(persons[index].name,
-                            style: TextStyle(fontSize: 20)),
-                        subtitle: Text(persons[index].prtcpntYear.toString()),
                       ),
-                    ),
-                  ),
-                );
-              } else {
-                return Column(
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        // 탭 이벤트 처리
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    ProfileViewPage(user: persons[index])));
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border(
-                              // bottom: BorderSide(
-                              //   color: CupertinoColors.separator,
-                              //   width: 0.5,
-                              // ),
-                              ),
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(
+                          0,
+                          10,
+                          0,
+                          10,
                         ),
-                        child: Padding(
-                          padding: EdgeInsets.fromLTRB(
-                            0,
-                            10,
-                            0,
-                            10,
-                          ),
-                          child: CupertinoListTile(
-                            leadingSize: 50,
-                            leading: CircleAvatar(
+                        child: CupertinoListTile(
+                          leadingSize: 60,
+                          leading: CupertinoButton(
+                            padding: EdgeInsets.zero,
+                            child: CircleAvatar(
                               radius: 30,
                               backgroundColor: Colors.white,
                               backgroundImage:
                                   AssetImage(persons[index].profileImage),
                             ),
-                            title: Text(persons[index].name,
-                                style: TextStyle(fontSize: 15)),
-                            subtitle:
-                                Text(persons[index].prtcpntYear.toString()),
-                            trailing: GestureDetector(
-                              onTap: () async {
-                                await provider.postLike(
-                                    persons[index].id, !persons[index].doILike);
-                                await provider.getLike();
-                              },
-                              child: Icon(
-                                Icons.favorite,
-                                size: 40,
-                                color: persons[index].doILike
-                                    ? Colors.red
-                                    : Colors.grey,
+                            onPressed: () {},
+                          ),
+                          title: Text(persons[index].name,
+                              style: TextStyle(fontSize: 20)),
+                          subtitle: Text(persons[index].prtcpntYear.toString()),
+                        ),
+                      ),
+                    ),
+                  );
+                } else {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (index == 1 ||
+                          persons[index].prtcpntYear !=
+                              persons[index - 1].prtcpntYear) ...[
+                        Container(
+                            height: 1,
+                            width: double.infinity,
+                            color: CupertinoColors.separator),
+                        Text(
+                          persons[index].prtcpntYear.toString(),
+                        )
+                      ],
+                      GestureDetector(
+                        onTap: () {
+                          // 탭 이벤트 처리
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      ProfileViewPage(user: persons[index])));
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border(
+                                // bottom: BorderSide(
+                                //   color: CupertinoColors.separator,
+                                //   width: 0.5,
+                                // ),
+                                ),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.fromLTRB(
+                              0,
+                              10,
+                              0,
+                              10,
+                            ),
+                            child: CupertinoListTile(
+                              leadingSize: 50,
+                              leading: CircleAvatar(
+                                radius: 30,
+                                backgroundColor: Colors.white,
+                                backgroundImage:
+                                    AssetImage(persons[index].profileImage),
+                              ),
+                              title: Text(persons[index].name,
+                                  style: TextStyle(fontSize: 15)),
+                              subtitle:
+                                  Text(persons[index].prtcpntYear.toString()),
+                              trailing: GestureDetector(
+                                onTap: () async {
+                                  await provider.postLike(persons[index].id,
+                                      !persons[index].doILike);
+                                  await provider.getLike();
+                                },
+                                child: Icon(
+                                  Icons.favorite,
+                                  size: 40,
+                                  color: persons[index].doILike
+                                      ? Colors.red
+                                      : Colors.grey,
+                                ),
                               ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                );
-              }
-            },
-            itemCount: persons.length,
-          ),
-        ));
+                    ],
+                  );
+                }
+              },
+              itemCount: persons.length,
+            ),
+          )),
+    );
   }
 }
