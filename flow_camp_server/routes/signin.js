@@ -3,12 +3,12 @@
 var express = require('express');
 var router = express.Router();
 var jwt = require('jsonwebtoken');
-var { wss } = require('../app');
 const { User } = require('../models');
-const WebSocket = require('ws');
-router.get('/', function (req, res, next) {
+const { io } = require('../app');
 
-  res.send('GET request for signin');
+router.get('/', function (req, res, next) {
+  req.io.emit('message', "킬");
+  res.status(200).send();
 
 });
 
