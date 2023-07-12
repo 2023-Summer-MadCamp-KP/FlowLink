@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flow_camp_app/pages/profile_view_page.dart';
+import 'package:like_button/like_button.dart';
 
 class ProfileListPage extends StatefulWidget {
   const ProfileListPage({Key? key}) : super(key: key);
@@ -179,14 +180,13 @@ class _ProfileListPageState extends State<ProfileListPage> {
                             width: double.infinity,
                             color: CupertinoColors.separator),
                         Padding(
-                          padding: EdgeInsets.only(left: 20),
-                          child: Text(
-                            "${decodePrtcYear(persons[index].prtcpntYear)[0]}_${decodePrtcYear(persons[index].prtcpntYear)[1]}_${decodePrtcYear(persons[index].prtcpntYear)[2]}분반",
-                            style: TextStyle(
-                              color: Colors.blue,
-                            ),
-                          )
-                        ),
+                            padding: EdgeInsets.only(left: 20),
+                            child: Text(
+                              "${decodePrtcYear(persons[index].prtcpntYear)[0]}_${decodePrtcYear(persons[index].prtcpntYear)[1]}_${decodePrtcYear(persons[index].prtcpntYear)[2]}분반",
+                              style: TextStyle(
+                                color: Colors.blue,
+                              ),
+                            )),
                       ],
                       GestureDetector(
                         onTap: () {
@@ -225,19 +225,13 @@ class _ProfileListPageState extends State<ProfileListPage> {
                                   style: TextStyle(fontSize: 15)),
                               subtitle: Text(
                                   "${persons[index].university?.name}/${persons[index].university?.major}"),
-                              trailing: GestureDetector(
-                                onTap: () async {
+                              trailing: LikeButton(
+                                isLiked: persons[index].doILike,
+                                onTap: (isLiked) async {
                                   await provider.postLike(persons[index].id,
-                                      !persons[index].doILike);
+                                    !persons[index].doILike);
                                   await provider.getLike();
                                 },
-                                child: Icon(
-                                  Icons.favorite,
-                                  size: 40,
-                                  color: persons[index].doILike
-                                      ? Colors.red
-                                      : Colors.grey,
-                                ),
                               ),
                             ),
                           ),
