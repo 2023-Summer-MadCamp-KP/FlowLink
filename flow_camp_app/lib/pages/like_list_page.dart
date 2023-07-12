@@ -82,13 +82,24 @@ class _LikeListPageState extends State<LikeListPage> {
   List<String> _likeFilterText = ["나를 좋아함", "내가 좋아함", "서로 좋아함"];
   List<String> _categoryFilter = [];
 
+  String searchQuery = '';
+
+  // late TextEditingController _searchController;
+
   bool _isLoading = true;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    // _searchController = TextEditingController();
     api();
+  }
+
+  @override
+  void dispose() {
+    // _searchController.dispose();
+    super.dispose();
   }
 
   void api() async {
@@ -204,9 +215,12 @@ class _LikeListPageState extends State<LikeListPage> {
       profileImage: 'assets/images/default_profile.png',
       doILike: false, // Add your images here
     );
+
+    List<Person> peopleShowCopy = [];
+
     Set<int> likeToValues =
         provider.takeLikes.map((like) => like.likeFrom).toSet();
-  
+
     Set<int> likeFromValues =
         provider.giveLikes.map((like) => like.likeTo).toSet();
     Set<int> likeBothValues = {};
@@ -226,7 +240,7 @@ class _LikeListPageState extends State<LikeListPage> {
             }
             if (ii) {
               return Person(
-                user:user,
+                user: user,
                 profileImage: 'assets/images/default_profile.png',
                 doILike: ii,
               );
@@ -298,7 +312,7 @@ class _LikeListPageState extends State<LikeListPage> {
             }
             if (ii) {
               return Person(
-                user:user,
+                user: user,
                 profileImage: 'assets/images/default_profile.png',
                 doILike: ii,
               );
@@ -330,6 +344,18 @@ class _LikeListPageState extends State<LikeListPage> {
     } else {
       peopleShow = peopleLikeBoth;
     }
+
+    for (Person person in peopleShow) {
+      if (person.name.contains(searchQuery)) {
+        print(searchQuery);
+        print(person.name);
+        peopleShowCopy.add(person);
+      }
+    }
+
+    peopleShow = List.from(peopleShowCopy);
+
+    // peopleShow = List.from(peopleShowCopy);
 
     // if (_likeFilter) {
     //   peopleShow.clear();
@@ -364,7 +390,15 @@ class _LikeListPageState extends State<LikeListPage> {
                 children: [
                   Expanded(
                     flex: 3,
-                    child: CupertinoSearchTextField(),
+                    child: CupertinoSearchTextField(
+                      // controller: _searchController,
+                      onChanged: (value) {
+                        setState(() {
+                          searchQuery = value;
+                          print(searchQuery);
+                        });
+                      },
+                    ),
                   ),
                   Expanded(
                     flex: 1,
@@ -389,29 +423,31 @@ class _LikeListPageState extends State<LikeListPage> {
                   itemBuilder: (BuildContext context, int index) {
                     return GestureDetector(
                       onTap: () {
-                    // 탭 이벤트 처리
-                     Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ProfileViewPage(user: peopleShow[index])));
+                        // 탭 이벤트 처리
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    ProfileViewPage(user: peopleShow[index])));
                       },
                       child: Container(
                         child: Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                        child: CupertinoListTile(
-                          backgroundColor: Colors.grey[50],
-                          leadingSize: 40,
-                          title: Text(peopleShow[index].name,
-                              style: const TextStyle(
-                                  decoration: TextDecoration.none)),
-                          // subtitle: Text("${entries[index]}",
-                          //   style: TextStyle(decoration: TextDecoration.none)
-                          // ),
-                          leading: ClipRRect(
-                            borderRadius: BorderRadius.circular(15),
-                            child: Image.asset(peopleShow[index].profileImage),
-                          ),
-                        )),
+                            padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                            child: CupertinoListTile(
+                              backgroundColor: Colors.grey[50],
+                              leadingSize: 40,
+                              title: Text(peopleShow[index].name,
+                                  style: const TextStyle(
+                                      decoration: TextDecoration.none)),
+                              // subtitle: Text("${entries[index]}",
+                              //   style: TextStyle(decoration: TextDecoration.none)
+                              // ),
+                              leading: ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child:
+                                    Image.asset(peopleShow[index].profileImage),
+                              ),
+                            )),
                       ),
                     );
                   }),

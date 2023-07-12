@@ -3,6 +3,7 @@ import 'package:flow_camp_app/models/interest.dart';
 import 'package:flow_camp_app/models/university.dart';
 import 'package:flow_camp_app/models/user.dart';
 import 'package:flow_camp_app/providers/user_provider.dart';
+import 'package:flow_camp_app/utils/decode_prtc_year.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -160,7 +161,8 @@ class _ProfileListPageState extends State<ProfileListPage> {
                           ),
                           title: Text(persons[index].name,
                               style: TextStyle(fontSize: 20)),
-                          subtitle: Text(persons[index].prtcpntYear.toString()),
+                          subtitle: Text(
+                              "${persons[index].university?.name}/${persons[index].university?.major}"),
                         ),
                       ),
                     ),
@@ -176,9 +178,15 @@ class _ProfileListPageState extends State<ProfileListPage> {
                             height: 1,
                             width: double.infinity,
                             color: CupertinoColors.separator),
-                        Text(
-                          persons[index].prtcpntYear.toString(),
-                        )
+                        Padding(
+                          padding: EdgeInsets.only(left: 20),
+                          child: Text(
+                            "${decodePrtcYear(persons[index].prtcpntYear)[0]}_${decodePrtcYear(persons[index].prtcpntYear)[1]}_${decodePrtcYear(persons[index].prtcpntYear)[2]}분반",
+                            style: TextStyle(
+                              color: Colors.blue,
+                            ),
+                          )
+                        ),
                       ],
                       GestureDetector(
                         onTap: () {
@@ -215,8 +223,8 @@ class _ProfileListPageState extends State<ProfileListPage> {
                               ),
                               title: Text(persons[index].name,
                                   style: TextStyle(fontSize: 15)),
-                              subtitle:
-                                  Text(persons[index].prtcpntYear.toString()),
+                              subtitle: Text(
+                                  "${persons[index].university?.name}/${persons[index].university?.major}"),
                               trailing: GestureDetector(
                                 onTap: () async {
                                   await provider.postLike(persons[index].id,
