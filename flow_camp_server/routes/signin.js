@@ -3,10 +3,13 @@
 var express = require('express');
 var router = express.Router();
 var jwt = require('jsonwebtoken');
+var { wss } = require('../app');
 const { User } = require('../models');
-
+const WebSocket = require('ws');
 router.get('/', function (req, res, next) {
+
   res.send('GET request for signin');
+
 });
 
 router.post('/', async function (req, res, next) {
@@ -24,7 +27,7 @@ router.post('/', async function (req, res, next) {
       // 비밀번호가 일치하지 않을 경우 에러를 발생시킵니다.
       return res.status(401).json({ message: '인증 실패: 비밀번호가 일치하지 않습니다.' });
     }
-    var token = jwt.sign({ id:user.id, uid: user.uid, platform: user.platform },
+    var token = jwt.sign({ id: user.id, uid: user.uid, platform: user.platform },
       'your_secret_key', { expiresIn: '100h' });
 
     user.token = token;
