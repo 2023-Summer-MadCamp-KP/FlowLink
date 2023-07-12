@@ -107,6 +107,23 @@ class UserProvider extends ChangeNotifier {
               MaterialPageRoute(builder: (context) => InputInfoPage1()),
             );
           }
+        } else {
+          await showDialog(
+            context: context,
+            builder: (_) => CupertinoAlertDialog(
+              title: Text('Error'),
+              content: Text('로그인이 실패했습니다.'),
+              actions: <Widget>[
+                CupertinoDialogAction(
+                  isDefaultAction: true,
+                  child: Text('Ok'),
+                  onPressed: () {
+                    Navigator.of(context, rootNavigator: true).pop('dialog');
+                  },
+                ),
+              ],
+            ),
+          );
         }
       } on DioException catch (e) {
         if (e.response?.statusCode == 401 || e.response?.statusCode == 403) {
@@ -117,22 +134,6 @@ class UserProvider extends ChangeNotifier {
       } catch (e) {
         print(e);
       }
-      await showDialog(
-        context: context,
-        builder: (_) => CupertinoAlertDialog(
-          title: Text('Error'),
-          content: Text('로그인이 실패했습니다.'),
-          actions: <Widget>[
-            CupertinoDialogAction(
-              isDefaultAction: true,
-              child: Text('Ok'),
-              onPressed: () {
-                Navigator.of(context, rootNavigator: true).pop('dialog');
-              },
-            ),
-          ],
-        ),
-      );
     } catch (e) {
       print(e);
       await showDialog(
