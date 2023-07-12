@@ -70,7 +70,44 @@ class _SignUpPageState extends State<SignUpPage> {
             ],
           ),
         );
-      } else {
+      } 
+      else if(_idController.text == ""){
+        await showDialog(
+          context: context,
+          builder: (_) => CupertinoAlertDialog(
+            title: Text('Error'),
+            content: Text('아이디를 입력해주세요.'),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                isDefaultAction: true,
+                child: Text('Ok'),
+                onPressed: () {
+                  Navigator.of(context, rootNavigator: true).pop('dialog');
+                },
+              ),
+            ],
+          ),
+        );
+      }
+      else if(_pwController.text == ""){
+        await showDialog(
+          context: context,
+          builder: (_) => CupertinoAlertDialog(
+            title: Text('Error'),
+            content: Text('비밀번호를 입력해주세요.'),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                isDefaultAction: true,
+                child: Text('Ok'),
+                onPressed: () {
+                  Navigator.of(context, rootNavigator: true).pop('dialog');
+                },
+              ),
+            ],
+          ),
+        );
+      }
+      else {
         setState(() {
           _isLoading = true;
         });
@@ -280,7 +317,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                         fontSize: 13,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  onPressed: _signUp,
+                                  onPressed: () {
+                                    _signUp();
+                                  },
                                 ),
                               ),
                             ],
