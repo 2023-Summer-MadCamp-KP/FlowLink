@@ -19,32 +19,33 @@ router.get('/add', async function (req, res, next) {
     name: "GIST",
     major: "공과대학",
     confirmed: true,
-  })
-  await University.create({
-    name: "고려대학교",
-    major: "공과대학",
-    confirmed: true,
-  })
-  await University.create({
-    name: "UNIST",
-    major: "공과대학",
-    confirmed: true,
-  })
+  });
   await University.create({
     name: "KAIST",
     major: "공과대학",
     confirmed: true,
-  })
+  });
   await University.create({
-    name: "한양대학교",
+    name: "UNIST",
     major: "공과대학",
     confirmed: true,
-  })
+  });
+  await University.create({
+    name: "고려대학교",
+    major: "공과대학",
+    confirmed: true,
+  });
   await University.create({
     name: "성균관대학교",
     major: "공과대학",
     confirmed: true,
-  })
+  });
+  await University.create({
+    name: "한양대학교",
+    major: "공과대학",
+    confirmed: true,
+  });
+  
 
   //테스트 유저 넣어주기
   for (let i = 1; i <= 100; i++) {
