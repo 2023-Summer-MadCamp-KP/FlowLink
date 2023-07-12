@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'input_info1_page.dart';
+
 class MainSettingPage extends StatefulWidget {
   const MainSettingPage({Key? key}) : super(key: key);
 
@@ -36,25 +38,33 @@ class _MainSettingPageState extends State<MainSettingPage> {
                     userProvider.setSignIn(false);
                   },
                 ),
+                // CupertinoListTile(
+                //   title: const Text('Push to master'),
+                //   leading: Container(
+                //     width: double.infinity,
+                //     height: double.infinity,
+                //     color: CupertinoColors.systemRed,
+                //   ),
+                //   additionalInfo: const Text('Not available'),
+                // ),
                 CupertinoListTile(
-                  title: const Text('Push to master'),
-                  leading: Container(
-                    width: double.infinity,
-                    height: double.infinity,
-                    color: CupertinoColors.systemRed,
-                  ),
-                  additionalInfo: const Text('Not available'),
-                ),
-                CupertinoListTile(
-                  title: const Text('View last commit'),
+                  title: const Text('개인정보 수정하기'),
                   leading: Container(
                     width: double.infinity,
                     height: double.infinity,
                     color: CupertinoColors.activeOrange,
                   ),
-                  additionalInfo: const Text('12 days ago'),
+                  
                   trailing: const CupertinoListTileChevron(),
-                  onTap: () => {},
+                  onTap: () async {
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => InputInfoPage1()),
+                    );
+                    print("mainsetting");
+                    await userProvider.getMe();
+                    await userProvider.getUsers();
+                  },
                 ),
               ],
             ),
