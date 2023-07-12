@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:flow_camp_app/providers/user_provider.dart';
 import 'package:flow_camp_app/models/user.dart';
+import 'package:flow_camp_app/models/interest.dart';
 import 'package:flow_camp_app/components/loading_indicator_page.dart';
 import 'package:flow_camp_app/pages/profile_view_page.dart';
 import 'package:flow_camp_app/pages/profile_list_page.dart';
@@ -355,6 +356,22 @@ class _LikeListPageState extends State<LikeListPage> {
 
     peopleShow = List.from(peopleShowCopy);
 
+    String getInterestString(int index) {
+      String interestString = "";
+      Person person = peopleShow[index];
+      if (person.interests != null) {
+        for (Interest interest in person.interests!) {
+          if (interestString == "") {
+            interestString = interest.name;
+          } else {
+            interestString = interestString + " / " + interest.name;
+          }
+        }
+      }
+
+      return interestString;
+    }
+
     // peopleShow = List.from(peopleShowCopy);
 
     // if (_likeFilter) {
@@ -439,9 +456,10 @@ class _LikeListPageState extends State<LikeListPage> {
                               title: Text(peopleShow[index].name,
                                   style: const TextStyle(
                                       decoration: TextDecoration.none)),
-                              // subtitle: Text("${entries[index]}",
-                              //   style: TextStyle(decoration: TextDecoration.none)
-                              // ),
+                              subtitle: Text(
+                                  getInterestString(index),
+                                  style: TextStyle(
+                                      decoration: TextDecoration.none)),
                               leading: ClipRRect(
                                 borderRadius: BorderRadius.circular(15),
                                 child:
